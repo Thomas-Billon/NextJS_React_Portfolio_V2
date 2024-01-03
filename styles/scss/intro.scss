@@ -1,0 +1,95 @@
+@import "variables.module";
+
+#intro {
+    background-image: url("../../public/static/images/background-intro.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.intro-container {
+    @apply absolute pointer-events-none select-none;
+
+    transform: translateY(-50%);
+}
+
+@media (orientation: landscape) {
+    .intro-container {
+        @apply top-1/2 right-1/2 pl-8;
+    }
+}
+
+@media (orientation: portrait) {
+    .intro-container {
+        @apply top-1/4 right-auto px-8 w-full text-center;
+    }
+}
+
+.text-headline {
+    @apply w-full text-8xl font-bold tracking-wide uppercase;
+}
+
+.text-headline-full {
+    @apply text-headline text-white;
+}
+
+.text-headline-outline {
+    @apply text-headline text-transparent;
+
+    color: transparent;
+    -webkit-text-stroke: 1px $headline-color;
+}
+
+.text-headline-shadow {
+    @apply text-headline text-white;
+
+    filter: drop-shadow(0px 1px 4px $headline-color);
+}
+
+.text-subline {
+    @apply w-full text-lg font-normal tracking-wide overflow-hidden pointer-events-none select-none;
+
+    color: $headline-color;
+}
+
+.glitch-text {
+    @apply relative inline-block;
+
+    @mixin glitch-copy {
+        @apply absolute w-full h-full;
+
+        content: attr(data-text);
+        -webkit-text-stroke: 1px $headline-color;
+    }
+    
+    &::before{
+        @include glitch-copy;
+        
+        left: -2px;
+        filter: drop-shadow(-2px 0px #4248F0);
+        animation: glitch-animation 6s infinite linear alternate-reverse;
+    }
+
+    &::after {
+        @include glitch-copy;
+
+        left: 1px;
+        filter: drop-shadow(2px 2px #4248F0) drop-shadow(-5px 0px #C1292E);
+        animation: glitch-animation 2s infinite linear alternate-reverse;
+    }
+}
+
+@keyframes glitch-animation {
+    @for $i from 0 through 20 {
+        #{percentage($i*(1/30))} {
+            $top: #{random(100) + '%'};
+            $bottom: #{random(100) + '%'};
+            visibility: visible;
+            clip-path: polygon(0% $top, 100% $top, 100% $bottom, 0% $bottom);
+            transform: skew((random(100) / 100) + deg);
+        }
+    }
+    70%, 100% {
+        visibility: hidden;
+    }
+}

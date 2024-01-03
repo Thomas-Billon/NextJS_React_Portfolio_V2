@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "variables.module";
+
+@layer base {
+    .full {
+        @apply relative w-full h-full;
+    }
+
+    .page {
+        @apply w-full h-screen overflow-hidden;
+    }
+
+    .overlap {
+        @apply absolute top-0;
+    }
+
+    .center-h {
+        @apply absolute top-1/2;
+
+        transform: translateX(-50%);
+    }
+
+    .center-v {
+        @apply absolute top-1/2;
+
+        transform: translateY(-50%);
+    }
+
+    .center {
+        @apply center-h center-v;
+    }
+
+    .primary {
+        color: $primary-color;
+    }
+
+    .secondary {
+        color: $secondary-color;
+    }
+}

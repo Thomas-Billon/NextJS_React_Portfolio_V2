@@ -1,0 +1,9 @@
+$headline-color: white;
+$headline-shadow: 0.5;
+$primary-color: #4248F0;
+$secondary-color: orange;
+
+:export {
+    primaryColor: $primary-color;
+    secondaryColor: $secondary-color;
+}
