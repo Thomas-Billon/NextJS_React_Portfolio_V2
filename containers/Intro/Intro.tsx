@@ -5,7 +5,7 @@ import ModelLoader from '@/components/ModelLoader/ModelLoader';
 import IntroHeadline from '@/components/IntroHeadline/IntroHeadline';
 import { canvasConfig, modelConfig, particlesConfig } from '@/Config';
 
-import '@/styles/scss/intro.scss';
+import './Intro.scss';
 
 
 const Intro = (): React.ReactNode => {
