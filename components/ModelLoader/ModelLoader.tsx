@@ -93,11 +93,11 @@ const ModelLoader = (props: ModelLoaderProps): React.ReactNode => {
                     (props.model == 'monitor') &&
                     <group>
                         <mesh position={[0, 170.5, 1]} rotation={[0, 0, 0]} scale={[364, 202, 1]}>
-                            <planeGeometry />
+                            <planeGeometry/>
                             <meshBasicMaterial map={backgroundTexture} />
                         </mesh>
                         <mesh ref={renderMeshRef as React.RefObject<Mesh>} position={[0, 170.5, 2]} rotation={[0, 0, 0]} scale={[(viewport.width * 9.2 < 364) ? viewport.width * 9.2 : 364, viewport.height * 9.2, 1]}>
-                            <planeGeometry />
+                            <planeGeometry/>
                             <meshBasicMaterial ref={renderMaterialRef as React.RefObject<MeshBasicMaterial>} alphaTest={0.001} />
                         </mesh>
                     </group>

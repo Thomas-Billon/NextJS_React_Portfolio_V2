@@ -24,7 +24,7 @@ export interface CanvasLoaderProps {
 
 const CanvasLoader = ({ children, className, props }: { children: React.ReactNode, className:string, props: CanvasLoaderProps }): React.ReactNode => {
     return (
-        <Canvas id='threejs' className={className} gl={{ preserveDrawingBuffer: true }} >
+        <Canvas id='threejs' className={className} gl={{ preserveDrawingBuffer: true }}>
             <CanvasContainer {...{ props: props }}>
                 {children}
             </CanvasContainer>

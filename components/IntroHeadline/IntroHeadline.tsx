@@ -1,6 +1,5 @@
 import React from 'react';
 import { Roboto } from 'next/font/google';
-import GlitchText from '@/components/GlitchText/GlitchText';
 
 import './IntroHeadline.scss';
 
@@ -15,14 +14,13 @@ export interface IntroHeadlineProps {
     classNameHeadline?: string;
     classNameSubline?: string;
     dataNoSnippet?: boolean;
-    isTextGlitched?: boolean;
 }
 
-const IntroHeadline = ({ className= '', classNameHeadline = '', classNameSubline = '', dataNoSnippet = false, isTextGlitched = false }: IntroHeadlineProps): React.ReactNode => {
+const IntroHeadline = ({ className= '', classNameHeadline = '', classNameSubline = '', dataNoSnippet = false }: IntroHeadlineProps): React.ReactNode => {
     return (
-        <div className={['intro-headline-container', className].join(' ')} {...(dataNoSnippet ? { 'data-nosnippet': true } : {})}>
-            <div className={[classNameHeadline, roboto.className].join(' ')}>
-                Hi, I&apos;m <GlitchText isEnabled={isTextGlitched}>Thomas</GlitchText>
+        <div className={['intro-headline-container', className].join(' ')}>
+            <div className={[classNameHeadline, roboto.className].join(' ')} {...(dataNoSnippet ? { 'data-nosnippet': true } : {})}>
+                Hi, I&apos;m Thomas
             </div>
             <div className={['intro-subline-text', classNameSubline].join(' ')} {...(dataNoSnippet ? { 'data-nosnippet': true } : {})}>
                 A full-stack developer with a passion for challenges and problem solving<br/>
