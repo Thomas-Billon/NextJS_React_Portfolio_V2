@@ -18,7 +18,7 @@
             @include glitch-copy;
             
             @apply left-[-2px];
-            @apply animate-[glitch-animation_6s_linear_infinite_alternate-reverse];
+            @apply animate-[glitch-animation-before_15s_linear_infinite];
             
             filter: drop-shadow(-2px 0px 0px #4248F0);
         }
@@ -27,17 +27,15 @@
             @include glitch-copy;
 
             @apply left-[1px];
-            @apply animate-[glitch-animation_2s_linear_infinite_alternate-reverse];
+            @apply animate-[glitch-animation-after_15s_linear_infinite];
 
             filter: drop-shadow(2px 2px #4248F0) drop-shadow(-5px 0px #C1292E);
         }
     }
 
-    // TODO: Reduce glitch frequency
-
-    @keyframes glitch-animation {
-        @for $i from 0 through 20 {
-            #{percentage($i * (1/30))} {
+    @keyframes glitch-animation-before {
+        @for $i from 0 through 15 {
+            #{percentage($i * (1/100))} {
                 $top: #{random(100) + '%'};
                 $bottom: #{random(100) + '%'};
 
@@ -47,7 +45,24 @@
                 transform: skew((random(100) / 100) + deg);
             }
         }
-        70%, 100% {
+        15%, 100% {
+            @apply invisible;
+        }
+    }
+
+    @keyframes glitch-animation-after {
+        @for $i from 0 through 30 {
+            #{percentage($i * (1/200))} {
+                $top: #{random(100) + '%'};
+                $bottom: #{random(100) + '%'};
+
+                @apply visible;
+
+                clip-path: polygon(0% $top, 100% $top, 100% $bottom, 0% $bottom);
+                transform: skew((random(100) / 100) + deg);
+            }
+        }
+        15%, 100% {
             @apply invisible;
         }
     }
