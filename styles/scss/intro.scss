@@ -1,95 +1,99 @@
 @import "variables.module";
 
 #intro {
-    background-image: url("../../public/static/images/background-intro.jpg");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    @apply page;
+    @apply overflow-hidden;
+    @apply bg-[url("/static/images/background_intro.jpg")];
+    @apply bg-fixed;
+    @apply bg-cover;
+    @apply bg-center;
+    @apply bg-no-repeat;
 }
 
-.intro-container {
-    @apply absolute pointer-events-none select-none;
+#explosion-center {
+    @apply absolute;
+    @apply bottom-0;
+    @apply -translate-x-1/2;
+    @apply h-[3600px];
+    @apply opacity-80;
+    @apply bg-[url("/static/images/splash_1.png")];
+    @apply bg-contain;
+    @apply bg-bottom;
+    @apply bg-no-repeat;
 
-    transform: translateY(-50%);
-}
-
-@media (orientation: landscape) {
-    .intro-container {
-        @apply top-1/2 right-1/2 pl-8;
-    }
-}
-
-@media (orientation: portrait) {
-    .intro-container {
-        @apply top-1/4 right-auto px-8 w-full text-center;
-    }
-}
-
-.text-headline {
-    @apply w-full text-8xl font-bold tracking-wide uppercase;
-}
-
-.text-headline-full {
-    @apply text-headline text-white;
-}
-
-.text-headline-outline {
-    @apply text-headline text-transparent;
-
-    color: transparent;
-    -webkit-text-stroke: 1px $headline-color;
-}
-
-.text-headline-shadow {
-    @apply text-headline text-white;
-
-    filter: drop-shadow(0px 1px 4px $headline-color);
-}
-
-.text-subline {
-    @apply w-full text-lg font-normal tracking-wide overflow-hidden pointer-events-none select-none;
-
-    color: $headline-color;
-}
-
-.glitch-text {
-    @apply relative inline-block;
-
-    @mixin glitch-copy {
-        @apply absolute w-full h-full;
-
-        content: attr(data-text);
-        -webkit-text-stroke: 1px $headline-color;
+    @media (orientation: landscape) {
+        @apply left-[60%];
     }
     
-    &::before{
-        @include glitch-copy;
-        
-        left: -2px;
-        filter: drop-shadow(-2px 0px #4248F0);
-        animation: glitch-animation 6s infinite linear alternate-reverse;
+    @media (orientation: portrait) {
+        @apply left-1/2;
+    }
+    
+    @media (min-width: 0px) {
+        width: calc(450px * $scale-ratio-2xs);
+    }
+    
+    @screen xs {
+        width: calc(450px * $scale-ratio-xs);
     }
 
-    &::after {
-        @include glitch-copy;
+    @screen sm {
+        width: calc(450px * $scale-ratio-sm);
+    }
 
-        left: 1px;
-        filter: drop-shadow(2px 2px #4248F0) drop-shadow(-5px 0px #C1292E);
-        animation: glitch-animation 2s infinite linear alternate-reverse;
+    @screen md {
+        width: calc(450px * $scale-ratio-md);
+    }
+
+    @screen lg {
+        width: calc(450px * $scale-ratio-lg);
+    }
+
+    @screen xl {
+        width: calc(450px * $scale-ratio-xl);
+    }
+
+    @screen 2xl {
+        width: calc(450px * $scale-ratio-2xl);
     }
 }
 
-@keyframes glitch-animation {
-    @for $i from 0 through 20 {
-        #{percentage($i*(1/30))} {
-            $top: #{random(100) + '%'};
-            $bottom: #{random(100) + '%'};
-            visibility: visible;
-            clip-path: polygon(0% $top, 100% $top, 100% $bottom, 0% $bottom);
-            transform: skew((random(100) / 100) + deg);
-        }
+#explosion-corner {
+    @apply absolute;
+    @apply top-0;
+    @apply left-0;
+    @apply h-[1200px];
+    @apply opacity-80;
+    @apply bg-[url("/static/images/splash_2.png")];
+    @apply bg-contain;
+    @apply bg-top;
+    @apply bg-no-repeat;
+
+    @media (min-width: 0px) {
+        width: calc(150px * $scale-ratio-2xs);
     }
-    70%, 100% {
-        visibility: hidden;
+    
+    @screen xs {
+        width: calc(150px * $scale-ratio-xs);
+    }
+
+    @screen sm {
+        width: calc(150px * $scale-ratio-sm);
+    }
+
+    @screen md {
+        width: calc(150px * $scale-ratio-md);
+    }
+
+    @screen lg {
+        width: calc(150px * $scale-ratio-lg);
+    }
+
+    @screen xl {
+        width: calc(150px * $scale-ratio-xl);
+    }
+
+    @screen 2xl {
+        width: calc(150px * $scale-ratio-2xl);
     }
 }

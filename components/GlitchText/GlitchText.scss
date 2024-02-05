@@ -1,0 +1,54 @@
+@tailwind components;
+
+@import "@/styles/scss/variables.module";
+
+@layer components {
+    .glitch-text {
+        @apply relative;
+        @apply inline-block;
+
+        @mixin glitch-copy {
+            @apply content-[attr(data-text)];
+            @apply absolute;
+            @apply w-full;
+            @apply h-full;
+        }
+        
+        &::before{
+            @include glitch-copy;
+            
+            @apply left-[-2px];
+            @apply animate-[glitch-animation_6s_linear_infinite_alternate-reverse];
+            
+            filter: drop-shadow(-2px 0px 0px #4248F0);
+        }
+
+        &::after {
+            @include glitch-copy;
+
+            @apply left-[1px];
+            @apply animate-[glitch-animation_2s_linear_infinite_alternate-reverse];
+
+            filter: drop-shadow(2px 2px #4248F0) drop-shadow(-5px 0px #C1292E);
+        }
+    }
+
+    // TODO: Reduce glitch frequency
+
+    @keyframes glitch-animation {
+        @for $i from 0 through 20 {
+            #{percentage($i * (1/30))} {
+                $top: #{random(100) + '%'};
+                $bottom: #{random(100) + '%'};
+
+                @apply visible;
+
+                clip-path: polygon(0% $top, 100% $top, 100% $bottom, 0% $bottom);
+                transform: skew((random(100) / 100) + deg);
+            }
+        }
+        70%, 100% {
+            @apply invisible;
+        }
+    }
+}

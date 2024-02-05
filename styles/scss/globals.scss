@@ -1,42 +1,34 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@import "variables.module";
+.full {
+    @apply relative;
+    @apply w-full;
+    @apply h-full;
+}
 
-@layer base {
-    .full {
-        @apply relative w-full h-full;
-    }
+.page {
+    @apply relative;
+    @apply w-full;
+    @apply h-screen;
+    @apply overflow-hidden;
+}
 
-    .page {
-        @apply w-full h-screen overflow-hidden;
-    }
+.overlap {
+    @apply absolute;
+    @apply top-0;
+}
 
-    .overlap {
-        @apply absolute top-0;
-    }
+.center-h {
+    @apply absolute;
+    @apply left-1/2;
+    @apply -translate-x-1/2;
+}
 
-    .center-h {
-        @apply absolute top-1/2;
+.center-v {
+    @apply absolute;
+    @apply top-1/2;
+    @apply -translate-y-1/2;
+}
 
-        transform: translateX(-50%);
-    }
-
-    .center-v {
-        @apply absolute top-1/2;
-
-        transform: translateY(-50%);
-    }
-
-    .center {
-        @apply center-h center-v;
-    }
-
-    .primary {
-        color: $primary-color;
-    }
-
-    .secondary {
-        color: $secondary-color;
-    }
+.center {
+    @apply center-h;
+    @apply center-v;
 }

@@ -1,9 +1,33 @@
-$headline-color: white;
-$headline-shadow: 0.5;
-$primary-color: #4248F0;
-$secondary-color: orange;
+$yellow: #D9910E;
+$orange-light: #CF550E;
+$orange-dark: #D53C0F;
+$red: #C1292E;
+$purple: #640C5A;
+$blue-dark: #4C1FAC;
+$blue-light: #4248F0;
+
+$scale-ratio-2xl: 4;
+$scale-ratio-xl: 3.5;
+$scale-ratio-lg: 3;
+$scale-ratio-md: 2.5;
+$scale-ratio-sm: 2;
+$scale-ratio-xs: 1.8;
+$scale-ratio-2xs: 1.5;
 
 :export {
-    primaryColor: $primary-color;
-    secondaryColor: $secondary-color;
+    yellow: $yellow;
+    orangeLight: $orange-light;
+    orangeDark: $orange-dark;
+    red: $red;
+    purple: $purple;
+    blueDark: $blue-dark;
+    blueLight: $blue-light;
+
+    scaleRatio2Xl: $scale-ratio-2xl;
+    scaleRatioXl: $scale-ratio-xl;
+    scaleRatioLg: $scale-ratio-lg;
+    scaleRatioMd: $scale-ratio-md;
+    scaleRatioSm: $scale-ratio-sm;
+    scaleRatioXs: $scale-ratio-xs;
+    scaleRatio2Xs: $scale-ratio-2xs;
 }

@@ -1,43 +1,48 @@
 {
-  "name": "portfolio",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@react-three/drei": "^9.92.7",
-    "@react-three/fiber": "^8.15.12",
-    "@tsparticles/react": "^3.0.0",
-    "next": "14.0.4",
-    "postcss-cli": "^11.0.0",
-    "postcss-minify": "^1.1.0",
-    "postcss-scss": "^4.0.9",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-responsive": "^9.0.2",
-    "sass": "^1.69.5",
-    "styled-components": "^6.1.6",
-    "three": "^0.160.0",
-    "tsparticles": "^3.0.2"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.4",
-    "postcss": "^8.4.32",
-    "scss": "^0.2.4",
-    "tailwindcss": "^3.3.0",
-    "typescript": "^5"
-  },
-  "browserslist": [
-    "last 4 versions",
-    "not dead"
-  ]
+    "name": "portfolio",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@react-three/drei": "^9.92.7",
+        "@react-three/fiber": "^8.15.12",
+        "@tsparticles/react": "^3.0.0",
+        "next": "14.0.4",
+        "postcss-cli": "^11.0.0",
+        "postcss-minify": "^1.1.0",
+        "postcss-scss": "^4.0.9",
+        "react": "^18",
+        "react-dom": "^18",
+        "react-responsive": "^9.0.2",
+        "sass": "^1.69.5",
+        "three": "^0.160.0",
+        "tsparticles": "^3.0.2"
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "autoprefixer": "^10.0.1",
+        "eslint": "^8",
+        "eslint-config-next": "14.0.4",
+        "generate-react-cli": "^8.4.0",
+        "postcss": "^8.4.32",
+        "scss": "^0.2.4",
+        "tailwindcss": "^3.3.0",
+        "typescript": "^5"
+    },
+    "browser": {
+        "fs": false,
+        "path": false,
+        "os": false
+    },
+    "browserslist": [
+        "last 4 versions",
+        "not dead"
+    ]
 }

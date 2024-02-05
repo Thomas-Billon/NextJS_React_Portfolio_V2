@@ -1,0 +1,93 @@
+@tailwind components;
+
+@layer components {
+
+    $headline-color: #FFFFFF;
+    $headline-shadow: 0.5;
+
+    .intro-headline-container {
+        @apply container;
+        @apply center;
+        @apply pointer-events-none;
+        @apply select-none;
+
+        @media (orientation: landscape) {
+            @apply top-1/2;
+            @apply text-left;
+        }
+
+        @media (orientation: portrait) {
+            @apply top-[30%];
+            @apply text-center;
+        }
+    
+        @media (min-width: 0px) {
+            @apply px-4;
+        }
+
+        @screen xs {
+            @apply px-8;
+        }
+
+        @mixin intro-headline-text {
+            @apply w-full;
+            @apply mb-4;
+            @apply text-[3.5rem];
+            @apply xs:text-[4rem];
+            @apply md:text-[5rem];
+            @apply xl:text-[6rem];
+            @apply leading-[3.5rem];
+            @apply xs:leading-[4rem];
+            @apply md:leading-[5rem];
+            @apply xl:leading-[6rem];
+            @apply font-bold;
+            @apply uppercase;
+            @apply tracking-wide;
+
+            .glitch-text {
+                &::before, &::after{
+                    -webkit-text-stroke: 1px $headline-color;
+                }
+            }
+        }
+
+        .intro-headline-text {
+            &-full {
+                @include intro-headline-text;
+                
+                color: $headline-color;
+            }
+        
+            &-outline {
+                @include intro-headline-text;
+        
+                @apply text-transparent;
+        
+                -webkit-text-stroke: 1px $headline-color;
+            }
+        
+            &-shadow {
+                @include intro-headline-text;
+                
+                color: $headline-color;
+                filter: drop-shadow(0px 1px 4px $headline-color);
+            }
+        }
+
+        .intro-subline-text {
+            @apply w-full;
+            @apply text-base;
+            @apply md:text-lg;
+            @apply font-normal;
+            @apply overflow-hidden;
+            @apply pointer-events-none;
+            @apply select-none;
+
+            color: $headline-color;
+            
+            &-hidden {
+                @apply opacity-0;
+            }
+        }
+    }
+}
