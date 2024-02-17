@@ -38,15 +38,15 @@ const ModelLoader = (props: ModelLoaderProps): React.ReactNode => {
     const backgroundTexture = useLoader(TextureLoader, canvasContext.isMobile ? './static/images/background_monitor_center.jpg' : './static/images/background_monitor_offset.jpg');
 
     // Setup current positions and rotations
-    const [currentPos, setCurrentPos] = useState(new Vector3(props.originPosition[0], props.originPosition[1], props.originPosition[2]));
-    const [currentRot, setCurrentRot] = useState(new Euler(props.originRotation[0], props.originRotation[1], props.originRotation[2]));
+    const [currentPos, setCurrentPos] = useState<Vector3>(new Vector3(props.originPosition[0], props.originPosition[1], props.originPosition[2]));
+    const [currentRot, setCurrentRot] = useState<Euler>(new Euler(props.originRotation[0], props.originRotation[1], props.originRotation[2]));
 
     // Setup target positions and rotations
     const targetPos: Vector3 = new Vector3(props.targetPosition[0], props.targetPosition[1] + (viewport.height / canvasContext.ratio / 2), props.targetPosition[2]);
     const targetRot: Euler = new Euler(props.targetRotation[0], props.targetRotation[1], props.targetRotation[2]);
 
     // Animate mesh at the beginning, then once target is reached disable animation
-    const [animated, setAnimated] = useState(true);
+    const [animated, setAnimated] = useState<boolean>(true);
     useFrame((state) => {
         if (animated) {
             meshRef.current!.position.lerp(targetPos, 0.1);

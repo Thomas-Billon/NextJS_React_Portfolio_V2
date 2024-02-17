@@ -13,7 +13,7 @@ export interface ParticlesLoaderProps extends ISourceOptions {}
 
 const ParticlesLoader = ({ className, props }: { className: string, props: ParticlesLoaderProps }): React.ReactNode => {
     // Initialize particles
-    const [init, setInit] = useState(false);
+    const [init, setInit] = useState<boolean>(false);
     useEffect(() => {
         initParticlesEngine(async (engine: Engine) => {
             //await loadFull(engine);

@@ -5,7 +5,7 @@
     $headline-color: #FFFFFF;
     $headline-shadow: 0.5;
 
-    .intro-headline-container {
+    .intro-headline {
         @apply container;
         @apply center;
         @apply pointer-events-none;
@@ -43,38 +43,28 @@
             @apply font-bold;
             @apply uppercase;
             @apply tracking-wide;
-
-            .glitch-text {
-                &::before, &::after{
-                    -webkit-text-stroke: 1px $headline-color;
-                }
-            }
         }
-
-        .intro-headline-text {
+    
+        &-text {
+            @include intro-headline-text;
+    
             &-full {
-                @include intro-headline-text;
-                
                 color: $headline-color;
             }
         
             &-outline {
-                @include intro-headline-text;
-        
                 @apply text-transparent;
         
                 -webkit-text-stroke: 1px $headline-color;
             }
         
             &-shadow {
-                @include intro-headline-text;
-                
                 color: $headline-color;
                 filter: drop-shadow(0px 1px 4px $headline-color);
             }
         }
 
-        .intro-subline-text {
+        &-subline {
             @apply w-full;
             @apply text-base;
             @apply md:text-lg;

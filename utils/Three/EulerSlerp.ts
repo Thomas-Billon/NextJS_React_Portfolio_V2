@@ -8,7 +8,7 @@ declare module 'three' {
 }
 
 // Convert temporarily Euler to Quaternion to make use of slerp and to avoid gimbal lock <- IMPORTANT
-Euler.prototype.slerp = function (e: Euler, a: number): void {
+Euler.prototype.slerp = function(e: Euler, a: number): void {
     const qStart = new Quaternion().setFromEuler(this);
     const qEnd = new Quaternion().setFromEuler(e);
 

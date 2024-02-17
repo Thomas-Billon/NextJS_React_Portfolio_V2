@@ -1,3 +1,4 @@
+$off-white: #EFEFEF;
 $yellow: #D9910E;
 $orange-light: #CF550E;
 $orange-dark: #D53C0F;
@@ -15,6 +16,7 @@ $scale-ratio-xs: 1.8;
 $scale-ratio-2xs: 1.5;
 
 :export {
+    offWhite: $off-white;
     yellow: $yellow;
     orangeLight: $orange-light;
     orangeDark: $orange-dark;

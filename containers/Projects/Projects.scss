@@ -1,0 +1,16 @@
+@import "@/styles/scss/variables.module";
+
+#projects {
+    background-color: $off-white;
+
+    .projects-container {
+        @apply container;
+        @apply mx-auto;
+        @apply py-16;
+        @apply grid;
+        @apply grid-cols-1;
+        @apply md:grid-cols-2;
+        @apply 2xl:grid-cols-3;
+        @apply gap-4;
+    }
+}

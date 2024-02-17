@@ -25,7 +25,7 @@ export interface CanvasLoaderProps {
 const CanvasLoader = ({ children, className, props }: { children: React.ReactNode, className:string, props: CanvasLoaderProps }): React.ReactNode => {
     return (
         <Canvas id='threejs' className={className} gl={{ preserveDrawingBuffer: true }}>
-            <CanvasContainer {...{ props: props }}>
+            <CanvasContainer { ...{ props: props }}>
                 {children}
             </CanvasContainer>
         </Canvas>
@@ -63,7 +63,7 @@ const CanvasContainer = ({ children, props }: { children: React.ReactNode, props
     const offsetY: number = -viewport.height / 2 + -viewport.height * ((isMobile ? props.mobileOffsetY : props.desktopOffsetY) / 100);
     
     // Setup camera position to avoid reset on scroll / resize
-    const [cameraPos, setCameraPos] = useState(new Vector3(0, 0, 50));
+    const [cameraPos, setCameraPos] = useState<Vector3>(new Vector3(0, 0, 50));
 
     // Animate auto rotation and define camera offset on large screens
     useFrame((_, delta) => {

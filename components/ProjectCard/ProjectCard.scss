@@ -1,0 +1,50 @@
+@tailwind components;
+
+@layer components {
+
+    .project-card {
+        @apply aspect-video;
+
+        &-container {
+            @apply w-full;
+            @apply h-full;
+            @apply bg-white;
+            @apply overflow-hidden;
+        }
+
+        &-content {
+            @apply grid;
+            @apply grid-cols-2;
+            @apply gap-4;
+
+            width: calc(200% + 0.25rem * 4);
+            height: calc(200% + 0.25rem * 4);
+        }
+
+        &-image-container {
+            @apply grid;
+            @apply grid-cols-2;
+            @apply grid-rows-4;
+            @apply h-full;
+        }
+
+        &-image {
+            &:nth-of-type(1) {
+                @apply col-span-2;
+                @apply row-span-2;
+            }
+        }
+
+        &.active {
+            @apply col-span-2;
+            @apply row-span-2;
+
+            aspect-ratio: auto;
+
+            .project-card-content {
+                @apply w-full;
+                @apply h-full;
+            }
+        }
+    }
+}
