@@ -3,7 +3,7 @@
 import React, { useState, useRef, createContext } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { PerspectiveCamera, CameraControls, Preload, useFBO } from '@react-three/drei';
+import { PerspectiveCamera, CameraControls, Preload } from '@react-three/drei';
 import { Group, Vector3 } from 'three';
 import { MouseButtonAction } from '@/utils/Three/MouseButtonAction';
 import tailwindConfig from '@/tailwind.config.js';

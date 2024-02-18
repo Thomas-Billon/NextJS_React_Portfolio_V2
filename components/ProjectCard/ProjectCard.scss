@@ -3,7 +3,7 @@
 @layer components {
 
     .project-card {
-        @apply aspect-video;
+        @apply cursor-pointer;
 
         &-container {
             @apply w-full;
@@ -38,8 +38,6 @@
         &.active {
             @apply col-span-2;
             @apply row-span-2;
-
-            aspect-ratio: auto;
 
             .project-card-content {
                 @apply w-full;
