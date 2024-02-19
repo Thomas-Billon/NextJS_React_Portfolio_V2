@@ -4,6 +4,7 @@ interface AnimatePropertyOptions {
     onComplete?: (element?: HTMLElement) => void;
 }
 
+
 export const animateProperty = (element: HTMLElement, property: string, target: number, { duration = 250, step = 5, onComplete = () => {} }: AnimatePropertyOptions = {}): void => {
     let i: number = 0;
     const origin: number = parseFloat(element.style.getPropertyValue(property));
