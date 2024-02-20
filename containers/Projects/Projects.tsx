@@ -12,12 +12,12 @@ const Projects = (): React.ReactNode => {
     const [activeIndex, setActiveIndex] = useState(-1);
 
     if (typeof document !== "undefined") {
-        useGridAnimation(document.querySelector(".projects-container"));
+        useGridAnimation(document.querySelector(".projects-grid"));
     }
 
     return(
         <section id='projects'>
-            <ul className='projects-container'>
+            <ul className='projects-grid'>
                 {
                     props.map((project, index) =>
                         <ProjectCard key={index} isActive={index == activeIndex} index={index} onClick={() => setActiveIndex(activeIndex != index ? index : -1)} { ...{ props: project }} />

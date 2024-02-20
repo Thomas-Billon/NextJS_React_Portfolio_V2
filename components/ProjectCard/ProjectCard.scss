@@ -5,27 +5,41 @@
     .project-card {
         @apply cursor-pointer;
 
-        &-container {
+        &-animated {
             @apply w-full;
             @apply h-full;
             @apply bg-white;
             @apply overflow-hidden;
+
+            aspect-ratio: 16/9;
         }
 
-        &-content {
+        &-sub-grid {
+            @apply container;
+            @apply w-screen;
             @apply grid;
-            @apply grid-cols-2;
+            @apply grid-cols-1;
+            @apply md:grid-cols-2;
+            @apply 2xl:grid-cols-3;
             @apply gap-4;
 
-            width: calc(200% + 0.25rem * 4);
             height: calc(200% + 0.25rem * 4);
         }
 
+        &-container {
+            @apply h-full;
+            @apply grid;
+            @apply grid-cols-2;
+            @apply gap-4;
+            @apply col-span-2;
+            @apply row-span-2;
+        }
+
         &-image-container {
+            @apply h-full;
             @apply grid;
             @apply grid-cols-2;
             @apply grid-rows-4;
-            @apply h-full;
         }
 
         &-image {
@@ -39,8 +53,7 @@
             @apply col-span-2;
             @apply row-span-2;
 
-            .project-card-content {
-                @apply w-full;
+            .project-card-sub-grid {
                 @apply h-full;
             }
         }
