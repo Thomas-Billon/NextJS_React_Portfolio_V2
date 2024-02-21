@@ -52,6 +52,7 @@ export const useGridAnimation = (grid: HTMLElement | null): void => {
         for (let [i, cell] of gridCells.entries()) {
             const cellAnimated = cell.children[0] as HTMLElement;
 
+            // Width & height
             if (cell.offsetWidth != cellPositions.current[i].width ||
                 cell.offsetHeight != cellPositions.current[i].height) {
                 const oldWidth: number = cellPositions.current[i].width;
@@ -73,8 +74,33 @@ export const useGridAnimation = (grid: HTMLElement | null): void => {
                     cellAnimated.style.height = '';
                 }});
 
-                cellPositions.current[i].width = newWidth;
-                cellPositions.current[i].height = newHeight;
+                cellPositions.current[i].width = cell.offsetWidth;
+                cellPositions.current[i].height = cell.offsetHeight;
+            }
+
+            // Position X & Y
+            if (cell.offsetLeft != cellPositions.current[i].x ||
+                cell.offsetTop != cellPositions.current[i].y) {
+                const oldPosX: number = cellPositions.current[i].x - cell.offsetLeft;
+                const oldPosY: number = cellPositions.current[i].y - cell.offsetTop;
+                const newPosX: number = 0;
+                const newPosY: number = 0;
+                
+                cellAnimated.style.position = 'relative';
+                cellAnimated.style.left = `${oldPosX}px`;
+                cellAnimated.style.top = `${oldPosY}px`;
+
+                animateProperty(cellAnimated, 'left', newPosX, {onComplete : () => {
+                    cellAnimated.style.position = '';
+                    cellAnimated.style.left = '';
+                }});
+                animateProperty(cellAnimated, 'top', newPosY, {onComplete : () => {
+                    cellAnimated.style.position = '';
+                    cellAnimated.style.top = '';
+                }});
+
+                cellPositions.current[i].x = cell.offsetLeft;
+                cellPositions.current[i].y = cell.offsetTop;
             }
         }
     }
