@@ -2,13 +2,17 @@ import { useEffect, useRef } from "react";
 import { useWindowSize } from '@/hooks/UseWindowSize';
 import { animateProperty } from '@/utils/AnimateProperty';
 
-
-interface CellPosition {
+interface Vector2 {
     x: number,
-    y: number,
+    y: number
+}
+
+interface RectSize {
     width: number,
     height: number
 }
+
+interface Cell extends Vector2, RectSize {}
 
 export const useGridAnimation = (grid: HTMLElement | null): void => {
     if (grid == null) {
@@ -16,7 +20,8 @@ export const useGridAnimation = (grid: HTMLElement | null): void => {
     }
 
     const observerRef = useRef<MutationObserver>();
-    const cellPositions = useRef<CellPosition[]>([]);
+    const gridSize = useRef<RectSize>({ width: 0, height: 0 });
+    const cellPositions = useRef<Cell[]>([]);
 
     // Runs only once
     useEffect(() => {
@@ -31,9 +36,15 @@ export const useGridAnimation = (grid: HTMLElement | null): void => {
     // Runs each time window size is changed
     const size = useWindowSize();
     useEffect(() => {
+        const gridContainer = grid.parentElement as HTMLElement;
         const gridCells = [...grid.children] as HTMLElement[]
 
-        const newCellPositions: CellPosition[] = gridCells.map(cell => {
+        const newGridSize: RectSize = {
+            width: gridContainer.offsetWidth,
+            height: gridContainer.offsetHeight,
+        }
+
+        const newCellPositions: Cell[] = gridCells.map(cell => {
             return {
                 x: cell.offsetLeft,
                 y: cell.offsetTop,
@@ -43,16 +54,32 @@ export const useGridAnimation = (grid: HTMLElement | null): void => {
         });
 
         cellPositions.current = newCellPositions;
+        gridSize.current = newGridSize;
     }, [size]);
 
     // Animates grid cells when class is updated
     const observerCallback = () => {
+        const gridContainer = grid.parentElement as HTMLElement;
         const gridCells = [...grid.children] as HTMLElement[]
+
+        // Grid height
+        if (gridContainer.offsetHeight != gridSize.current.height) {
+            const oldHeight: number = gridSize.current.height;
+            const newHeight: number = gridContainer.offsetHeight;
+                
+            gridContainer.style.height = `${oldHeight}px`;
+
+            animateProperty(gridContainer, 'height', newHeight, {onComplete : () => {
+                gridContainer.style.height = '';
+            }});
+
+            gridSize.current.height = newHeight;
+        }
 
         for (let [i, cell] of gridCells.entries()) {
             const cellAnimated = cell.children[0] as HTMLElement;
 
-            // Width & height
+            // Cells width & height
             if (cell.offsetWidth != cellPositions.current[i].width ||
                 cell.offsetHeight != cellPositions.current[i].height) {
                 const oldWidth: number = cellPositions.current[i].width;
@@ -74,33 +101,33 @@ export const useGridAnimation = (grid: HTMLElement | null): void => {
                     cellAnimated.style.height = '';
                 }});
 
-                cellPositions.current[i].width = cell.offsetWidth;
-                cellPositions.current[i].height = cell.offsetHeight;
+                cellPositions.current[i].width = newWidth;
+                cellPositions.current[i].height = newHeight;
             }
 
-            // Position X & Y
+            // Cells X & Y position
             if (cell.offsetLeft != cellPositions.current[i].x ||
                 cell.offsetTop != cellPositions.current[i].y) {
                 const oldPosX: number = cellPositions.current[i].x - cell.offsetLeft;
                 const oldPosY: number = cellPositions.current[i].y - cell.offsetTop;
-                const newPosX: number = 0;
-                const newPosY: number = 0;
+                const newPosX: number = cell.offsetLeft;
+                const newPosY: number = cell.offsetTop;
                 
                 cellAnimated.style.position = 'relative';
                 cellAnimated.style.left = `${oldPosX}px`;
                 cellAnimated.style.top = `${oldPosY}px`;
 
-                animateProperty(cellAnimated, 'left', newPosX, {onComplete : () => {
+                animateProperty(cellAnimated, 'left', 0, {onComplete : () => {
                     cellAnimated.style.position = '';
                     cellAnimated.style.left = '';
                 }});
-                animateProperty(cellAnimated, 'top', newPosY, {onComplete : () => {
+                animateProperty(cellAnimated, 'top', 0, {onComplete : () => {
                     cellAnimated.style.position = '';
                     cellAnimated.style.top = '';
                 }});
 
-                cellPositions.current[i].x = cell.offsetLeft;
-                cellPositions.current[i].y = cell.offsetTop;
+                cellPositions.current[i].x = newPosX;
+                cellPositions.current[i].y = newPosY;
             }
         }
     }

@@ -10,8 +10,7 @@
             @apply h-full;
             @apply bg-white;
             @apply overflow-hidden;
-
-            aspect-ratio: 16/9;
+            @apply aspect-video;
         }
 
         &-sub-grid {
