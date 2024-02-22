@@ -20,24 +20,16 @@
             @apply top-[30%];
             @apply text-center;
         }
-    
-        @media (min-width: 0px) {
-            @apply px-4;
-        }
-
-        @screen xs {
-            @apply px-8;
-        }
 
         @mixin intro-headline-text {
             @apply w-full;
             @apply mb-4;
             @apply text-[3.5rem];
-            @apply xs:text-[4rem];
+            @apply sm:text-[4rem];
             @apply md:text-[5rem];
             @apply xl:text-[6rem];
             @apply leading-[3.5rem];
-            @apply xs:leading-[4rem];
+            @apply sm:leading-[4rem];
             @apply md:leading-[5rem];
             @apply xl:leading-[6rem];
             @apply font-bold;

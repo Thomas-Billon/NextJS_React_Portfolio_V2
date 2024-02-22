@@ -12,8 +12,7 @@ $scale-ratio-xl: 3.5;
 $scale-ratio-lg: 3;
 $scale-ratio-md: 2.5;
 $scale-ratio-sm: 2;
-$scale-ratio-xs: 1.8;
-$scale-ratio-2xs: 1.5;
+$scale-ratio-xs: 1.75;
 
 :export {
     offWhite: $off-white;
@@ -31,5 +30,4 @@ $scale-ratio-2xs: 1.5;
     scaleRatioMd: $scale-ratio-md;
     scaleRatioSm: $scale-ratio-sm;
     scaleRatioXs: $scale-ratio-xs;
-    scaleRatio2Xs: $scale-ratio-2xs;
 }

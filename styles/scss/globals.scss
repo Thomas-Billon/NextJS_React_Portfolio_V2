@@ -1,3 +1,8 @@
+.row {
+    @apply mx-[-1rem];
+    @apply sm:mx-[-2rem];
+}
+
 .full {
     @apply relative;
     @apply w-full;

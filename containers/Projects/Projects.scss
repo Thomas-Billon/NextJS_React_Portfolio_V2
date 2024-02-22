@@ -11,7 +11,8 @@
         @apply grid-cols-1;
         @apply md:grid-cols-2;
         @apply 2xl:grid-cols-3;
-        @apply gap-4;
+        @apply gap-y-4;
+        @apply md:gap-4;
         @apply auto-rows-fr;
     }
 }

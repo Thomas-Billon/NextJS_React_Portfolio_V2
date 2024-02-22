@@ -48,14 +48,12 @@ const CanvasContainer = ({ children, props }: { children: React.ReactNode, props
     const isScreenLg: boolean = useMediaQuery({ query: `(min-width: ${breakpoints['lg']})` });
     const isScreenMd: boolean = useMediaQuery({ query: `(min-width: ${breakpoints['md']})` });
     const isScreenSm: boolean = useMediaQuery({ query: `(min-width: ${breakpoints['sm']})` });
-    const isScreenXs: boolean = useMediaQuery({ query: `(min-width: ${breakpoints['xs']})` });
     const ratio: number = isScreen2Xl ? parseFloat(Variables.scaleRatio2Xl)
         : isScreenXl ? parseFloat(Variables.scaleRatioXl)
         : isScreenLg ? parseFloat(Variables.scaleRatioLg)
         : isScreenMd ? parseFloat(Variables.scaleRatioMd)
         : isScreenSm ? parseFloat(Variables.scaleRatioSm)
-        : isScreenXs ? parseFloat(Variables.scaleRatioXs)
-        : parseFloat(Variables.scaleRatio2Xs);
+        : parseFloat(Variables.scaleRatioXs);
 
     // Calculate offset
     const isMobile: boolean = useMediaQuery({ query: '(orientation: portrait)' });

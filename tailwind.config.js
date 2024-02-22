@@ -12,13 +12,14 @@ module.exports = {
     theme: {
         extend: {
             screens: {
-                'xs': '480px'
-            },
-            aspectRatio: {
-                '1/4': '1 / 4',
-                '1/2': '1 / 2',
-                '3/4': '3 / 4',
-                '4/3': '4 / 3',
+                'sm': '520px'
+            }
+        },
+        container: {
+            center: true,
+            padding: {
+                DEFAULT: '1rem',
+                'sm': '2rem'
             }
         }
     },

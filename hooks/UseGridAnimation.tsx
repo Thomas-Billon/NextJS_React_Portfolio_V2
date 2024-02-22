@@ -14,7 +14,7 @@ interface RectSize {
 
 interface Cell extends Vector2, RectSize {}
 
-export const useGridAnimation = (grid: HTMLElement | null): void => {
+export const useGridAnimation = (grid: HTMLElement | null, duration: number = 250): void => {
     if (grid == null) {
         return;
     }
@@ -69,7 +69,7 @@ export const useGridAnimation = (grid: HTMLElement | null): void => {
                 
             gridContainer.style.height = `${oldHeight}px`;
 
-            animateProperty(gridContainer, 'height', newHeight, {onComplete : () => {
+            animateProperty(gridContainer, 'height', newHeight, {duration: duration, onComplete : () => {
                 gridContainer.style.height = '';
             }});
 
@@ -92,11 +92,11 @@ export const useGridAnimation = (grid: HTMLElement | null): void => {
                 cellAnimated.style.width = `${oldWidth}px`;
                 cellAnimated.style.height = `${oldHeight}px`;
 
-                animateProperty(cellAnimated, 'width', newWidth, {onComplete : () => {
+                animateProperty(cellAnimated, 'width', newWidth, {duration: duration, onComplete : () => {
                     cell.style.width = '';
                     cellAnimated.style.width = '';
                 }});
-                animateProperty(cellAnimated, 'height', newHeight, {onComplete : () => {
+                animateProperty(cellAnimated, 'height', newHeight, {duration: duration, onComplete : () => {
                     cell.style.height = '';
                     cellAnimated.style.height = '';
                 }});
@@ -117,11 +117,11 @@ export const useGridAnimation = (grid: HTMLElement | null): void => {
                 cellAnimated.style.left = `${oldPosX}px`;
                 cellAnimated.style.top = `${oldPosY}px`;
 
-                animateProperty(cellAnimated, 'left', 0, {onComplete : () => {
+                animateProperty(cellAnimated, 'left', 0, {duration: duration, onComplete : () => {
                     cellAnimated.style.position = '';
                     cellAnimated.style.left = '';
                 }});
-                animateProperty(cellAnimated, 'top', 0, {onComplete : () => {
+                animateProperty(cellAnimated, 'top', 0, {duration: duration, onComplete : () => {
                     cellAnimated.style.position = '';
                     cellAnimated.style.top = '';
                 }});
