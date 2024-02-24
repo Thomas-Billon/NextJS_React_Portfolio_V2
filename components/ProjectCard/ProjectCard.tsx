@@ -40,7 +40,7 @@ const ProjectCard = ({ isActive, index, onClick, props }: { isActive: boolean, i
                             <div>
                                 {
                                     props.links.map((link, index) => 
-                                        <a key={index} href={link}>{link}</a>
+                                        <a key={index} href={link} onClick={(event) => {event.stopPropagation()}}>{link}</a>
                                     )
                                 }
                             </div>

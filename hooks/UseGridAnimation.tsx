@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { useWindowSize } from '@/hooks/UseWindowSize';
-import { animateProperty } from '@/utils/AnimateProperty';
+import { isAnimationRunning, startPropertyAnimation, stopPropertyAnimation } from '@/utils/PropertyAnimation';
 
-interface Vector2 {
-    x: number,
-    y: number
+interface RectPosition {
+    top: number,
+    left: number
 }
 
 interface RectSize {
@@ -12,7 +12,7 @@ interface RectSize {
     height: number
 }
 
-interface Cell extends Vector2, RectSize {}
+interface Cell extends RectPosition, RectSize {}
 
 export const useGridAnimation = (grid: HTMLElement | null, duration: number = 250): void => {
     if (grid == null) {
@@ -46,8 +46,8 @@ export const useGridAnimation = (grid: HTMLElement | null, duration: number = 25
 
         const newCellPositions: Cell[] = gridCells.map(cell => {
             return {
-                x: cell.offsetLeft,
-                y: cell.offsetTop,
+                top: cell.offsetTop,
+                left: cell.offsetLeft,
                 width: cell.offsetWidth,
                 height: cell.offsetHeight
             };
@@ -57,78 +57,154 @@ export const useGridAnimation = (grid: HTMLElement | null, duration: number = 25
         gridSize.current = newGridSize;
     }, [size]);
 
-    // Animates grid cells when class is updated
+    // Animates grid & cells when class is updated
     const observerCallback = () => {
+        if (isGridAnimationRunning()) {
+            stopGridAnimation();
+            return;
+        }
+
+        startGridAnimation();
+    }
+
+    const startGridAnimation = (): void => {
         const gridContainer = grid.parentElement as HTMLElement;
         const gridCells = [...grid.children] as HTMLElement[]
 
         // Grid height
-        if (gridContainer.offsetHeight != gridSize.current.height) {
-            const oldHeight: number = gridSize.current.height;
-            const newHeight: number = gridContainer.offsetHeight;
-                
-            gridContainer.style.height = `${oldHeight}px`;
-
-            animateProperty(gridContainer, 'height', newHeight, {duration: duration, onComplete : () => {
-                gridContainer.style.height = '';
-            }});
-
-            gridSize.current.height = newHeight;
-        }
+        startGridAnimationProperty(gridSize.current, 'height', gridContainer.offsetHeight,
+            [{ element: gridContainer, oldValue: gridSize.current.height, newValue: gridContainer.offsetHeight, isAnimated: true }]
+        );
 
         for (let [i, cell] of gridCells.entries()) {
             const cellAnimated = cell.children[0] as HTMLElement;
 
-            // Cells width & height
-            if (cell.offsetWidth != cellPositions.current[i].width ||
-                cell.offsetHeight != cellPositions.current[i].height) {
-                const oldWidth: number = cellPositions.current[i].width;
-                const oldHeight: number = cellPositions.current[i].height;
-                const newWidth: number = cell.offsetWidth;
-                const newHeight: number = cell.offsetHeight;
-                
-                cell.style.width = `${newWidth}px`;
-                cell.style.height = `${newHeight}px`;
-                cellAnimated.style.width = `${oldWidth}px`;
-                cellAnimated.style.height = `${oldHeight}px`;
+            // Cell width
+            startGridAnimationProperty(cellPositions.current[i], 'width', cell.offsetWidth,
+                [
+                    { element: cellAnimated, oldValue: cellPositions.current[i].width, newValue: cell.offsetWidth, isAnimated: true },
+                    { element: cell, oldValue: cell.offsetWidth, isAnimated: false }
+                ]
+            );
 
-                animateProperty(cellAnimated, 'width', newWidth, {duration: duration, onComplete : () => {
-                    cell.style.width = '';
-                    cellAnimated.style.width = '';
-                }});
-                animateProperty(cellAnimated, 'height', newHeight, {duration: duration, onComplete : () => {
-                    cell.style.height = '';
-                    cellAnimated.style.height = '';
-                }});
+            // Cell height
+            startGridAnimationProperty(cellPositions.current[i], 'height', cell.offsetHeight,
+                [
+                    { element: cellAnimated, oldValue: cellPositions.current[i].height, newValue: cell.offsetHeight, isAnimated: true },
+                    { element: cell, oldValue: cell.offsetHeight, isAnimated: false }
+                ]
+            );
 
-                cellPositions.current[i].width = newWidth;
-                cellPositions.current[i].height = newHeight;
-            }
+            // Cell pos Y
+            startGridAnimationProperty(cellPositions.current[i], 'top', cell.offsetTop,
+                [{ element: cellAnimated, oldValue: cellPositions.current[i].top - cell.offsetTop, newValue: 0, isAnimated: true }]
+            );
 
-            // Cells X & Y position
-            if (cell.offsetLeft != cellPositions.current[i].x ||
-                cell.offsetTop != cellPositions.current[i].y) {
-                const oldPosX: number = cellPositions.current[i].x - cell.offsetLeft;
-                const oldPosY: number = cellPositions.current[i].y - cell.offsetTop;
-                const newPosX: number = cell.offsetLeft;
-                const newPosY: number = cell.offsetTop;
-                
-                cellAnimated.style.position = 'relative';
-                cellAnimated.style.left = `${oldPosX}px`;
-                cellAnimated.style.top = `${oldPosY}px`;
-
-                animateProperty(cellAnimated, 'left', 0, {duration: duration, onComplete : () => {
-                    cellAnimated.style.position = '';
-                    cellAnimated.style.left = '';
-                }});
-                animateProperty(cellAnimated, 'top', 0, {duration: duration, onComplete : () => {
-                    cellAnimated.style.position = '';
-                    cellAnimated.style.top = '';
-                }});
-
-                cellPositions.current[i].x = newPosX;
-                cellPositions.current[i].y = newPosY;
-            }
+            // Cell pos X
+            startGridAnimationProperty(cellPositions.current[i], 'left', cell.offsetLeft,
+                [{ element: cellAnimated, oldValue: cellPositions.current[i].left - cell.offsetLeft, newValue: 0, isAnimated: true }]
+            );
         }
     }
+
+    interface GridAnimationProperty {
+        element: HTMLElement,
+        oldValue: number,
+        newValue?: number,
+        isAnimated: boolean
+    }
+
+    const startGridAnimationProperty = <T,>(ref: T, property: string, newValueRef: number, gridProperties: GridAnimationProperty[]): void => {
+        // Skips animation if unnecessary
+        for (let gridProperty of gridProperties) {
+            if (gridProperty.isAnimated && gridProperty.oldValue == gridProperty.newValue) {
+                return;
+            }
+        }
+
+        // Sets & animates properties on grid & cells
+        for (let gridProperty of gridProperties) {
+            // Sets property to initial value
+            gridProperty.element.style.setProperty(property, `${gridProperty.oldValue}px`);
+
+            // Applies relative position style
+            if (property == 'top' || property == 'left') {
+                gridProperty.element.style.position = 'relative';
+            }
+
+            // Animates property to target value
+            if (gridProperty.isAnimated && typeof gridProperty.newValue != 'undefined') {
+                startPropertyAnimation(gridProperty.element, property, gridProperty.newValue, {duration: duration, onComplete : () => {
+                    for(let gridPropertyOnComplete of gridProperties) {
+                        gridPropertyOnComplete.element.style.setProperty(property, '');
+                    }
+
+                    // Removes relative position style
+                    if (property == 'top' || property == 'left') {
+                        gridProperty.element.style.position = '';
+                    }
+                }});
+            }
+        }
+
+        // Updates ref to new values
+        ref[property as keyof T] = newValueRef as T[keyof T];
+    }
+
+    const stopGridAnimation = (): void => {
+        const gridContainer = grid.parentElement as HTMLElement;
+        const gridCells = [...grid.children] as HTMLElement[]
+
+        // Stops grid animations
+        stopPropertyAnimation(gridContainer);
+        
+        // Updates grid ref to new values
+        // Needs a timeout, for some reason offset values are off when read synchronously
+        setTimeout(() => {
+            gridSize.current.height = gridContainer.offsetHeight;
+        }, 0);
+
+        // Stops cells animations
+        for (let cell of gridCells) {
+            const cellAnimated = cell.children[0] as HTMLElement;
+
+            stopPropertyAnimation(cellAnimated);
+        }
+        
+        // Updates cells ref to new values
+        // Needs a timeout, for some reason offset values are off when read synchronously
+        setTimeout(() => {
+            let i = 0;
+            for (let cell of gridCells) {
+
+                cellPositions.current[i].top = cell.offsetTop;
+                cellPositions.current[i].left = cell.offsetLeft;
+                cellPositions.current[i].width = cell.offsetWidth;
+                cellPositions.current[i].height = cell.offsetHeight;
+
+                i++;
+            }
+        }, 0);
+    };
+
+    const isGridAnimationRunning = (): boolean => {
+        const gridContainer = grid.parentElement as HTMLElement;
+        const gridCells = [...grid.children] as HTMLElement[]
+
+        // Checks if grid animations are running
+        if (isAnimationRunning(gridContainer)) {
+            return true;
+        }
+
+        // Checks if cells animations are running
+        for (let cell of gridCells) {
+            const cellAnimated = cell.children[0] as HTMLElement;
+
+            if (isAnimationRunning(cellAnimated)) {
+                return true;
+            }
+        }
+
+        return false;
+    };
 }

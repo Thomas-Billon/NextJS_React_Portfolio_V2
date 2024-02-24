@@ -73,5 +73,9 @@
             @apply md:col-span-2;
             @apply row-span-2;
         }
+
+        &:not(.active) {
+            @apply aspect-video;
+        }
     }
 }

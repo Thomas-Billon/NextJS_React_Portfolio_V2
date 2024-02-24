@@ -11,7 +11,7 @@ import './Projects.scss';
 const Projects = (): React.ReactNode => {
     const [activeIndex, setActiveIndex] = useState(-1);
 
-    if (typeof document !== "undefined") {
+    if (typeof document !== 'undefined') {
         useGridAnimation(document.querySelector(".projects-grid"));
     }
 
