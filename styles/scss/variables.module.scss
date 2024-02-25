@@ -1,11 +1,11 @@
-$off-white: #EFEFEF;
-$yellow: #D9910E;
-$orange-light: #CF550E;
-$orange-dark: #D53C0F;
-$red: #C1292E;
-$purple: #640C5A;
-$blue-dark: #4C1FAC;
-$blue-light: #4248F0;
+$off-white: theme('colors.off-white');
+$yellow: theme('colors.yellow.500');
+$orange-light: theme('colors.orange-light.500');
+$orange-dark: theme('colors.orange-dark.500');
+$red: theme('colors.red.500');
+$purple: theme('colors.purple.500');
+$blue-dark: theme('colors.blue-dark.500');
+$blue-light: theme('colors.blue-light.500');
 
 $scale-ratio-2xl: 4;
 $scale-ratio-xl: 3.5;

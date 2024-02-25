@@ -16,8 +16,8 @@ const Projects = (): React.ReactNode => {
     }
 
     return(
-        <section id='projects'>
-            <ul className='projects-grid'>
+        <section id="projects">
+            <ul className="projects-grid">
                 {
                     props.map((project, index) =>
                         <ProjectCard key={index} isActive={index == activeIndex} index={index} onClick={() => setActiveIndex(activeIndex != index ? index : -1)} { ...{ props: project }} />

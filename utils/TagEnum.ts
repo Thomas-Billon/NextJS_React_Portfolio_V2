@@ -7,7 +7,13 @@ export enum TagEnum {
 }
 
 export namespace TagEnum {
+    export const labels = new Map<number, string>([
+        [TagEnum.CSharp, 'C#'],
+        [TagEnum.DotNet, '.NET'],
+        [TagEnum.Javascript, 'Javascript']
+    ]);
+
     export function toString(tag: TagEnum): string {
-        return TagEnum[tag];
+        return labels.get(tag) ?? TagEnum[tag];
     }
 }

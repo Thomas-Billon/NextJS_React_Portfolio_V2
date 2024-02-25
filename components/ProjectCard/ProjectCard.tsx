@@ -3,6 +3,7 @@
 import React, { ReactNode } from 'react';
 import { TagEnum } from '@/utils/TagEnum';
 
+import Variables from '@/styles/scss/variables.module.scss';
 import './ProjectCard.scss';
 
 
@@ -18,17 +19,17 @@ export interface ProjectCardProps {
 const ProjectCard = ({ isActive, index, onClick, props }: { isActive: boolean, index: number, onClick: (value: number) => void, props: ProjectCardProps }): ReactNode => {
     return (
         <div className={['project-card', isActive ? 'active' : ''].join(' ')} onClick={() => {onClick(index)}}>
-            <div className='project-card-animated'>
-                <div className='project-card-sub-grid'>
-                    <div className='project-card-container'>
-                        <div className='project-card-image-container'>
+            <div className="project-card-animated">
+                <div className="project-card-sub-grid">
+                    <div className="project-card-container">
+                        <div className="project-card-image-container">
                             {
                                 props.images.map((image, index) => 
-                                    <div key={index} className='project-card-image'></div>
+                                    <div key={index} className="project-card-image"></div>
                                 )
                             }
                         </div>
-                        <div className='project-card-text-container'>
+                        <div className="project-card-text-container">
                             <div><h4>{props.title}</h4> - <span>{props.year}</span></div>
                             <div>
                                 {
@@ -47,7 +48,7 @@ const ProjectCard = ({ isActive, index, onClick, props }: { isActive: boolean, i
                             <div>
                                 {
                                     props.tags.map((tag, index) => 
-                                        <span key={index}>{TagEnum.toString(tag)}</span>
+                                        <span key={index} className="project-card-text-tag">{TagEnum.toString(tag)}</span>
                                     )
                                 }
                             </div>

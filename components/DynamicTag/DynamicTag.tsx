@@ -10,7 +10,7 @@ export interface DynamicTagProps {
 const DynamicTag = ({ children, tag = 'div' }: { children: React.ReactNode } & DynamicTagProps): React.ReactNode => {
     const Tag = tag as React.ElementType;
     return (
-        <Tag className='hidden'>
+        <Tag className="hidden">
             {children}
         </Tag>
     );

@@ -3,22 +3,6 @@ import { TagEnum } from '@/utils/TagEnum';
 
 export const projectsProps: ProjectCardProps[] = [
     {
-        title: 'Widilo',
-        descriptions: [
-            'A cashback and voucher platform'
-        ],
-        images: [
-            'img1.jpg',
-            'img2.jpg',
-            'img3.jpg'
-        ],
-        links: [
-            'http://localhost:3000'
-        ],
-        tags: [TagEnum.CSharp, TagEnum.DotNet, TagEnum.Javascript],
-        year: 2024
-    },
-    {
         title: 'Porfolio v2',
         descriptions: [
             'You are currently watching it'
@@ -48,23 +32,7 @@ export const projectsProps: ProjectCardProps[] = [
             'http://localhost:3000'
         ],
         tags: [TagEnum.CSharp, TagEnum.DotNet, TagEnum.Javascript],
-        year: 2024
-    },
-    {
-        title: 'Mediabox',
-        descriptions: [
-            'A SAAS web application for prepress workflows'
-        ],
-        images: [
-            'img1.jpg',
-            'img2.jpg',
-            'img3.jpg'
-        ],
-        links: [
-            'http://localhost:3000'
-        ],
-        tags: [TagEnum.CSharp, TagEnum.DotNet, TagEnum.Javascript],
-        year: 2024
+        year: 2023
     },
     {
         title: 'Porfolio v1',
@@ -80,6 +48,6 @@ export const projectsProps: ProjectCardProps[] = [
             'http://localhost:3000'
         ],
         tags: [TagEnum.CSharp, TagEnum.DotNet, TagEnum.Javascript],
-        year: 2024
+        year: 2016
     }
 ]

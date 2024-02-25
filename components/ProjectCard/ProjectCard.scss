@@ -1,3 +1,5 @@
+@import "@/styles/scss/variables.module";
+
 @tailwind components;
 
 @layer components {
@@ -5,12 +7,26 @@
     .project-card {
         @apply cursor-pointer;
 
+        &.active {
+            @apply col-span-1;
+            @apply md:col-span-2;
+            @apply row-span-2;
+        }
+
+        &:not(.active) {
+            @apply aspect-video;
+        }
+
         &-animated {
             @apply w-full;
             @apply h-full;
             @apply bg-white;
             @apply overflow-hidden;
-            @apply aspect-video;
+            @apply rounded;
+
+            @screen md {
+                @apply aspect-video;
+            }
         }
 
         &-sub-grid {
@@ -20,7 +36,7 @@
             @apply grid;
             @apply grid-cols-1;
             @apply md:grid-cols-2;
-            @apply 2xl:grid-cols-3;
+            @apply xl:grid-cols-3;
             @apply gap-y-4;
             @apply md:gap-4;
         }
@@ -58,8 +74,9 @@
                 @apply row-span-1;
                 @apply aspect-video;
 
-                background-color: orange;
+                @apply bg-orange-light-500; // TEMP
             }
+            
             &:not(:nth-of-type(1)) {
                 @apply hidden;
                 @apply md:block;
@@ -68,14 +85,19 @@
             }
         }
 
-        &.active {
-            @apply col-span-1;
-            @apply md:col-span-2;
-            @apply row-span-2;
-        }
-
-        &:not(.active) {
-            @apply aspect-video;
+        &-text {
+            &-tag {
+                @apply bg-orange-light-100;
+                @apply text-orange-light-600;
+                @apply text-xs;
+                @apply font-medium;
+                @apply me-2;
+                @apply px-2;
+                @apply py-0.5;
+                @apply rounded;
+                @apply border;
+                @apply border-orange-light-400;
+            }
         }
     }
 }
