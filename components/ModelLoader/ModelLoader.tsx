@@ -35,7 +35,7 @@ const ModelLoader = (props: ModelLoaderProps): React.ReactNode => {
 
     // Setup render texture
     const renderTarget = useFBO();
-    const backgroundTexture = useLoader(TextureLoader, canvasContext.isMobile ? './static/images/background_monitor_center.jpg' : './static/images/background_monitor_offset.jpg');
+    const backgroundTexture = useLoader(TextureLoader, canvasContext.isMobile ? './static/images/intro/background_monitor_center.jpg' : './static/images/intro/background_monitor_offset.jpg');
 
     // Setup current positions and rotations
     const [currentPos, setCurrentPos] = useState<Vector3>(new Vector3(props.originPosition[0], props.originPosition[1], props.originPosition[2]));

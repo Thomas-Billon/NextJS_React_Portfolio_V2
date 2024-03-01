@@ -37,3 +37,9 @@
     @apply center-h;
     @apply center-v;
 }
+
+.spaced {
+    &:not(:last-child) {
+        @apply me-2;
+    }
+}

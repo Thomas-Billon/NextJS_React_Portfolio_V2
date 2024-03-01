@@ -13,6 +13,9 @@
         @apply xl:grid-cols-3;
         @apply gap-y-4;
         @apply md:gap-4;
-        @apply auto-rows-fr;
+
+        @screen md {
+            @apply auto-rows-fr;
+        }
     }
 }

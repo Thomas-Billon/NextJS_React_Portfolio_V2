@@ -17,7 +17,6 @@ const Home = (): React.ReactNode => {
             <Contact/>
             <h2 style={{ fontSize: '20px' }}>Content</h2>
             <ul>
-                <li>Projects : Grid display with preview on click with see more button</li>
                 <li>Skills : Grid display with animated transition and overflow (maybe divide by sections or tabs)</li>
                 <li>Experience : Timeline with sepia effect on scroll down & timeline fills up</li>
                 <li>Education : Same</li>
