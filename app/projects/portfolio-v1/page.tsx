@@ -1,8 +1,6 @@
 const PortfolioV1 = (): React.ReactNode => {
     return (
-        <main>
-            <p>Hello world!</p>
-        </main>
+        <iframe className="page" src="/static/pages/portfolio_v1/index.html"></iframe>
     );
 };
 

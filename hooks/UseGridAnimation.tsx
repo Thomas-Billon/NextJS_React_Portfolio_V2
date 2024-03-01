@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 import { useWindowSize } from '@/hooks/UseWindowSize';
 import { isAnimationRunning, startPropertyAnimation, stopPropertyAnimation } from '@/utils/PropertyAnimation';
 
@@ -15,27 +15,31 @@ interface RectSize {
 interface Cell extends RectPosition, RectSize {}
 
 export const useGridAnimation = (grid: HTMLElement | null, duration: number = 250): void => {
-    if (grid == null) {
-        return;
-    }
-
     const observerRef = useRef<MutationObserver>();
     const gridSize = useRef<RectSize>({ width: 0, height: 0 });
     const cellPositions = useRef<Cell[]>([]);
 
     // Runs only once
     useEffect(() => {
+        if (grid == null) {
+            return;
+        }
+
         const observer: MutationObserver = new MutationObserver(observerCallback);
 
         // This ensure the observer is only run once and the animation doesn't flicker even with strict mode on
         observerRef.current?.disconnect();
         observerRef.current = observer;
         observerRef.current?.observe(grid, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] });
-    }, []);
+    }, [grid]);
 
     // Runs each time window size is changed
     const size = useWindowSize();
     useEffect(() => {
+        if (grid == null) {
+            return;
+        }
+
         const gridContainer = grid.parentElement as HTMLElement;
         const gridCells = [...grid.children] as HTMLElement[]
 
@@ -55,7 +59,7 @@ export const useGridAnimation = (grid: HTMLElement | null, duration: number = 25
 
         cellPositions.current = newCellPositions;
         gridSize.current = newGridSize;
-    }, [size]);
+    }, [grid, size]);
 
     // Animates grid & cells when class is updated
     const observerCallback = () => {
@@ -68,6 +72,10 @@ export const useGridAnimation = (grid: HTMLElement | null, duration: number = 25
     }
 
     const startGridAnimation = (): void => {
+        if (grid == null) {
+            return;
+        }
+
         const gridContainer = grid.parentElement as HTMLElement;
         const gridCells = [...grid.children] as HTMLElement[]
 
@@ -152,6 +160,10 @@ export const useGridAnimation = (grid: HTMLElement | null, duration: number = 25
     }
 
     const stopGridAnimation = (): void => {
+        if (grid == null) {
+            return;
+        }
+
         const gridContainer = grid.parentElement as HTMLElement;
         const gridCells = [...grid.children] as HTMLElement[]
 
@@ -188,6 +200,10 @@ export const useGridAnimation = (grid: HTMLElement | null, duration: number = 25
     };
 
     const isGridAnimationRunning = (): boolean => {
+        if (grid == null) {
+            return false;
+        }
+
         const gridContainer = grid.parentElement as HTMLElement;
         const gridCells = [...grid.children] as HTMLElement[]
 

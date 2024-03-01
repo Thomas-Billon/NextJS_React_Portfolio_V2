@@ -12,7 +12,7 @@ const Projects = (): React.ReactNode => {
     const [activeIndex, setActiveIndex] = useState(-1);
 
     if (typeof document !== 'undefined') {
-        useGridAnimation(document.querySelector(".projects-grid"));
+        useGridAnimation(document.querySelector('.projects-grid'));
     }
 
     return(

@@ -31,10 +31,10 @@ export const projectsProps: ProjectCardProps[] = [
         ],
         images: [
             { src: '/static/images/projects/spicy_party_1.jpg', alt: 'Spicy Party Logo' },
-            { src: '/static/images/projects/spicy_party_2.jpg', alt: 'Image 2' },
-            { src: '/static/images/projects/spicy_party_3.jpg', alt: 'Image 3' },
-            { src: '/static/images/projects/spicy_party_4.jpg', alt: 'Image 4' },
-            { src: '/static/images/projects/spicy_party_5.jpg', alt: 'Image 5' }
+            { src: '/static/images/projects/spicy_party_2.jpg', alt: 'Gameplay Showcase 1' },
+            { src: '/static/images/projects/spicy_party_3.jpg', alt: 'Gameplay Showcase 2' },
+            { src: '/static/images/projects/spicy_party_4.jpg', alt: 'Gameplay Showcase 3' },
+            { src: '/static/images/projects/spicy_party_5.jpg', alt: 'Gameplay Showcase 4' }
         ],
         links: [
             { href: 'https://apps.apple.com/us/app/spicy-party/id1627063798', src: 'img2.jpg', alt: 'App Store' },
@@ -51,11 +51,11 @@ export const projectsProps: ProjectCardProps[] = [
             'And thanks to it, I was able to get my first internship, cheers!'
         ],
         images: [
-            { src: 'img1.jpg', alt: 'Image 1' },
-            { src: 'img2.jpg', alt: 'Image 2' },
-            { src: 'img3.jpg', alt: 'Image 3' },
-            { src: 'img4.jpg', alt: 'Image 4' },
-            { src: 'img5.jpg', alt: 'Image 5' }
+            { src: '/static/images/projects/portfolio_v1_1.jpg', alt: 'Portfolio Showcase 1' },
+            { src: '/static/images/projects/portfolio_v1_2.jpg', alt: 'Portfolio Showcase 2' },
+            { src: '/static/images/projects/portfolio_v1_3.jpg', alt: 'Portfolio Showcase 3' },
+            { src: '/static/images/projects/portfolio_v1_4.jpg', alt: 'Portfolio Showcase 4' },
+            { src: '/static/images/projects/portfolio_v1_5.jpg', alt: 'Portfolio Showcase 5' }
         ],
         links: [
             { href: '/projects/portfolio-v1' },
