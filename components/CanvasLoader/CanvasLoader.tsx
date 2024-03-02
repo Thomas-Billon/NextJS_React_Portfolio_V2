@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, createContext } from 'react';
+import React, { useState, useRef, createContext, TouchEvent, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera, CameraControls, Preload } from '@react-three/drei';
@@ -23,8 +23,30 @@ export interface CanvasLoaderProps {
 }
 
 const CanvasLoader = ({ children, className, props }: { children: React.ReactNode, className:string, props: CanvasLoaderProps }): React.ReactNode => {
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const [touchPosition, setTouchPosition] = useState(0);
+
+    useEffect(() => {
+        setScrollPosition(window.scrollY);
+    }, []);
+
+    const onTouchStart = (event: TouchEvent<HTMLDivElement>): void => {
+        setScrollPosition(window.scrollY);
+        setTouchPosition(event.touches[0]?.clientY);
+    }
+
+    const onTouchMove = (event: TouchEvent<HTMLDivElement>): void => {
+        const diff = event.touches[0]?.clientY - touchPosition;
+
+        window.scrollTo(0, scrollPosition - diff);
+    }
+
+    const onTouchEnd = (event: TouchEvent<HTMLDivElement>): void => {
+        setScrollPosition(window.scrollY);
+    }
+
     return (
-        <Canvas id="threejs" className={className} gl={{ preserveDrawingBuffer: true }}>
+        <Canvas id="threejs" className={className} gl={{ preserveDrawingBuffer: true }} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
             <CanvasContainer { ...{ props: props }}>
                 {children}
             </CanvasContainer>
