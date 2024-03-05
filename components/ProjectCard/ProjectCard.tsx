@@ -21,11 +21,11 @@ export interface ProjectCardProps {
 const ProjectCard = ({ isActive, index, onClick, props }: { isActive: boolean, index: number, onClick: (value: number) => void, props: ProjectCardProps }): ReactNode => {
     return (
         <div className={
-            isActive ?
+            (isActive ?
                 'cursor-pointer col-span-1 md:col-span-2 row-span-2'
             :
                 'cursor-pointer aspect-video'
-            }
+            )}
             onClick={() => { onClick(index) }}>
             <div className="w-full h-full bg-white overflow-hidden rounded-lg md:aspect-video shadow-md">
                 <div className="w-screen row">

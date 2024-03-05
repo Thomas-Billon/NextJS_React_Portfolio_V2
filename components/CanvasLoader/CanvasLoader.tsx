@@ -46,7 +46,7 @@ const CanvasLoader = ({ children, className, props }: { children: React.ReactNod
     }
 
     return (
-        <Canvas id="threejs" className={className} gl={{ preserveDrawingBuffer: true }} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
+        <Canvas id="threejs" className={className + ' !absolute top-0'} gl={{ preserveDrawingBuffer: true }} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
             <CanvasContainer { ...{ props: props }}>
                 {children}
             </CanvasContainer>

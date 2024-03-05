@@ -1,5 +1,6 @@
 import React from 'react';
 import { Roboto } from 'next/font/google';
+import DynamicTag from '@/components/DynamicTag/DynamicTag';
 
 import './IntroHeadline.scss';
 
@@ -15,20 +16,35 @@ const roboto = Roboto({
 
 export interface IntroHeadlineProps {
     className?: string;
-    classNameHeadline?: string;
-    classNameSubline?: string;
+    headlineStyle?: string;
+    sublineStyle?: string;
     dataNoSnippet?: boolean;
 }
 
-const IntroHeadline = ({ className= '', classNameHeadline = '', classNameSubline = '', dataNoSnippet = false }: IntroHeadlineProps): React.ReactNode => {
+const IntroHeadline = ({ className= '', headlineStyle = '', sublineStyle = '', dataNoSnippet = false }: IntroHeadlineProps): React.ReactNode => {
     return (
-        <div className={['intro-headline', className].join(' ')}>
-            <div className={['intro-headline-text', classNameHeadline, roboto.className].join(' ')} { ...(dataNoSnippet ? { 'data-nosnippet': true } : {})}>
-                Hi, I&apos;m Thomas
-            </div>
-            <div className={['intro-headline-subline', classNameSubline].join(' ')} { ...(dataNoSnippet ? { 'data-nosnippet': true } : {})}>
-                A full-stack developer with a passion for challenges and problem solving<br/>
-                I also create video games during my spare time
+        <div className={ className + ' container center pointer-events-none select-none landscape:top-1/2 landscape:text-left portrait:top-[30%] portrait:text-center' }>
+            <DynamicTag className={
+                (headlineStyle == 'shadow' ?
+                    'text-white drop-shadow-[0_1px_4px_rgba(255,255,255,1)] '
+                : headlineStyle == 'full' ?
+                    'text-white '
+                : headlineStyle == 'outline' ?
+                    'text-transparent text-stroke-md '
+                : '')
+                + roboto.className + ' w-full mb-4 text-[3.5rem] sm:text-[4rem] md:text-[5rem] xl:text-[6rem] leading-[3.5rem] sm:leading-[4rem] md:leading-[5rem] xl:leading-[6rem] font-bold uppercase tracking-wide' }
+                tag={dataNoSnippet ? 'div' : 'h1'}
+                dataNoSnippet={dataNoSnippet}>
+                    Hi, I&apos;m Thomas
+            </DynamicTag>
+            <div className={
+                (sublineStyle == 'transparent' ?
+                    'opacity-0 '
+                : '')
+                + 'w-full text-white text-base md:text-lg font-normal overflow-hidden pointer-events-none select-none' }
+                { ...(dataNoSnippet ? { 'data-nosnippet': true } : {})}>
+                    A full-stack developer with a passion for challenges and problem solving<br/>
+                    I also create video games during my spare time
             </div>
         </div>
     );

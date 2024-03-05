@@ -38,6 +38,18 @@
     @apply center-v;
 }
 
+.text-stroke-sm {
+    -webkit-text-stroke: 0.5px theme('colors.white');
+}
+
+.text-stroke-md {
+    -webkit-text-stroke: 1px theme('colors.white');
+}
+
+.text-stroke-lg {
+    -webkit-text-stroke: 2px theme('colors.white');
+}
+
 .spaced {
     &:not(:last-child) {
         @apply me-2;

@@ -1,91 +1,57 @@
 @import "@/styles/scss/variables.module";
 
-#intro {
-    @apply page;
-    @apply overflow-hidden;
-    @apply bg-[url("/static/images/intro/background_intro.jpg")];
-    @apply bg-fixed;
-    @apply bg-cover;
-    @apply bg-center;
-    @apply bg-no-repeat;
-}
-
 #explosion-center {
-    @apply absolute;
-    @apply bottom-0;
-    @apply -translate-x-1/2;
-    @apply h-[3600px];
-    @apply opacity-80;
-    @apply bg-[url("/static/images/intro/splash_1.png")];
-    @apply bg-contain;
-    @apply bg-bottom;
-    @apply bg-no-repeat;
-
-    @media (orientation: landscape) {
-        @apply left-[60%];
-    }
-    
-    @media (orientation: portrait) {
-        @apply left-1/2;
-    }
+    $explosion-default-size: 450px;
     
     @media (min-width: 0px) {
-        width: calc(450px * $scale-ratio-xs);
+        width: calc($explosion-default-size * $scale-ratio-xs);
     }
 
     @screen sm {
-        width: calc(450px * $scale-ratio-sm);
+        width: calc($explosion-default-size * $scale-ratio-sm);
     }
 
     @screen md {
-        width: calc(450px * $scale-ratio-md);
+        width: calc($explosion-default-size * $scale-ratio-md);
     }
 
     @screen lg {
-        width: calc(450px * $scale-ratio-lg);
+        width: calc($explosion-default-size * $scale-ratio-lg);
     }
 
     @screen xl {
-        width: calc(450px * $scale-ratio-xl);
+        width: calc($explosion-default-size * $scale-ratio-xl);
     }
 
     @screen 2xl {
-        width: calc(450px * $scale-ratio-2xl);
+        width: calc($explosion-default-size * $scale-ratio-2xl);
     }
 }
 
 #explosion-corner {
-    @apply absolute;
-    @apply top-0;
-    @apply left-0;
-    @apply h-[1200px];
-    @apply opacity-80;
-    @apply bg-[url("/static/images/intro/splash_2.png")];
-    @apply bg-contain;
-    @apply bg-top;
-    @apply bg-no-repeat;
+    $explosion-default-size: 150px;
 
     @media (min-width: 0px) {
-        width: calc(150px * $scale-ratio-xs);
+        width: calc($explosion-default-size * $scale-ratio-xs);
     }
 
     @screen sm {
-        width: calc(150px * $scale-ratio-sm);
+        width: calc($explosion-default-size * $scale-ratio-sm);
     }
 
     @screen md {
-        width: calc(150px * $scale-ratio-md);
+        width: calc($explosion-default-size * $scale-ratio-md);
     }
 
     @screen lg {
-        width: calc(150px * $scale-ratio-lg);
+        width: calc($explosion-default-size * $scale-ratio-lg);
     }
 
     @screen xl {
-        width: calc(150px * $scale-ratio-xl);
+        width: calc($explosion-default-size * $scale-ratio-xl);
     }
 
     @screen 2xl {
-        width: calc(150px * $scale-ratio-2xl);
+        width: calc($explosion-default-size * $scale-ratio-2xl);
     }
 }

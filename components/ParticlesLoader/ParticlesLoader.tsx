@@ -12,8 +12,8 @@ import './ParticlesLoader.scss';
 export interface ParticlesLoaderProps extends ISourceOptions {}
 
 const ParticlesLoader = ({ className, props }: { className: string, props: ParticlesLoaderProps }): React.ReactNode => {
-    // Initialize particles
     const [init, setInit] = useState<boolean>(false);
+
     useEffect(() => {
         initParticlesEngine(async (engine: Engine) => {
             //await loadFull(engine);
@@ -27,13 +27,11 @@ const ParticlesLoader = ({ className, props }: { className: string, props: Parti
 
     const options: ParticlesLoaderProps = useMemo(() => (props), [props]);
 
-    if (init) {
-        return (
-            <Particles className={className} options={options} particlesLoaded={particlesLoaded} />
-        );
-    }
-
-    return <></>;
+    return (
+        init ?
+            <Particles className={ className + ' full overlap' } options={options} particlesLoaded={particlesLoaded} />
+        : <></>
+    );
 };
 
 export default ParticlesLoader;
