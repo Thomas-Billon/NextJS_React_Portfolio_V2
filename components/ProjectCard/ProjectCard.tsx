@@ -3,6 +3,7 @@
 import React, { ReactNode } from 'react';
 import Link from 'next/link';
 import { SkillEnum } from '@/utils/SkillEnum';
+import { css } from '@/utils/Tailwind/TinyWind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as fab from '@fortawesome/free-brands-svg-icons';
 
@@ -20,78 +21,53 @@ export interface ProjectCardProps {
 
 const ProjectCard = ({ isActive, index, onClick, props }: { isActive: boolean, index: number, onClick: (value: number) => void, props: ProjectCardProps }): ReactNode => {
     return (
-        <div className={
-            (isActive ?
-                'cursor-pointer col-span-1 md:col-span-2 row-span-2'
-            :
-                'cursor-pointer aspect-video'
-            )}
-            onClick={() => { onClick(index) }}>
-            <div className="w-full h-full bg-white overflow-hidden rounded-lg md:aspect-video shadow-md">
-                <div className="w-screen row">
-                    <div className="!mx-0 container">
-                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-4 md:gap-4">
-                            <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-4 col-span-2 row-span-1 md:row-span-2">
-                                <div className="h-full grid grid-cols-1 grid-rows-[1fr] md:grid-cols-2 md:grid-rows-[2fr_0.5rem_1fr_0.5rem_1fr]"> {
-                                    props.images.map((image, index) =>
-                                        <div className={
-                                        index == 0 ?
-                                            'col-span-2 row-span-1 aspect-video'
-                                        :
-                                            'hidden md:block col-span-1 row-span-2'
-                                        }
-                                        key={index}>
-                                            <img className="w-full h-full"
-                                                src={image.src} alt={image.alt} />
-                                        </div>
-                                    )}
+        <div className={ProjectCardStyle({ isActive })} onClick={() => { onClick(index) }}>
+            <div className={ProjectCardBackgroundStyle}>
+                <div className={ProjectCardFullWidthStyle}>
+                    <div className={ProjectCardFullWidthContainerStyle}>
+                        <div className={ProjectCardGridStyle}>
+                            <div className={ProjectCardSubGridStyle}>
+                                <div className={ProjectCardImageListStyle}> {
+                                    props.images.map((image, index) => {
+                                        const isFirstItem: boolean = index == 0;
+
+                                        return (
+                                            <div key={index} className={ProjectCardImageItemStyle({ isFirstItem })}>
+                                                <img className={ProjectCardImageStyle} src={image.src} alt={image.alt} />
+                                            </div>
+                                        );
+                                    })}
                                 </div>
-                                <div className="flex flex-col justify-center px-4 md:pl-0 pt-0 pb-4 md:py-4">
-                                    <div className="mb-4 text-center md:text-left">
-                                        <h4 className="inline-block text-xl font-medium">{props.title}</h4>
-                                        <span className="text-gray-400"> - {props.year}</span>
+                                <div className={ProjectCardTextStyle}>
+                                    <div className={ProjectCardTitleYearStyle}>
+                                        <h4 className={ProjectCardTitleStyle}>{props.title}</h4>
+                                        <span className={ProjectCardYearStyle}> - {props.year}</span>
                                     </div>
-                                    <div className="mb-4"> {
+                                    <div className={ProjectCardDescriptionListStyle}> {
                                         props.description.map((paragraph, index) => 
-                                            <p className="text-justify [&:not(:last-child)]:mb-2"
-                                            key={index}>
-                                                {paragraph}
-                                            </p>
+                                            <p key={index} className={ProjectCardDescriptionItemStyle}>{paragraph}</p>
                                         )}
                                     </div>
-                                    <div className="mb-8"> {
+                                    <div className={ProjectCardTagListStyle}> {
                                         props.tags.map((tag, index) => 
-                                            <span className="px-2 py-0.5 bg-orange-light-100 text-orange-light-600 text-xs font-medium rounded border border-orange-light-400 spaced"
-                                            key={index}>
-                                                {tag}
-                                            </span>
+                                            <span key={index} className={ProjectCardTagItemStyle}>{tag}</span>
                                         )}
                                     </div>
-                                    <div className="text-center"> {
+                                    <div className={ProjectCardLinkListStyle}> {
                                         props.links.map((link, index) => {
                                             const isLinkExternalUrl: boolean = link.href.indexOf('https') != -1;
                                             const isLinkGithub: boolean = link.href.indexOf('https://github.com/') != -1;
                                             const isLinkImage: boolean = link.src && link.alt ? true : false;
 
-                                            let className: string = '';
-                                            if (isLinkImage) {
-                                                className = 'inline-block spaced';
-                                            }
-                                            else if (isLinkGithub) {
-                                                className = 'inline-block p-2 bg-orange-light-400 hover:bg-orange-light-500 text-white text-sm rounded spaced';
-                                            }
-                                            else {
-                                                className = 'inline-block px-4 py-2 bg-orange-light-400 hover:bg-orange-light-500 text-white text-sm font-medium rounded spaced';
-                                            }
-
                                             return (
-                                                <Link className={className}
-                                                key={index}
-                                                href={link.href}
-                                                passHref={isLinkExternalUrl}
-                                                { ...(isLinkExternalUrl ? { 'target': '_blank' } : {})}
-                                                { ...(isLinkGithub ? { 'title': 'See source code' } : {})}
-                                                onClick={ (event) => { event.stopPropagation() }}> {
+                                                <Link className={ProjectCardLinkItemStyle({ isLinkImage, isLinkGithub })}
+                                                    key={index}
+                                                    href={link.href}
+                                                    passHref={isLinkExternalUrl}
+                                                    { ...(isLinkExternalUrl ? { 'target': '_blank' } : {})}
+                                                    { ...(isLinkGithub ? { 'title': 'See source code' } : {})}
+                                                    onClick={ (event) => { event.stopPropagation() }}
+                                                > {
                                                     isLinkImage ?
                                                         <img src={link.src} alt={link.alt} />
                                                     : isLinkGithub ?
@@ -114,3 +90,145 @@ const ProjectCard = ({ isActive, index, onClick, props }: { isActive: boolean, i
 };
 
 export default ProjectCard;
+
+
+const ProjectCardStyle = ({ isActive }: { isActive: boolean }) => css([
+    'cursor-pointer',
+    isActive && 'col-span-1',
+    isActive && 'md:col-span-2',
+    isActive && 'row-span-2',
+    !isActive && 'aspect-video'
+]);
+
+const ProjectCardBackgroundStyle = css([
+    'w-full',
+    'h-full',
+    'bg-white',
+    'overflow-hidden',
+    'rounded-lg',
+    'md:aspect-video',
+    'shadow-md'
+]);
+
+const ProjectCardFullWidthStyle = css([
+    'w-screen',
+    'row'
+]);
+
+const ProjectCardFullWidthContainerStyle = css([
+    '!mx-0',
+    'container'
+]);
+
+const ProjectCardGridStyle = css([
+    'grid',
+    'grid-cols-1',
+    'md:grid-cols-2',
+    'xl:grid-cols-3',
+    'gap-y-4',
+    'md:gap-4'
+]);
+
+const ProjectCardSubGridStyle = css([
+    'h-full',
+    'grid',
+    'grid-cols-1',
+    'md:grid-cols-2',
+    'gap-4',
+    'col-span-2',
+    'row-span-1',
+    'md:row-span-2'
+]);
+
+const ProjectCardImageListStyle = css([
+    'h-full',
+    'grid',
+    'grid-cols-1',
+    'grid-rows-[1fr]',
+    'md:grid-cols-2',
+    'md:grid-rows-[2fr_0.5rem_1fr_0.5rem_1fr]'
+]);
+
+const ProjectCardImageItemStyle = ({ isFirstItem }: { isFirstItem: boolean }) => css([
+    isFirstItem && 'col-span-2',
+    isFirstItem && 'row-span-1',
+    isFirstItem && 'aspect-video',
+    !isFirstItem && 'hidden',
+    !isFirstItem && 'md:block',
+    !isFirstItem && 'col-span-1',
+    !isFirstItem && 'row-span-2'
+]);
+
+const ProjectCardImageStyle = css([
+    'full'
+]);
+
+const ProjectCardTextStyle = css ([
+    'flex',
+    'flex-col',
+    'justify-center',
+    'px-4',
+    'md:pl-0',
+    'pt-0',
+    'pb-4',
+    'md:py-4'
+]);
+
+const ProjectCardTitleYearStyle = css([
+    'mb-4',
+    'text-center',
+    'md:text-left'
+]);
+
+const ProjectCardTitleStyle = css([
+    'inline-block',
+    'text-xl',
+    'font-medium'
+]);
+
+const ProjectCardYearStyle = css([
+    'text-gray-400'
+]);
+
+const ProjectCardDescriptionListStyle = css([
+    'mb-4'
+]);
+
+const ProjectCardDescriptionItemStyle = css([
+    'text-justify',
+    '[&:not(:last-child)]:mb-2'
+]);
+
+const ProjectCardTagListStyle = css([
+    'mb-8'
+]);
+
+const ProjectCardTagItemStyle = css([
+    'px-2',
+    'py-0.5',
+    'bg-orange-light-100',
+    'text-orange-light-600',
+    'text-xs',
+    'font-medium',
+    'rounded border',
+    'border-orange-light-400',
+    'spaced'
+]);
+
+const ProjectCardLinkListStyle = css([
+    'text-center'
+]);
+
+const ProjectCardLinkItemStyle = ({ isLinkImage, isLinkGithub }: { isLinkImage: boolean, isLinkGithub: boolean }) => css([
+    'inline-block',
+    'spaced',
+    isLinkGithub && 'p-2',
+    !isLinkImage && 'bg-orange-light-400',
+    !isLinkImage && 'hover:bg-orange-light-500',
+    !isLinkImage && 'text-white',
+    !isLinkImage && 'text-sm',
+    !isLinkImage && 'rounded',
+    !isLinkImage && !isLinkGithub && 'px-4',
+    !isLinkImage && !isLinkGithub && 'py-2',
+    !isLinkImage && !isLinkGithub && 'font-medium'
+]);
