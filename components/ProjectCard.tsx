@@ -1,39 +1,39 @@
-'use client'
+'use client';
 
 import React, { ReactNode } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { SkillEnum } from '@/utils/SkillEnum';
-import { css } from '@/utils/Tailwind/TinyWind'
+import { css } from '@/utils/Tailwind/TinyWind';
+import { ActivableProps, Props } from '@/utils/React/Props';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as fab from '@fortawesome/free-brands-svg-icons';
 
-import './ProjectCard.scss';
-
 
 export interface ProjectCardProps {
-    title: string,
-    description: string[],
-    images: { src: string, alt: string }[],
-    links: { href: string, src?: string, alt?: string, isMinigame?: boolean }[],
-    tags: SkillEnum[],
-    year: number
+    title?: string,
+    description?: string[],
+    images?: { src: string, alt: string }[],
+    links?: { href: string, src?: string, alt?: string, isMinigame?: boolean }[],
+    tags?: SkillEnum[],
+    year?: number
 }
 
-const ProjectCard = ({ isActive, index, onClick, props }: { isActive: boolean, index: number, onClick: (value: number) => void, props: ProjectCardProps }): ReactNode => {
+const ProjectCard = ({ isActive, index, onClickActivable, props = {} }: Props<ProjectCardProps> & ActivableProps): ReactNode => {
     return (
-        <div className={ProjectCardStyle({ isActive })} onClick={() => { onClick(index) }}>
+        <div className={ProjectCardStyle({ isActive })} onClick={() => { onClickActivable(index); }}>
             <div className={ProjectCardBackgroundStyle}>
                 <div className={ProjectCardFullWidthStyle}>
                     <div className={ProjectCardFullWidthContainerStyle}>
                         <div className={ProjectCardGridStyle}>
                             <div className={ProjectCardSubGridStyle}>
                                 <div className={ProjectCardImageListStyle}> {
-                                    props.images.map((image, index) => {
+                                    props.images?.map((image, index) => {
                                         const isFirstItem: boolean = index == 0;
 
                                         return (
                                             <div key={index} className={ProjectCardImageItemStyle({ isFirstItem })}>
-                                                <img className={ProjectCardImageStyle} src={image.src} alt={image.alt} />
+                                                <Image className={ProjectCardImageStyle} src={image.src} alt={image.alt} width={1920} height={1080} />
                                             </div>
                                         );
                                     })}
@@ -44,17 +44,17 @@ const ProjectCard = ({ isActive, index, onClick, props }: { isActive: boolean, i
                                         <span className={ProjectCardYearStyle}> - {props.year}</span>
                                     </div>
                                     <div className={ProjectCardDescriptionListStyle}> {
-                                        props.description.map((paragraph, index) => 
+                                        props.description?.map((paragraph, index) => 
                                             <p key={index} className={ProjectCardDescriptionItemStyle}>{paragraph}</p>
                                         )}
                                     </div>
                                     <div className={ProjectCardTagListStyle}> {
-                                        props.tags.map((tag, index) => 
+                                        props.tags?.map((tag, index) => 
                                             <span key={index} className={ProjectCardTagItemStyle}>{tag}</span>
                                         )}
                                     </div>
                                     <div className={ProjectCardLinkListStyle}> {
-                                        props.links.map((link, index) => {
+                                        props.links?.map((link, index) => {
                                             const isLinkExternalUrl: boolean = link.href.indexOf('https') != -1;
                                             const isLinkGithub: boolean = link.href.indexOf('https://github.com/') != -1;
                                             const isLinkImage: boolean = link.src && link.alt ? true : false;
@@ -66,10 +66,10 @@ const ProjectCard = ({ isActive, index, onClick, props }: { isActive: boolean, i
                                                     passHref={isLinkExternalUrl}
                                                     { ...(isLinkExternalUrl ? { 'target': '_blank' } : {})}
                                                     { ...(isLinkGithub ? { 'title': 'See source code' } : {})}
-                                                    onClick={ (event) => { event.stopPropagation() }}
+                                                    onClick={ (event) => { event.stopPropagation(); }}
                                                 > {
                                                     isLinkImage ?
-                                                        <img src={link.src} alt={link.alt} />
+                                                        <Image src={link.src ?? ''} alt={link.alt ?? ''} width={120} height={40} />
                                                     : isLinkGithub ?
                                                         <FontAwesomeIcon icon={fab.faGithub} size='lg' className='aspect-square'/>
                                                     :
@@ -86,7 +86,7 @@ const ProjectCard = ({ isActive, index, onClick, props }: { isActive: boolean, i
                 </div>
             </div>
         </div>
-    )
+    );
 };
 
 export default ProjectCard;

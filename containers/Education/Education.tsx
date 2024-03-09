@@ -1,9 +1,7 @@
-import React from 'react';
-
-import './Education.scss';
+import React, { ReactNode } from 'react';
 
 
-const Education = (): React.ReactNode => {
+const Education = (): ReactNode => {
     return(
         <section id="education">
         </section>

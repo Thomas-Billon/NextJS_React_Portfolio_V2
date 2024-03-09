@@ -1,27 +1,26 @@
 'use client';
 
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext, ReactNode, RefObject } from 'react';
 import { useFrame, useLoader, useThree } from '@react-three/fiber';
 import { useGLTF, Center, useFBO } from '@react-three/drei';
 import { Mesh, Vector3, Euler, MeshBasicMaterial, TextureLoader } from 'three';
-import { CanvasContext } from '@/components/CanvasLoader/CanvasLoader';
+import { Props } from '@/utils/React/Props';
+import { SceneContext } from '@/components/SceneLoader';
 import '@/utils/Three/EulerSlerp';
-
-import './ModelLoader.scss';
 
 
 export interface ModelLoaderProps {
-    model: string;
-    scale: number;
-    originPosition: [x: number, y: number, z:number];
-    targetPosition: [x: number, y: number, z:number];
-    originRotation: [x: number, y: number, z:number];
-    targetRotation: [x: number, y: number, z:number];
+    model?: string;
+    scale?: number;
+    originPosition?: [x: number, y: number, z:number];
+    targetPosition?: [x: number, y: number, z:number];
+    originRotation?: [x: number, y: number, z:number];
+    targetRotation?: [x: number, y: number, z:number];
 }
 
-const ModelLoader = (props: ModelLoaderProps): React.ReactNode => {
+const ModelLoader = ({ props = {} }: Props<ModelLoaderProps>): ReactNode => {
     // Grab context
-    const canvasContext = useContext(CanvasContext);
+    const sceneContext = useContext(SceneContext);
 
     // Store refs
     const meshRef = useRef<Mesh>();
@@ -35,15 +34,15 @@ const ModelLoader = (props: ModelLoaderProps): React.ReactNode => {
 
     // Setup render texture
     const renderTarget = useFBO();
-    const backgroundTexture = useLoader(TextureLoader, canvasContext.isMobile ? './static/images/intro/background_monitor_center.jpg' : './static/images/intro/background_monitor_offset.jpg');
+    const backgroundTexture = useLoader(TextureLoader, './static/images/intro/background_monitor_' + (sceneContext.isMobile ? 'center' : 'offset') + '.jpg');
 
     // Setup current positions and rotations
-    const [currentPos, setCurrentPos] = useState<Vector3>(new Vector3(props.originPosition[0], props.originPosition[1], props.originPosition[2]));
-    const [currentRot, setCurrentRot] = useState<Euler>(new Euler(props.originRotation[0], props.originRotation[1], props.originRotation[2]));
+    const [currentPos, setCurrentPos] = useState<Vector3>(new Vector3(props.originPosition?.[0], props.originPosition?.[1], props.originPosition?.[2]));
+    const [currentRot, setCurrentRot] = useState<Euler>(new Euler(props.originRotation?.[0], props.originRotation?.[1], props.originRotation?.[2]));
 
     // Setup target positions and rotations
-    const targetPos: Vector3 = new Vector3(props.targetPosition[0], props.targetPosition[1] + (viewport.height / canvasContext.ratio / 2), props.targetPosition[2]);
-    const targetRot: Euler = new Euler(props.targetRotation[0], props.targetRotation[1], props.targetRotation[2]);
+    const targetPos: Vector3 = new Vector3(props.targetPosition?.[0], (props.targetPosition?.[1] ?? 0) + (viewport.height / sceneContext.ratio / 2), props.targetPosition?.[2]);
+    const targetRot: Euler = new Euler(props.targetRotation?.[0], props.targetRotation?.[1], props.targetRotation?.[2]);
 
     // Animate mesh at the beginning, then once target is reached disable animation
     const [animated, setAnimated] = useState<boolean>(true);
@@ -85,20 +84,29 @@ const ModelLoader = (props: ModelLoaderProps): React.ReactNode => {
     });
 
     return (
-        <mesh ref={meshRef as React.RefObject<Mesh>} position={currentPos} rotation={currentRot} scale={props.scale}>
+        <mesh ref={meshRef as RefObject<Mesh>} position={currentPos} rotation={currentRot} scale={props.scale}>
             <Center>
                 <primitive object={mesh.scene} />
                 {
                     // Add plane mesh for monitor screen
                     (props.model == 'monitor') &&
                     <group>
-                        <mesh position={[0, 170.5, 1]} rotation={[0, 0, 0]} scale={[364, 202, 1]}>
+                        <mesh
+                            position={[0, 170.5, 1]}
+                            rotation={[0, 0, 0]}
+                            scale={[364, 202, 1]}
+                        >
                             <planeGeometry/>
                             <meshBasicMaterial map={backgroundTexture} />
                         </mesh>
-                        <mesh ref={renderMeshRef as React.RefObject<Mesh>} position={[0, 170.5, 2]} rotation={[0, 0, 0]} scale={[(viewport.width * 9.2 < 364) ? viewport.width * 9.2 : 364, viewport.height * 9.2, 1]}>
+                        <mesh
+                            ref={renderMeshRef as RefObject<Mesh>}
+                            position={[0, 170.5, 2]}
+                            rotation={[0, 0, 0]}
+                            scale={[(viewport.width * 9.2 < 364) ? viewport.width * 9.2 : 364, viewport.height * 9.2, 1]}
+                        >
                             <planeGeometry/>
-                            <meshBasicMaterial ref={renderMaterialRef as React.RefObject<MeshBasicMaterial>} alphaTest={0.001} />
+                            <meshBasicMaterial ref={renderMaterialRef as RefObject<MeshBasicMaterial>} alphaTest={0.001} />
                         </mesh>
                     </group>
                 }

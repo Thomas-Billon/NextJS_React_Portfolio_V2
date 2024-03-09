@@ -1,9 +1,7 @@
-import React from 'react';
-
-import './Contact.scss';
+import React, { ReactNode } from 'react';
 
 
-const Contact = (): React.ReactNode => {
+const Contact = (): ReactNode => {
     return(
         <section id="contact">
         </section>

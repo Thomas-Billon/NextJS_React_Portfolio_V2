@@ -1,26 +1,31 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
-import { projectsProps as props } from './ProjectsProps';
-import ProjectCard from '@/components/ProjectCard/ProjectCard';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useGridAnimation } from '@/hooks/UseGridAnimation';
+import { css } from '@/utils/Tailwind/TinyWind';
+import ProjectCard from '@/components/ProjectCard';
+import { projectProps as props } from './ProjectsProps';
 
-import './Projects.scss';
 
-
-const Projects = (): React.ReactNode => {
+const Projects = (): ReactNode => {
     const [activeIndex, setActiveIndex] = useState(-1);
 
     if (typeof document !== 'undefined') {
-        useGridAnimation(document.querySelector('.projects-grid'));
+        useGridAnimation(document.querySelector('#projects-grid'));
     }
 
     return(
-        <section id="projects" className='bg-off-white'>
-            <ul className="projects-grid container mx-auto py-16 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-4 md:gap-4 md:auto-rows-fr">
+        <section id="projects" className={ProjectsStyle}>
+            <ul id="projects-grid" className={ProjectsGridStyle}>
                 {
                     props.map((project, index) =>
-                        <ProjectCard key={index} isActive={index == activeIndex} index={index} onClick={() => setActiveIndex(activeIndex != index ? index : -1)} { ...{ props: project }} />
+                        <ProjectCard
+                            key={index}
+                            isActive={index == activeIndex}
+                            index={index}
+                            onClickActivable={() => setActiveIndex(activeIndex != index ? index : -1)}
+                            { ...{ props: project }}
+                        />
                     )
                 }
             </ul>
@@ -29,3 +34,21 @@ const Projects = (): React.ReactNode => {
 };
 
 export default Projects;
+
+
+const ProjectsStyle = css([
+    'bg-off-white'
+]);
+
+const ProjectsGridStyle = css([
+    'container',
+    'mx-auto',
+    'py-16',
+    'grid',
+    'grid-cols-1',
+    'md:grid-cols-2',
+    'xl:grid-cols-3',
+    'gap-y-4',
+    'md:gap-4',
+    'md:auto-rows-fr'
+]);

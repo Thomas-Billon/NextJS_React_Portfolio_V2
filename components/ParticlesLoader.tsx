@@ -1,17 +1,16 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
-import { loadFull } from 'tsparticles';
+import React, { useState, useEffect, useMemo, ReactNode } from 'react';
 import { loadSlim } from '@tsparticles/slim';
 import { Engine, Container, ISourceOptions } from '@tsparticles/engine';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
-
-import './ParticlesLoader.scss';
+import { css } from '@/utils/Tailwind/TinyWind';
+import { Props } from '@/utils/React/Props';
 
 
 export interface ParticlesLoaderProps extends ISourceOptions {}
 
-const ParticlesLoader = ({ className, props }: { className: string, props: ParticlesLoaderProps }): React.ReactNode => {
+const ParticlesLoader = ({ className = '', props = {} }: Props<ParticlesLoaderProps>): ReactNode => {
     const [init, setInit] = useState<boolean>(false);
 
     useEffect(() => {
@@ -29,9 +28,16 @@ const ParticlesLoader = ({ className, props }: { className: string, props: Parti
 
     return (
         init ?
-            <Particles className={ className + ' full overlap' } options={options} particlesLoaded={particlesLoaded} />
+            <Particles className={ParticlesStyle({ className })} options={options} particlesLoaded={particlesLoaded} />
         : <></>
     );
 };
 
 export default ParticlesLoader;
+
+
+const ParticlesStyle = ({ className }: { className?: string }) => css([
+    className ?? '',
+    'full',
+    'overlap'
+]);

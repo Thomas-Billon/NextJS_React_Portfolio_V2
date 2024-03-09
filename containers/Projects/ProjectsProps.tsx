@@ -1,7 +1,8 @@
-import { ProjectCardProps } from '@/components/ProjectCard/ProjectCard';
+import { ProjectCardProps } from '@/components/ProjectCard';
 import { SkillEnum } from '@/utils/SkillEnum';
 
-export const projectsProps: ProjectCardProps[] = [
+
+export const projectProps: ProjectCardProps[] = [
     {
         title: 'Porfolio v2',
         description: [
@@ -9,11 +10,11 @@ export const projectsProps: ProjectCardProps[] = [
             'I decided to remake it entirely with different languages & frameworks as a way to both learn and practice',
         ],
         images: [
-            { src: 'img1.jpg', alt: 'Image 1' },
-            { src: 'img2.jpg', alt: 'Image 2' },
-            { src: 'img3.jpg', alt: 'Image 3' },
-            { src: 'img4.jpg', alt: 'Image 4' },
-            { src: 'img5.jpg', alt: 'Image 5' }
+            { src: '/img1.jpg', alt: 'Image 1' },
+            { src: '/img2.jpg', alt: 'Image 2' },
+            { src: '/img3.jpg', alt: 'Image 3' },
+            { src: '/img4.jpg', alt: 'Image 4' },
+            { src: '/img5.jpg', alt: 'Image 5' }
         ],
         links: [
             { href: '/projects/portfolio-v2', isMinigame: true },
@@ -37,8 +38,8 @@ export const projectsProps: ProjectCardProps[] = [
             { src: '/static/images/projects/spicy_party_5.jpg', alt: 'Gameplay Showcase 4' }
         ],
         links: [
-            { href: 'https://apps.apple.com/us/app/spicy-party/id1627063798', src: 'img2.jpg', alt: 'App Store' },
-            { href: 'https://play.google.com/store/apps/details?id=com.HoodlumInteractive.SpicyParty', src: 'img1.jpg', alt: 'Play Store' }
+            { href: 'https://apps.apple.com/us/app/spicy-party/id1627063798', src: '/img2.jpg', alt: 'App Store' },
+            { href: 'https://play.google.com/store/apps/details?id=com.HoodlumInteractive.SpicyParty', src: '/img1.jpg', alt: 'Play Store' }
         ],
         tags: [SkillEnum.CSharp, SkillEnum.DotNetCore, SkillEnum.Javascript],
         year: 2023

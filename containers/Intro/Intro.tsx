@@ -1,25 +1,26 @@
-import React from 'react';
-import ParticlesLoader from '@/components/ParticlesLoader/ParticlesLoader';
-import CanvasLoader from '@/components/CanvasLoader/CanvasLoader';
-import ModelLoader from '@/components/ModelLoader/ModelLoader';
-import IntroHeadline from '@/components/IntroHeadline/IntroHeadline';
+import React, { ReactNode } from 'react';
+import { css } from '@/utils/Tailwind/TinyWind';
+import ParticlesLoader from '@/components/ParticlesLoader';
+import CanvasLoader from '@/components/CanvasLoader';
+import ModelLoader from '@/components/ModelLoader';
+import IntroHeadline from '@/components/IntroHeadline';
 import { introProps as props } from './IntroProps';
 
 import './Intro.scss';
 
 
-const Intro = (): React.ReactNode => {
+const Intro = (): ReactNode => {
     return(
-        <section id="intro" className="page overflow-hidden bg-[url('/static/images/intro/background_intro.jpg')] bg-fixed bg-cover bg-center bg-no-repeat">
-            <div id="explosion-center" className={ 'absolute bottom-0 -translate-x-1/2 h-[3600px] opacity-80 bg-[url("/static/images/intro/splash_1.png")] bg-contain bg-bottom bg-no-repeat landscape:left-[60%] portrait:left-1/2' }></div>
-            <div id="explosion-corner" className={ 'absolute top-0 left-0 h-[1200px] opacity-80 bg-[url("/static/images/intro/splash_2.png")] bg-contain bg-top bg-no-repeat ' }></div>
+        <section id="intro" className={IntroStyle}>
+            <div id="explosion-center" className={ExplosionCenterStyle}></div>
+            <div id="explosion-corner" className={ExplosionCornerStyle}></div>
             <ParticlesLoader className="z-10" { ...{ props: props.particlesProps }} />
             <IntroHeadline className="z-20" headlineStyle="shadow" sublineStyle="transparent" dataNoSnippet={true} />
             <IntroHeadline className="z-30" headlineStyle="full" sublineStyle="transparent" dataNoSnippet={true} />
             <CanvasLoader className="z-40" { ...{ props: props.canvasProps }}>
                 {
                     props.modelProps.map((model, index) => 
-                        <ModelLoader key={index} { ...model} />
+                        <ModelLoader key={index} { ...{props: model}} />
                     )
                 }
             </CanvasLoader>
@@ -29,3 +30,40 @@ const Intro = (): React.ReactNode => {
 };
 
 export default Intro;
+
+
+const IntroStyle = css([
+    'page',
+    'overflow-hidden',
+    'bg-[url("/static/images/intro/background_intro.jpg")]',
+    'bg-fixed',
+    'bg-cover',
+    'bg-center',
+    'bg-no-repeat'
+]);
+
+const ExplosionCenterStyle = css([
+    'absolute',
+    'bottom-0',
+    '-translate-x-1/2',
+    'h-[3600px]',
+    'opacity-80',
+    'bg-[url("/static/images/intro/splash_1.png")]',
+    'bg-contain',
+    'bg-bottom',
+    'bg-no-repeat',
+    'landscape:left-[60%]',
+    'portrait:left-1/2'
+]);
+
+const ExplosionCornerStyle = css([
+    'absolute',
+    'top-0',
+    'left-0',
+    'h-[1200px]',
+    'opacity-80',
+    'bg-[url("/static/images/intro/splash_2.png")]',
+    'bg-contain',
+    'bg-top',
+    'bg-no-repeat'
+]);

@@ -1,13 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
+import { Props } from '@/utils/React/Props';
 import { Roboto } from 'next/font/google';
-import DynamicTag from '@/components/DynamicTag/DynamicTag';
+import DynamicTag from '@/components/DynamicTag';
 
-import './IntroHeadline.scss';
-
-
-// If I remove this variable, the corresponding css gets removed on build...
-// Seriously, wtf is this happening to me?
-const classes: string[] = ['intro-headline-text-shadow', 'intro-headline-text-full', 'intro-headline-text-outline', 'intro-headline-subline-hidden']
 
 const roboto = Roboto({
     weight: ['700'],
@@ -15,13 +10,12 @@ const roboto = Roboto({
 });
 
 export interface IntroHeadlineProps {
-    className?: string;
     headlineStyle?: string;
     sublineStyle?: string;
     dataNoSnippet?: boolean;
 }
 
-const IntroHeadline = ({ className= '', headlineStyle = '', sublineStyle = '', dataNoSnippet = false }: IntroHeadlineProps): React.ReactNode => {
+const IntroHeadline = ({ className = '', headlineStyle = '', sublineStyle = '', dataNoSnippet = false }: Props<IntroHeadlineProps>): ReactNode => {
     return (
         <div className={ className + ' container center pointer-events-none select-none landscape:top-1/2 landscape:text-left portrait:top-[30%] portrait:text-center' }>
             <DynamicTag className={
