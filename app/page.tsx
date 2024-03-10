@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { ReactNode } from 'react';
 import Intro from '@/containers/Intro/Intro';
 import Projects from '@/containers/Projects/Projects';
 import Skills from '@/containers/Skills/Skills';
@@ -6,7 +8,7 @@ import Experience from '@/containers/Experience/Experience';
 import Education from '@/containers/Education/Education';
 import Contact from '@/containers/Contact/Contact';
 
-const Home = (): React.ReactNode => {
+const Home = (): ReactNode => {
     return (
         <main>
             <Intro/>

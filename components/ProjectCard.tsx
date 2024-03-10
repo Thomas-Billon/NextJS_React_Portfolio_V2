@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SkillEnum } from '@/utils/SkillEnum';
-import { css } from '@/utils/Tailwind/TinyWind';
+import { tw } from '@/utils/Tailwind/TinyWind';
 import { ActivableProps, Props } from '@/utils/React/Props';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as fab from '@fortawesome/free-brands-svg-icons';
@@ -13,8 +13,16 @@ import * as fab from '@fortawesome/free-brands-svg-icons';
 export interface ProjectCardProps {
     title?: string,
     description?: string[],
-    images?: { src: string, alt: string }[],
-    links?: { href: string, src?: string, alt?: string, isMinigame?: boolean }[],
+    images?: {
+        src: string,
+        alt: string
+    }[],
+    links?: {
+        href: string,
+        src?: string,
+        alt?: string,
+        isMinigame?: boolean
+    }[],
     tags?: SkillEnum[],
     year?: number
 }
@@ -92,7 +100,7 @@ const ProjectCard = ({ isActive, index, onClickActivable, props = {} }: Props<Pr
 export default ProjectCard;
 
 
-const ProjectCardStyle = ({ isActive }: { isActive: boolean }) => css([
+const ProjectCardStyle = ({ isActive }: { isActive: boolean }) => tw([
     'cursor-pointer',
     isActive && 'col-span-1',
     isActive && 'md:col-span-2',
@@ -100,7 +108,7 @@ const ProjectCardStyle = ({ isActive }: { isActive: boolean }) => css([
     !isActive && 'aspect-video'
 ]);
 
-const ProjectCardBackgroundStyle = css([
+const ProjectCardBackgroundStyle = tw([
     'w-full',
     'h-full',
     'bg-white',
@@ -110,17 +118,17 @@ const ProjectCardBackgroundStyle = css([
     'shadow-md'
 ]);
 
-const ProjectCardFullWidthStyle = css([
+const ProjectCardFullWidthStyle = tw([
     'w-screen',
     'row'
 ]);
 
-const ProjectCardFullWidthContainerStyle = css([
+const ProjectCardFullWidthContainerStyle = tw([
     '!mx-0',
     'container'
 ]);
 
-const ProjectCardGridStyle = css([
+const ProjectCardGridStyle = tw([
     'grid',
     'grid-cols-1',
     'md:grid-cols-2',
@@ -129,7 +137,7 @@ const ProjectCardGridStyle = css([
     'md:gap-4'
 ]);
 
-const ProjectCardSubGridStyle = css([
+const ProjectCardSubGridStyle = tw([
     'h-full',
     'grid',
     'grid-cols-1',
@@ -140,7 +148,7 @@ const ProjectCardSubGridStyle = css([
     'md:row-span-2'
 ]);
 
-const ProjectCardImageListStyle = css([
+const ProjectCardImageListStyle = tw([
     'h-full',
     'grid',
     'grid-cols-1',
@@ -149,7 +157,7 @@ const ProjectCardImageListStyle = css([
     'md:grid-rows-[2fr_0.5rem_1fr_0.5rem_1fr]'
 ]);
 
-const ProjectCardImageItemStyle = ({ isFirstItem }: { isFirstItem: boolean }) => css([
+const ProjectCardImageItemStyle = ({ isFirstItem }: { isFirstItem: boolean }) => tw([
     isFirstItem && 'col-span-2',
     isFirstItem && 'row-span-1',
     isFirstItem && 'aspect-video',
@@ -159,11 +167,11 @@ const ProjectCardImageItemStyle = ({ isFirstItem }: { isFirstItem: boolean }) =>
     !isFirstItem && 'row-span-2'
 ]);
 
-const ProjectCardImageStyle = css([
+const ProjectCardImageStyle = tw([
     'full'
 ]);
 
-const ProjectCardTextStyle = css ([
+const ProjectCardTextStyle = tw ([
     'flex',
     'flex-col',
     'justify-center',
@@ -174,36 +182,36 @@ const ProjectCardTextStyle = css ([
     'md:py-4'
 ]);
 
-const ProjectCardTitleYearStyle = css([
+const ProjectCardTitleYearStyle = tw([
     'mb-4',
     'text-center',
     'md:text-left'
 ]);
 
-const ProjectCardTitleStyle = css([
+const ProjectCardTitleStyle = tw([
     'inline-block',
     'text-xl',
     'font-medium'
 ]);
 
-const ProjectCardYearStyle = css([
+const ProjectCardYearStyle = tw([
     'text-gray-400'
 ]);
 
-const ProjectCardDescriptionListStyle = css([
+const ProjectCardDescriptionListStyle = tw([
     'mb-4'
 ]);
 
-const ProjectCardDescriptionItemStyle = css([
+const ProjectCardDescriptionItemStyle = tw([
     'text-justify',
     '[&:not(:last-child)]:mb-2'
 ]);
 
-const ProjectCardTagListStyle = css([
+const ProjectCardTagListStyle = tw([
     'mb-8'
 ]);
 
-const ProjectCardTagItemStyle = css([
+const ProjectCardTagItemStyle = tw([
     'px-2',
     'py-0.5',
     'bg-orange-light-100',
@@ -215,11 +223,11 @@ const ProjectCardTagItemStyle = css([
     'spaced'
 ]);
 
-const ProjectCardLinkListStyle = css([
+const ProjectCardLinkListStyle = tw([
     'text-center'
 ]);
 
-const ProjectCardLinkItemStyle = ({ isLinkImage, isLinkGithub }: { isLinkImage: boolean, isLinkGithub: boolean }) => css([
+const ProjectCardLinkItemStyle = ({ isLinkImage, isLinkGithub }: { isLinkImage: boolean, isLinkGithub: boolean }) => tw([
     'inline-block',
     'spaced',
     isLinkGithub && 'p-2',

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { css } from '@/utils/Tailwind/TinyWind';
+import { tw } from '@/utils/Tailwind/TinyWind';
 import ParticlesLoader from '@/components/ParticlesLoader';
 import CanvasLoader from '@/components/CanvasLoader';
 import ModelLoader from '@/components/ModelLoader';
@@ -32,7 +32,7 @@ const Intro = (): ReactNode => {
 export default Intro;
 
 
-const IntroStyle = css([
+const IntroStyle = tw([
     'page',
     'overflow-hidden',
     'bg-[url("/static/images/intro/background_intro.jpg")]',
@@ -42,7 +42,7 @@ const IntroStyle = css([
     'bg-no-repeat'
 ]);
 
-const ExplosionCenterStyle = css([
+const ExplosionCenterStyle = tw([
     'absolute',
     'bottom-0',
     '-translate-x-1/2',
@@ -56,7 +56,7 @@ const ExplosionCenterStyle = css([
     'portrait:left-1/2'
 ]);
 
-const ExplosionCornerStyle = css([
+const ExplosionCornerStyle = tw([
     'absolute',
     'top-0',
     'left-0',

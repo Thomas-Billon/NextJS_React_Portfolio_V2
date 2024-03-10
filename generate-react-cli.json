@@ -7,7 +7,7 @@
   "component": {
     "default": {
       "path": "components",
-      "withStyle": true,
+      "withStyle": false,
       "withTest": false,
       "withStory": false,
       "withLazy": false

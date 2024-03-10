@@ -1,3 +1,4 @@
+import React, { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
     description: 'Portfolio créé avec Next.js et React'
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = ({ children }: { children: ReactNode }) => {
     return (
         <html lang="en-US">
             <body className={montserrat.className}>

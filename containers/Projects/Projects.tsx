@@ -2,7 +2,7 @@
 
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useGridAnimation } from '@/hooks/UseGridAnimation';
-import { css } from '@/utils/Tailwind/TinyWind';
+import { tw } from '@/utils/Tailwind/TinyWind';
 import ProjectCard from '@/components/ProjectCard';
 import { projectProps as props } from './ProjectsProps';
 
@@ -36,11 +36,11 @@ const Projects = (): ReactNode => {
 export default Projects;
 
 
-const ProjectsStyle = css([
+const ProjectsStyle = tw([
     'bg-off-white'
 ]);
 
-const ProjectsGridStyle = css([
+const ProjectsGridStyle = tw([
     'container',
     'mx-auto',
     'py-16',

@@ -2,7 +2,7 @@
 
 import React, { useState, TouchEvent, useEffect, ReactNode } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { css } from '@/utils/Tailwind/TinyWind';
+import { tw } from '@/utils/Tailwind/TinyWind';
 import { Props } from '@/utils/React/Props';
 import SceneLoader, { SceneLoaderProps } from '@/components/SceneLoader';
 
@@ -50,7 +50,7 @@ const CanvasLoader = ({ children, className = '', props = {} }: Props<SceneLoade
 export default CanvasLoader;
 
 
-const ThreeCanvasStyle = ({ className }: { className?: string }) => css([
+const ThreeCanvasStyle = ({ className }: { className?: string }) => tw([
     className ?? '',
     '!absolute',
     'top-0'

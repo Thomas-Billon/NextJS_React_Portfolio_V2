@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo, ReactNode } from 'react';
 import { loadSlim } from '@tsparticles/slim';
 import { Engine, Container, ISourceOptions } from '@tsparticles/engine';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
-import { css } from '@/utils/Tailwind/TinyWind';
+import { tw } from '@/utils/Tailwind/TinyWind';
 import { Props } from '@/utils/React/Props';
 
 
@@ -36,7 +36,7 @@ const ParticlesLoader = ({ className = '', props = {} }: Props<ParticlesLoaderPr
 export default ParticlesLoader;
 
 
-const ParticlesStyle = ({ className }: { className?: string }) => css([
+const ParticlesStyle = ({ className }: { className?: string }) => tw([
     className ?? '',
     'full',
     'overlap'

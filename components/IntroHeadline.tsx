@@ -1,10 +1,12 @@
+'use client';
+
 import React, { ReactNode } from 'react';
 import { Props } from '@/utils/React/Props';
-import { Roboto } from 'next/font/google';
+import { Raleway, Roboto } from 'next/font/google';
 import DynamicTag from '@/components/DynamicTag';
 
 
-const roboto = Roboto({
+const roboto = Raleway({
     weight: ['700'],
     subsets: ['latin']
 });
@@ -26,7 +28,7 @@ const IntroHeadline = ({ className = '', headlineStyle = '', sublineStyle = '', 
                 : headlineStyle == 'outline' ?
                     'text-transparent text-stroke-md '
                 : '')
-                + roboto.className + ' w-full mb-4 text-[3.5rem] sm:text-[4rem] md:text-[5rem] xl:text-[6rem] leading-[3.5rem] sm:leading-[4rem] md:leading-[5rem] xl:leading-[6rem] font-bold uppercase tracking-wide' }
+                + roboto.className + ' w-full mb-4 text-[3.5rem] sm:text-[4rem] md:text-[5rem] xl:text-[6rem] leading-[3.5rem] sm:leading-[4rem] md:leading-[5rem] xl:leading-[6rem]  uppercase tracking-wide' }
                 tag={dataNoSnippet ? 'div' : 'h1'}
                 dataNoSnippet={dataNoSnippet}>
                     Hi, I&apos;m Thomas
