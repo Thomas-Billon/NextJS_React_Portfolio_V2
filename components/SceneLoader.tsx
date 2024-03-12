@@ -33,8 +33,6 @@ const SceneLoader = ({ children, props = {} }: Props<SceneLoaderProps>): ReactNo
     // Calculate scaling ratio
     const currentBreakpoint = useBreakpoint().toUpperCase();
     const ratio = (currentBreakpoint != '') ? parseFloat(Variables['scaleRatio' + currentBreakpoint]) : 1;
-    console.log(currentBreakpoint);
-    console.log(ratio);
 
     // Calculate offset
     const isMobile: boolean = useMediaQuery({ query: '(orientation: portrait)' });
@@ -54,7 +52,7 @@ const SceneLoader = ({ children, props = {} }: Props<SceneLoaderProps>): ReactNo
     });
 
     return (
-        <SceneContext.Provider value={{ isMobile: isMobile, ratio: ratio }}>
+        <SceneContext.Provider value={{ isMobile, ratio }}>
             <PerspectiveCamera makeDefault position={cameraPos} fov={25} />
             <CameraControls
                 ref={controlRef as RefObject<CameraControls>}

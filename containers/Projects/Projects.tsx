@@ -1,34 +1,25 @@
-'use client'
+// use server
 
-import React, { ReactNode, useEffect, useState } from 'react';
-import { useGridAnimation } from '@/hooks/UseGridAnimation';
+import React, { ReactNode, useState } from 'react';
 import { tw } from '@/utils/Tailwind/TinyWind';
+import ProjectGrid from '@/components/ProjectGrid';
+import ProjectCardContainer from '@/components/ProjectCardContainer';
 import ProjectCard from '@/components/ProjectCard';
 import { projectProps as props } from './ProjectsProps';
 
 
 const Projects = (): ReactNode => {
-    const [activeIndex, setActiveIndex] = useState(-1);
-
-    if (typeof document !== 'undefined') {
-        useGridAnimation(document.querySelector('#projects-grid'));
-    }
-
     return(
         <section id="projects" className={ProjectsStyle}>
-            <ul id="projects-grid" className={ProjectsGridStyle}>
+            <ProjectGrid>
                 {
                     props.map((project, index) =>
-                        <ProjectCard
-                            key={index}
-                            isActive={index == activeIndex}
-                            index={index}
-                            onClickActivable={() => setActiveIndex(activeIndex != index ? index : -1)}
-                            { ...{ props: project }}
-                        />
+                        <ProjectCardContainer key={index} index={index}>
+                            <ProjectCard { ...{ props: project }} />
+                        </ProjectCardContainer>
                     )
                 }
-            </ul>
+            </ProjectGrid>
         </section>
     );
 };
@@ -38,17 +29,4 @@ export default Projects;
 
 const ProjectsStyle = tw([
     'bg-off-white'
-]);
-
-const ProjectsGridStyle = tw([
-    'container',
-    'mx-auto',
-    'py-16',
-    'grid',
-    'grid-cols-1',
-    'md:grid-cols-2',
-    'xl:grid-cols-3',
-    'gap-y-4',
-    'md:gap-4',
-    'md:auto-rows-fr'
 ]);

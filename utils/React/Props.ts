@@ -1,15 +1,20 @@
 import { ReactNode } from 'react'
 
-interface DefaultProps {
+
+export interface DefaultProps {
     className?: string,
     children?: ReactNode
 }
 
+export interface IterableProps {
+    index?: number
+}
+
 export interface ActivableProps extends DefaultProps {
     isActive: boolean,
-    index: number,
     onClickActivable: (value: number) => void
 }
+
 
 export type Props<T extends {}> = T & DefaultProps & {
     props?: T

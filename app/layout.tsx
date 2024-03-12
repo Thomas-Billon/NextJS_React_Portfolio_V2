@@ -1,3 +1,5 @@
+// use server
+
 import React, { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';

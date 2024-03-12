@@ -1,3 +1,5 @@
+// use server
+
 import React, { ElementType, ReactNode, JSX } from 'react';
 import { Props } from '@/utils/React/Props';
 

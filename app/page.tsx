@@ -1,4 +1,4 @@
-'use client';
+// use server
 
 import React, { ReactNode } from 'react';
 import Intro from '@/containers/Intro/Intro';
@@ -7,6 +7,7 @@ import Skills from '@/containers/Skills/Skills';
 import Experience from '@/containers/Experience/Experience';
 import Education from '@/containers/Education/Education';
 import Contact from '@/containers/Contact/Contact';
+
 
 const Home = (): ReactNode => {
     return (

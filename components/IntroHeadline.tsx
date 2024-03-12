@@ -1,9 +1,10 @@
-'use client';
+// use server
 
 import React, { ReactNode } from 'react';
 import { Props } from '@/utils/React/Props';
 import { Raleway, Roboto } from 'next/font/google';
 import DynamicTag from '@/components/DynamicTag';
+import { tw } from '@/utils/Tailwind/TinyWind';
 
 
 const roboto = Raleway({
@@ -12,32 +13,25 @@ const roboto = Raleway({
 });
 
 export interface IntroHeadlineProps {
-    headlineStyle?: string;
+    mainlineStyle?: string;
     sublineStyle?: string;
     dataNoSnippet?: boolean;
 }
 
-const IntroHeadline = ({ className = '', headlineStyle = '', sublineStyle = '', dataNoSnippet = false }: Props<IntroHeadlineProps>): ReactNode => {
+const IntroHeadline = ({ className = '', mainlineStyle = '', sublineStyle = '', dataNoSnippet = false }: Props<IntroHeadlineProps>): ReactNode => {
+    const isShadow: boolean = mainlineStyle == 'shadow';
+    const isFull: boolean = mainlineStyle == 'full';
+    const isOutline: boolean = mainlineStyle == 'outline';
+    const isTransparent: boolean = sublineStyle == 'transparent';
+
     return (
-        <div className={ className + ' container center pointer-events-none select-none landscape:top-1/2 landscape:text-left portrait:top-[30%] portrait:text-center' }>
-            <DynamicTag className={
-                (headlineStyle == 'shadow' ?
-                    'text-white drop-shadow-[0_1px_4px_rgba(255,255,255,1)] '
-                : headlineStyle == 'full' ?
-                    'text-white '
-                : headlineStyle == 'outline' ?
-                    'text-transparent text-stroke-md '
-                : '')
-                + roboto.className + ' w-full mb-4 text-[3.5rem] sm:text-[4rem] md:text-[5rem] xl:text-[6rem] leading-[3.5rem] sm:leading-[4rem] md:leading-[5rem] xl:leading-[6rem]  uppercase tracking-wide' }
+        <div className={IntroHeadlineStyle({ className })}>
+            <DynamicTag className={IntroMainlineStyle({ className: roboto.className, isShadow, isFull, isOutline })}
                 tag={dataNoSnippet ? 'div' : 'h1'}
                 dataNoSnippet={dataNoSnippet}>
                     Hi, I&apos;m Thomas
             </DynamicTag>
-            <div className={
-                (sublineStyle == 'transparent' ?
-                    'opacity-0 '
-                : '')
-                + 'w-full text-white text-base md:text-lg font-normal overflow-hidden pointer-events-none select-none' }
+            <div className={IntroSublineStyle({ isTransparent })}
                 { ...(dataNoSnippet ? { 'data-nosnippet': true } : {})}>
                     A full-stack developer with a passion for challenges and problem solving<br/>
                     I also create video games during my spare time
@@ -47,3 +41,48 @@ const IntroHeadline = ({ className = '', headlineStyle = '', sublineStyle = '', 
 };
 
 export default IntroHeadline;
+
+
+const IntroHeadlineStyle = ({ className }: { className?: string }) => tw([
+    className ?? '',
+    'container',
+    'center',
+    'pointer-events-none',
+    'select-none',
+    'landscape:top-1/2',
+    'landscape:text-left',
+    'portrait:top-[30%]',
+    'portrait:text-center'
+]);
+
+const IntroMainlineStyle = ({ className, isShadow, isFull, isOutline }: { className?: string, isShadow: boolean, isFull: boolean, isOutline: boolean }) => tw([
+    className ?? '',
+    isShadow && 'text-white',
+    isShadow && 'drop-shadow-[0_1px_4px_rgba(255,255,255,1)]',
+    isFull && 'text-white',
+    isOutline && 'text-transparent',
+    isOutline && 'text-stroke-md',
+    'w-full',
+    'mb-4',
+    'text-[3.5rem]',
+    'sm:text-[4rem]',
+    'md:text-[5rem]',
+    'xl:text-[6rem]',
+    'leading-[3.5rem]',
+    'sm:leading-[4rem]',
+    'md:leading-[5rem]',
+    'xl:leading-[6rem]',
+    'uppercase tracking-wide'
+]);
+
+const IntroSublineStyle = ({ isTransparent }: { isTransparent: boolean }) => tw([
+    isTransparent && 'opacity-0',
+    'w-full',
+    'text-white',
+    'text-base',
+    'md:text-lg',
+    'font-normal',
+    'overflow-hidden',
+    'pointer-events-none',
+    'select-none'
+]);
