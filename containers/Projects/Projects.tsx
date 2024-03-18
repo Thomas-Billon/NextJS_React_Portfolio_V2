@@ -28,5 +28,6 @@ export default Projects;
 
 
 const ProjectsStyle = tw([
+    'ProjectsStyle',
     'bg-off-white'
 ]);

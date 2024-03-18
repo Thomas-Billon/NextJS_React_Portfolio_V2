@@ -1,6 +1,6 @@
 // use server
 
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Intro from '@/containers/Intro/Intro';
 import Projects from '@/containers/Projects/Projects';
 import Skills from '@/containers/Skills/Skills';
@@ -9,7 +9,7 @@ import Education from '@/containers/Education/Education';
 import Contact from '@/containers/Contact/Contact';
 
 
-const Home = (): ReactNode => {
+const Home = (): React.ReactNode => {
     return (
         <main>
             <Intro/>

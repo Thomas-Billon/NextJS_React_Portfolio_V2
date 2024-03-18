@@ -7,6 +7,9 @@ $purple: theme('colors.purple.500');
 $blue-dark: theme('colors.blue-dark.500');
 $blue-light: theme('colors.blue-light.500');
 
+
+$gray-800: theme('colors.gray.800');
+
 $scale-ratio-2xl: 4;
 $scale-ratio-xl: 3.5;
 $scale-ratio-lg: 3;
@@ -23,6 +26,8 @@ $scale-ratio-xs: 1.75;
     purple: $purple;
     blueDark: $blue-dark;
     blueLight: $blue-light;
+
+    gray800: $gray-800;
 
     scaleRatio2XL: $scale-ratio-2xl;
     scaleRatioXL: $scale-ratio-xl;

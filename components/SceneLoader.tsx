@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, createContext, ReactNode, RefObject } from 'react';
+import React, { useState, useRef, createContext, RefObject } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera, CameraControls, Preload } from '@react-three/drei';
@@ -23,7 +23,7 @@ export interface SceneLoaderProps {
 
 export const SceneContext = createContext({ isMobile: false, ratio: 1 });
 
-const SceneLoader = ({ children, props = {} }: Props<SceneLoaderProps>): ReactNode => {
+const SceneLoader = ({ children, props = {} }: Props<SceneLoaderProps>): React.ReactNode => {
     // Store refs
     const groupRef = useRef<Group>();
     const controlRef = useRef<CameraControls>();

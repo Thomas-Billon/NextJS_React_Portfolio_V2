@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode, createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { tw } from '@/utils/Tailwind/TinyWind';
 import { DefaultProps } from '@/utils/React/Props';
 import { useGridAnimation } from '@/hooks/UseGridAnimation';
@@ -8,18 +8,27 @@ import { useGridAnimation } from '@/hooks/UseGridAnimation';
 
 export const GridContext = createContext({
     activeIndex: -1,
-    setActiveIndex: (_: number): void => {}
+    openCard: (_: number): void => {},
+    closeCard: (): void => {}
 });
 
-const ProjectGrid = ({ children }: DefaultProps): ReactNode => {
+const ProjectGrid = ({ children }: DefaultProps): React.ReactNode => {
     const [activeIndex, setActiveIndex] = useState(-1);
 
     if (typeof document !== 'undefined') {
         useGridAnimation(document.querySelector('#projects-grid'));
     }
+
+    const openCard = (index: number): void => {
+        setActiveIndex(index);
+    }
+    
+    const closeCard = (): void => {
+        setActiveIndex(-1);
+    }
     
     return(
-        <GridContext.Provider value={{ activeIndex, setActiveIndex }}>
+        <GridContext.Provider value={{ activeIndex, openCard, closeCard }}>
             <ul id="projects-grid" className={ProjectsGridStyle}>
                 {children}
             </ul>
@@ -31,6 +40,7 @@ export default ProjectGrid;
 
 
 const ProjectsGridStyle = tw([
+    'ProjectsGridStyle',
     'container',
     'mx-auto',
     'py-16',

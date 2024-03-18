@@ -37,6 +37,7 @@ export default ParticlesLoader;
 
 
 const ParticlesStyle = ({ className }: { className?: string }) => tw([
+    'ParticlesStyle',
     className ?? '',
     'full',
     'overlap'

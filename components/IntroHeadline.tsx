@@ -44,6 +44,7 @@ export default IntroHeadline;
 
 
 const IntroHeadlineStyle = ({ className }: { className?: string }) => tw([
+    'IntroHeadlineStyle',
     className ?? '',
     'container',
     'center',
@@ -56,12 +57,8 @@ const IntroHeadlineStyle = ({ className }: { className?: string }) => tw([
 ]);
 
 const IntroMainlineStyle = ({ className, isShadow, isFull, isOutline }: { className?: string, isShadow: boolean, isFull: boolean, isOutline: boolean }) => tw([
+    'IntroMainlineStyle',
     className ?? '',
-    isShadow && 'text-white',
-    isShadow && 'drop-shadow-[0_1px_4px_rgba(255,255,255,1)]',
-    isFull && 'text-white',
-    isOutline && 'text-transparent',
-    isOutline && 'text-stroke-md',
     'w-full',
     'mb-4',
     'text-[3.5rem]',
@@ -72,11 +69,16 @@ const IntroMainlineStyle = ({ className, isShadow, isFull, isOutline }: { classN
     'sm:leading-[4rem]',
     'md:leading-[5rem]',
     'xl:leading-[6rem]',
-    'uppercase tracking-wide'
+    'uppercase tracking-wide',
+    isShadow && 'text-white',
+    isShadow && 'drop-shadow-[0_1px_4px_rgba(255,255,255,1)]',
+    isFull && 'text-white',
+    isOutline && 'text-transparent',
+    isOutline && 'text-stroke-md'
 ]);
 
 const IntroSublineStyle = ({ isTransparent }: { isTransparent: boolean }) => tw([
-    isTransparent && 'opacity-0',
+    'IntroSublineStyle',
     'w-full',
     'text-white',
     'text-base',
@@ -84,5 +86,6 @@ const IntroSublineStyle = ({ isTransparent }: { isTransparent: boolean }) => tw(
     'font-normal',
     'overflow-hidden',
     'pointer-events-none',
-    'select-none'
+    'select-none',
+    isTransparent && 'opacity-0'
 ]);

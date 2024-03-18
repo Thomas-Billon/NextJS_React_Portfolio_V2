@@ -1,8 +1,9 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import React, { useContext, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { TooltipContext } from '@/components/TooltipContainer';
 import { tw } from '@/utils/Tailwind/TinyWind';
 import { Props } from '@/utils/React/Props';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,18 +17,29 @@ export interface ProjectCardButtonProps {
     isMinigame?: boolean
 }
 
-const ProjectCardButton = ({ props = {} }: Props<ProjectCardButtonProps>): ReactNode => {
+const ProjectCardButton = ({ props = {} }: Props<ProjectCardButtonProps>): React.ReactNode => {
+    const [isMinigameOver, setIsMinigameOver] = useState(false);
+    const tooltipContext = useContext(TooltipContext);
+
     const isLinkExternalUrl: boolean = props.href?.indexOf('https') != -1;
     const isLinkGithub: boolean = props.href?.indexOf('https://github.com/') != -1;
     const isLinkImage: boolean = props.src && props.alt ? true : false;
 
+    const click = (event: React.MouseEvent<HTMLElement>): void => {
+        event.stopPropagation();
+    };
+
+    const isLinkDisplayed = (props.isMinigame && isMinigameOver) || !props.isMinigame;
+
     return (
-        <Link className={ProjectCardLinkItemStyle({ isLinkImage, isLinkGithub })}
-            href={props.href ?? ''}
+        <Link className={ProjectCardButtonStyle({ isLinkImage, isLinkGithub })}
+            href={ isLinkDisplayed ? props.href ?? '' : '' } scroll={isLinkDisplayed}
             passHref={isLinkExternalUrl}
             { ...(isLinkExternalUrl ? { 'target': '_blank' } : {})}
             { ...(isLinkGithub ? { 'title': 'See source code' } : {})}
-            onClick={ (event) => { event.stopPropagation(); }}
+            onClick={click}
+            ref={tooltipContext?.data.refs.setReference}
+            {...tooltipContext?.getReferenceProps()}
         > {
             isLinkImage ?
                 <Image src={props.src ?? ''} alt={props.alt ?? ''} width={120} height={40} />
@@ -43,12 +55,14 @@ const ProjectCardButton = ({ props = {} }: Props<ProjectCardButtonProps>): React
 export default ProjectCardButton;
 
 
-const ProjectCardLinkItemStyle = ({ isLinkImage, isLinkGithub }: { isLinkImage: boolean, isLinkGithub: boolean }) => tw([
+const ProjectCardButtonStyle = ({ isLinkImage, isLinkGithub }: { isLinkImage: boolean, isLinkGithub: boolean }) => tw([
+    'ProjectCardButtonStyle',
     'inline-block',
     'spaced',
     isLinkGithub && 'p-2',
     !isLinkImage && 'bg-orange-light-400',
     !isLinkImage && 'hover:bg-orange-light-500',
+    !isLinkImage && 'transition-colors',
     !isLinkImage && 'text-white',
     !isLinkImage && 'text-sm',
     !isLinkImage && 'rounded',

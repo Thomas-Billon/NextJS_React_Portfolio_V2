@@ -1,8 +1,11 @@
 // use server
 
-import React, { ReactNode, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import ProjectCardButton, { ProjectCardButtonProps } from '@/components/ProjectCardButton';
+import ProjectCardClose from '@/components/ProjectCardClose';
+import TooltipContainer from '@/components/TooltipContainer';
+import TooltipBubble from '@/components/TooltipBubble';
 import { SkillEnum } from '@/utils/SkillEnum';
 import { tw } from '@/utils/Tailwind/TinyWind';
 import { Props } from '@/utils/React/Props';
@@ -22,7 +25,7 @@ export interface ProjectCardImageProps {
     alt: string
 }
 
-const ProjectCard = ({ props = {} }: Props<ProjectCardProps>): ReactNode => {
+const ProjectCard = ({ props = {} }: Props<ProjectCardProps>): React.ReactNode => {
     return (
         <div className={ProjectCardStyle}>
             <div className={ProjectCardFullWidthStyle}>
@@ -53,9 +56,26 @@ const ProjectCard = ({ props = {} }: Props<ProjectCardProps>): ReactNode => {
                                 </div>
                                 <div className={ProjectCardLinkListStyle}> {
                                     props.links?.map((link, index) =>
-                                        <ProjectCardButton key={index} { ...{ props: link }}></ProjectCardButton>
+                                        {
+                                            if (link.isMinigame) {
+                                                return (
+                                                    <TooltipContainer key={index}>
+                                                        <ProjectCardButton { ...{ props: link }}></ProjectCardButton>
+                                                        <TooltipBubble>
+                                                            Tooltip
+                                                        </TooltipBubble>
+                                                    </TooltipContainer>
+                                                );
+                                            }
+                                            else {
+                                                return (
+                                                    <ProjectCardButton key={index} { ...{ props: link }}></ProjectCardButton>
+                                                );
+                                            }
+                                        }
                                     )}
                                 </div>
+                                <ProjectCardClose />
                             </div>
                         </div>
                     </div>
@@ -69,6 +89,7 @@ export default ProjectCard;
 
 
 const ProjectCardStyle = tw([
+    'ProjectCardStyle',
     'w-full',
     'h-full',
     'bg-white',
@@ -79,16 +100,19 @@ const ProjectCardStyle = tw([
 ]);
 
 const ProjectCardFullWidthStyle = tw([
+    'ProjectCardFullWidthStyle',
     'w-screen',
     'row'
 ]);
 
 const ProjectCardFullWidthContainerStyle = tw([
+    'ProjectCardFullWidthContainerStyle',
     '!mx-0',
     'container'
 ]);
 
 const ProjectCardGridStyle = tw([
+    'ProjectCardGridStyle',
     'grid',
     'grid-cols-1',
     'md:grid-cols-2',
@@ -98,6 +122,7 @@ const ProjectCardGridStyle = tw([
 ]);
 
 const ProjectCardSubGridStyle = tw([
+    'ProjectCardSubGridStyle',
     'h-full',
     'grid',
     'grid-cols-1',
@@ -109,6 +134,7 @@ const ProjectCardSubGridStyle = tw([
 ]);
 
 const ProjectCardImageListStyle = tw([
+    'ProjectCardImageListStyle',
     'h-full',
     'grid',
     'grid-cols-1',
@@ -118,6 +144,7 @@ const ProjectCardImageListStyle = tw([
 ]);
 
 const ProjectCardImageItemStyle = ({ isFirstItem }: { isFirstItem: boolean }) => tw([
+    'ProjectCardImageItemStyle',
     isFirstItem && 'col-span-2',
     isFirstItem && 'row-span-1',
     isFirstItem && 'aspect-video',
@@ -128,10 +155,13 @@ const ProjectCardImageItemStyle = ({ isFirstItem }: { isFirstItem: boolean }) =>
 ]);
 
 const ProjectCardImageStyle = tw([
+    'ProjectCardImageStyle',
     'full'
 ]);
 
 const ProjectCardTextStyle = tw ([
+    'ProjectCardTextStyle',
+    'relative',
     'flex',
     'flex-col',
     'justify-center',
@@ -143,35 +173,43 @@ const ProjectCardTextStyle = tw ([
 ]);
 
 const ProjectCardTitleYearStyle = tw([
+    'ProjectCardTitleYearStyle',
     'mb-4',
     'text-center',
     'md:text-left'
 ]);
 
 const ProjectCardTitleStyle = tw([
+    'ProjectCardTitleStyle',
     'inline-block',
     'text-xl',
     'font-medium'
 ]);
 
 const ProjectCardYearStyle = tw([
+    'ProjectCardYearStyle',
     'text-gray-400'
 ]);
 
 const ProjectCardDescriptionListStyle = tw([
+    'ProjectCardDescriptionListStyle',
     'mb-4'
 ]);
 
 const ProjectCardDescriptionItemStyle = tw([
+    'ProjectCardDescriptionItemStyle',
+    'text-base',
     'text-justify',
     '[&:not(:last-child)]:mb-2'
 ]);
 
 const ProjectCardTagListStyle = tw([
+    'ProjectCardTagListStyle',
     'mb-8'
 ]);
 
 const ProjectCardTagItemStyle = tw([
+    'ProjectCardTagItemStyle',
     'px-2',
     'py-0.5',
     'bg-orange-light-100',
@@ -184,5 +222,6 @@ const ProjectCardTagItemStyle = tw([
 ]);
 
 const ProjectCardLinkListStyle = tw([
+    'ProjectCardLinkListStyle',
     'text-center'
 ]);

@@ -1,3 +1,6 @@
 export const tw = (args: (string | boolean)[]): string => {
-    return args.join(' ');
+    const filteredArgs = args.filter((arg) => {
+        return typeof arg === "string";
+    });
+    return filteredArgs.join(' ');
 }

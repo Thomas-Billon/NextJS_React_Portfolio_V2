@@ -35,6 +35,7 @@ export default Intro;
 
 
 const IntroStyle = tw([
+    'IntroStyle',
     'page',
     'overflow-hidden',
     'bg-[url("/static/images/intro/background_intro.jpg")]',
@@ -45,6 +46,7 @@ const IntroStyle = tw([
 ]);
 
 const ExplosionCenterStyle = tw([
+    'ExplosionCenterStyle',
     'absolute',
     'bottom-0',
     '-translate-x-1/2',
@@ -59,6 +61,7 @@ const ExplosionCenterStyle = tw([
 ]);
 
 const ExplosionCornerStyle = tw([
+    'ExplosionCornerStyle',
     'absolute',
     'top-0',
     'left-0',

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, TouchEvent, useEffect, ReactNode } from 'react';
+import React, { useState, TouchEvent, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { tw } from '@/utils/Tailwind/TinyWind';
 import { Props } from '@/utils/React/Props';
@@ -9,7 +9,7 @@ import SceneLoader, { SceneLoaderProps } from '@/components/SceneLoader';
 
 export interface CanvasLoaderProps extends SceneLoaderProps {}
 
-const CanvasLoader = ({ children, className = '', props = {} }: Props<SceneLoaderProps>): ReactNode => {
+const CanvasLoader = ({ children, className = '', props = {} }: Props<SceneLoaderProps>): React.ReactNode => {
     const [scrollPosition, setScrollPosition] = useState(0);
     const [touchPosition, setTouchPosition] = useState(0);
 
@@ -51,6 +51,7 @@ export default CanvasLoader;
 
 
 const ThreeCanvasStyle = ({ className }: { className?: string }) => tw([
+    'ThreeCanvasStyle',
     className ?? '',
     '!absolute',
     'top-0'

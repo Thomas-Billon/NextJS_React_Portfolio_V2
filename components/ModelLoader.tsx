@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useContext, ReactNode, RefObject } from 'react';
+import React, { useState, useRef, useContext, RefObject } from 'react';
 import { useFrame, useLoader, useThree } from '@react-three/fiber';
 import { useGLTF, Center, useFBO } from '@react-three/drei';
 import { Mesh, Vector3, Euler, MeshBasicMaterial, TextureLoader } from 'three';
@@ -18,7 +18,7 @@ export interface ModelLoaderProps {
     targetRotation?: [x: number, y: number, z:number];
 }
 
-const ModelLoader = ({ props = {} }: Props<ModelLoaderProps>): ReactNode => {
+const ModelLoader = ({ props = {} }: Props<ModelLoaderProps>): React.ReactNode => {
     // Grab context
     const sceneContext = useContext(SceneContext);
 
