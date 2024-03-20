@@ -107,6 +107,9 @@ module.exports = {
             },
             screens: {
                 'sm': '520px'
+            },
+            zIndex: {
+                '100': '100',
             }
         },
         container: {

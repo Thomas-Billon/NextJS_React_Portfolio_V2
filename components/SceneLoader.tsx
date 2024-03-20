@@ -8,6 +8,7 @@ import { Group, Vector3 } from 'three';
 import { useBreakpoint } from '@/hooks/UseBreakpoint';
 import { MouseButtonAction } from '@/utils/Three/MouseButtonAction';
 import { Props } from '@/utils/React/Props';
+import { BreakpointTypeEnum } from '@/utils/BreakpointEnum';
 
 import Variables from '@/styles/scss/variables.module.scss';
 
@@ -31,8 +32,8 @@ const SceneLoader = ({ children, props = {} }: Props<SceneLoaderProps>): React.R
     const { viewport } = useThree();
 
     // Calculate scaling ratio
-    const currentBreakpoint = useBreakpoint().toUpperCase();
-    const ratio = (currentBreakpoint != '') ? parseFloat(Variables['scaleRatio' + currentBreakpoint]) : 1;
+    const { currentBreakpoint } = useBreakpoint();
+    const ratio = (currentBreakpoint != BreakpointTypeEnum.Undefined) ? parseFloat(Variables['scaleRatio' + currentBreakpoint.toUpperCase()]) : 1;
 
     // Calculate offset
     const isMobile: boolean = useMediaQuery({ query: '(orientation: portrait)' });
