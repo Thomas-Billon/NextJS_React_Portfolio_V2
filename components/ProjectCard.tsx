@@ -4,8 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import ProjectCardButton, { ProjectCardButtonProps } from '@/components/ProjectCardButton';
 import ProjectCardClose from '@/components/ProjectCardClose';
-import TooltipContainer from '@/components/TooltipContainer';
-import TooltipBubble from '@/components/TooltipBubble';
+import ProjectCardMinigame from '@/components/ProjectCardMinigame';
 import { SkillEnum } from '@/utils/SkillEnum';
 import { tw } from '@/utils/Tailwind/TinyWind';
 import { Props } from '@/utils/React/Props';
@@ -57,21 +56,12 @@ const ProjectCard = ({ props = {} }: Props<ProjectCardProps>): React.ReactNode =
                                 <div className={ProjectCardLinkListStyle}> {
                                     props.links?.map((link, index) =>
                                         {
-                                            if (link.isMinigame) {
-                                                return (
-                                                    <TooltipContainer key={index}>
-                                                        <ProjectCardButton { ...{ props: link }}></ProjectCardButton>
-                                                        <TooltipBubble>
-                                                            Tooltip
-                                                        </TooltipBubble>
-                                                    </TooltipContainer>
-                                                );
-                                            }
-                                            else {
-                                                return (
-                                                    <ProjectCardButton key={index} { ...{ props: link }}></ProjectCardButton>
-                                                );
-                                            }
+                                            return(
+                                                link.isMinigame ?
+                                                    <ProjectCardMinigame key={index} { ...{ props: link }} />
+                                                :
+                                                    <ProjectCardButton key={index} { ...{ props: link }} />
+                                            );
                                         }
                                     )}
                                 </div>

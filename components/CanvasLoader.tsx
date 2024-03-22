@@ -10,8 +10,8 @@ import SceneLoader, { SceneLoaderProps } from '@/components/SceneLoader';
 export interface CanvasLoaderProps extends SceneLoaderProps {}
 
 const CanvasLoader = ({ children, className = '', props = {} }: Props<SceneLoaderProps>): React.ReactNode => {
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const [touchPosition, setTouchPosition] = useState(0);
+    const [scrollPosition, setScrollPosition] = useState<number>(0);
+    const [touchPosition, setTouchPosition] = useState<number>(0);
 
     // Custom scroll for mobile as canvas stops event propagation
     useEffect(() => {

@@ -1,6 +1,6 @@
 // use server
 
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { tw } from '@/utils/Tailwind/TinyWind';
 import ProjectGrid from '@/components/ProjectGrid';
 import ProjectCardContainer from '@/components/ProjectCardContainer';

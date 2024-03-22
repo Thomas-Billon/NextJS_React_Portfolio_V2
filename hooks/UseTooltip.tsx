@@ -7,7 +7,7 @@ export const TOOLTIP_ARROW_RADIUS = 0;
 export const TOOLTIP_GAP = 2;
 
 export function useTooltip() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const arrowRef = useRef(null);
 

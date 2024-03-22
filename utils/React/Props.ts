@@ -10,9 +10,8 @@ export interface IterableProps {
     index?: number
 }
 
-export interface ActivableProps extends DefaultProps {
-    isActive: boolean,
-    onClickActivable: (value: number) => void
+export interface ClickableProps extends DefaultProps {
+    onClick?: () => void
 }
 
 

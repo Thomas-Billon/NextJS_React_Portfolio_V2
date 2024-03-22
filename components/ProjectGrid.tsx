@@ -13,7 +13,7 @@ export const GridContext = createContext({
 });
 
 const ProjectGrid = ({ children }: DefaultProps): React.ReactNode => {
-    const [activeIndex, setActiveIndex] = useState(-1);
+    const [activeIndex, setActiveIndex] = useState<number>(-1);
 
     if (typeof document !== 'undefined') {
         useGridAnimation(document.querySelector('#projects-grid'));

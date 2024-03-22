@@ -26,15 +26,19 @@ const IntroHeadline = ({ className = '', mainlineStyle = '', sublineStyle = '', 
 
     return (
         <div className={IntroHeadlineStyle({ className })}>
-            <DynamicTag className={IntroMainlineStyle({ className: roboto.className, isShadow, isFull, isOutline })}
+            <DynamicTag
+                className={IntroMainlineStyle({ className: roboto.className, isShadow, isFull, isOutline })}
                 tag={dataNoSnippet ? 'div' : 'h1'}
-                dataNoSnippet={dataNoSnippet}>
-                    Hi, I&apos;m Thomas
+                dataNoSnippet={dataNoSnippet}
+            >
+                Hi, I&apos;m Thomas
             </DynamicTag>
-            <div className={IntroSublineStyle({ isTransparent })}
-                { ...(dataNoSnippet ? { 'data-nosnippet': true } : {})}>
-                    A full-stack developer with a passion for challenges and problem solving<br/>
-                    I also create video games during my spare time
+            <div
+                className={IntroSublineStyle({ isTransparent })}
+                { ...(dataNoSnippet ? { 'data-nosnippet': true } : {})}
+            >
+                A full-stack developer with a passion for challenges and problem solving<br/>
+                I also create video games during my spare time
             </div>
         </div>
     );
