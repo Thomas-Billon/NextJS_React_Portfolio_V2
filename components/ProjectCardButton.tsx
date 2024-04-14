@@ -14,6 +14,8 @@ export interface ProjectCardButtonProps {
     href?: string,
     src?: string,
     alt?: string,
+    width?: number,
+    height?: number,
     isMinigame?: boolean
 }
 
@@ -49,7 +51,7 @@ const ProjectCardButton = ({ props = {}, onClick = () => {} }: Props<ProjectCard
                 {...tooltipContext?.getReferenceProps()}
             > {
                 isLinkImage ?
-                    <Image src={props.src ?? ''} alt={props.alt ?? ''} width={120} height={40} />
+                    <Image className={ProjectCardButtonImageStyle} src={props.src ?? ''} alt={props.alt ?? ''} width={props.width ?? 120} height={props.height ?? 40} />
                 : isLinkGithub ?
                     <FontAwesomeIcon icon={fab.faGithub} size='lg' className='aspect-square'/>
                 :
@@ -65,6 +67,7 @@ export default ProjectCardButton;
 
 const ProjectCardButtonContainerStyle = tw([
     'ProjectCardButtonContainerStyle',
+    'inline-flex',
     'spaced'
 ]);
 
@@ -74,6 +77,7 @@ const ProjectCardButtonStyle = ({ isLinkImage, isLinkGithub }: { isLinkImage: bo
     isLinkGithub && 'p-2',
     !isLinkImage && 'bg-orange-light-400',
     !isLinkImage && 'hover:bg-orange-light-500',
+    !isLinkImage && 'focus:bg-orange-light-500',
     !isLinkImage && 'transition-colors',
     !isLinkImage && 'text-white',
     !isLinkImage && 'text-sm',
@@ -81,4 +85,10 @@ const ProjectCardButtonStyle = ({ isLinkImage, isLinkGithub }: { isLinkImage: bo
     !isLinkImage && !isLinkGithub && 'px-4',
     !isLinkImage && !isLinkGithub && 'py-2',
     !isLinkImage && !isLinkGithub && 'font-medium'
+]);
+
+const ProjectCardButtonImageStyle = tw([
+    'ProjectCardButtonImageStyle',
+    'w-auto',
+    'h-10'
 ]);

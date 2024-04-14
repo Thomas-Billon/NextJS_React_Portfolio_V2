@@ -13,7 +13,7 @@ const Projects = (): ReactNode => {
         <section id="projects" className={ProjectsStyle}>
             <ProjectGrid>
                 {
-                    props.map((project, index) =>
+                    props.cardProps.map((project, index) =>
                         <ProjectCardContainer key={index} index={index}>
                             <ProjectCard { ...{ props: project }} />
                         </ProjectCardContainer>

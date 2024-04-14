@@ -28,8 +28,8 @@ export default ProjectCardClose;
 const ProjectCardCloseStyle = tw([
     'ProjectCardCloseStyle',
     'absolute',
-    'top-2.5',
-    'right-2.5',
+    'top-0',
+    'right-0',
     'cursor-pointer',
     'text-gray-500',
     'hover:text-orange-light-500',

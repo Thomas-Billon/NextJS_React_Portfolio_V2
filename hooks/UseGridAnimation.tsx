@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useWindowSize } from '@/hooks/UseWindowSize';
 import { isAnimationRunning, startPropertyAnimation, stopPropertyAnimation } from '@/utils/PropertyAnimation';
 
+
 interface RectPosition {
     top: number,
     left: number
@@ -14,7 +15,12 @@ interface RectSize {
 
 interface Cell extends RectPosition, RectSize {}
 
-export const useGridAnimation = (grid: HTMLElement | null, duration: number = 250): void => {
+interface UseGridAnimationProps {
+    grid: HTMLElement | null,
+    duration?: number
+}
+
+export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps): void => {
     const observerRef = useRef<MutationObserver>();
     const gridSize = useRef<RectSize>({ width: 0, height: 0 });
     const cellPositions = useRef<Cell[]>([]);

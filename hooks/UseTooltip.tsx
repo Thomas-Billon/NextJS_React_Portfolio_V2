@@ -1,20 +1,81 @@
 import { useMemo, useRef, useState } from 'react';
 import { useFloating, useClick, useInteractions, arrow, offset, useTransitionStatus, autoUpdate } from '@floating-ui/react';
 
+
+export const TOOLTIP_MS_PER_CHARACTER = 80;
+export const TOOLTIP_MINIMUM_TIMEOUT = 3000;
 export const TOOLTIP_ARROW_WIDTH = 16;
 export const TOOLTIP_ARROW_HEIGHT = 8;
 export const TOOLTIP_ARROW_RADIUS = 0;
 export const TOOLTIP_GAP = 2;
 
-export function useTooltip() {
+interface UseTooltipProps {
+    isToggle?: boolean
+}
+
+export function useTooltip({ isToggle = false }: UseTooltipProps) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
 
     const arrowRef = useRef(null);
+
+    const changeCallback = (value: boolean) => {
+        // If tooltip needs to be manually open, we only handle closing
+        if (!isToggle) {
+            if (!value) {
+                closeTooltip();
+            }
+        }
+        else {
+            setTooltip(value);
+        }
+    };
+
+    const toggleTooltip = () => setTooltip(!isOpen);
+
+    const setTooltip = (value: boolean) => {
+        if (value) {
+            openTooltip();
+        }
+        else {
+            closeTooltip();
+        }
+    };
+
+    const openTooltip = () => {
+        setIsOpen(true);
+
+        if (!isToggle) {
+            // Automatically close after N ms based on tooltip text length
+            setTimeout(() => {
+                const textLength = data.refs.floating.current?.innerText.length ?? 100;
+
+                let timeoutValue = textLength * TOOLTIP_MS_PER_CHARACTER;
+                if (timeoutValue < TOOLTIP_MINIMUM_TIMEOUT) {
+                    timeoutValue = TOOLTIP_MINIMUM_TIMEOUT;
+                }
+
+                const newTimeoutId = setTimeout(() => {
+                    setIsOpen(false);
+                    
+                    const button = data.refs.reference.current as HTMLElement;
+                    button.blur();
+                }, timeoutValue);
+
+                clearTimeout(timeoutId);
+                setTimeoutId(newTimeoutId);
+            }, 0);
+        }
+    }
+
+    const closeTooltip = () => {
+        setIsOpen(false);
+    }
 
     const data = useFloating({
         whileElementsMounted: autoUpdate,
         open: isOpen,
-        onOpenChange: setIsOpen,
+        onOpenChange: changeCallback,
         placement: 'bottom',
         middleware: [
             arrow({ element: arrowRef }),
@@ -23,7 +84,7 @@ export function useTooltip() {
     });
 
     const {getReferenceProps, getFloatingProps} = useInteractions([
-        useClick(data.context, {toggle: true})
+        useClick(data.context, {toggle: isToggle})
     ]);
     
     const {isMounted, status} = useTransitionStatus(data.context);
@@ -31,6 +92,9 @@ export function useTooltip() {
     return useMemo(
       () => ({
         isMounted,
+        toggleTooltip,
+        openTooltip,
+        closeTooltip,
         getReferenceProps,
         getFloatingProps,
         data: {
@@ -39,6 +103,6 @@ export function useTooltip() {
             arrow: arrowRef
         }
       }),
-      [isMounted, getReferenceProps, getFloatingProps, data]
+      [isMounted, toggleTooltip, openTooltip, closeTooltip, getReferenceProps, getFloatingProps, data]
     );
 }

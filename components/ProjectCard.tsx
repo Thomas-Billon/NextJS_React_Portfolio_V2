@@ -5,6 +5,7 @@ import Image from 'next/image';
 import ProjectCardButton, { ProjectCardButtonProps } from '@/components/ProjectCardButton';
 import ProjectCardClose from '@/components/ProjectCardClose';
 import ProjectCardMinigame from '@/components/ProjectCardMinigame';
+import TooltipContainer from '@/components/TooltipContainer';
 import { SkillEnum } from '@/utils/SkillEnum';
 import { tw } from '@/utils/Tailwind/TinyWind';
 import { Props } from '@/utils/React/Props';
@@ -58,14 +59,18 @@ const ProjectCard = ({ props = {} }: Props<ProjectCardProps>): React.ReactNode =
                                         {
                                             return(
                                                 link.isMinigame ?
-                                                    <ProjectCardMinigame key={index} { ...{ props: link }} />
+                                                    <TooltipContainer key={index}>
+                                                        <ProjectCardMinigame { ...{ props: link }} />
+                                                    </TooltipContainer>
                                                 :
                                                     <ProjectCardButton key={index} { ...{ props: link }} />
                                             );
                                         }
                                     )}
                                 </div>
-                                <ProjectCardClose />
+                                <div className={ProjectCardCloseContainerStyle}>
+                                    <ProjectCardClose />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -151,9 +156,9 @@ const ProjectCardImageStyle = tw([
 
 const ProjectCardTextStyle = tw ([
     'ProjectCardTextStyle',
-    'relative',
     'flex',
     'flex-col',
+    'flex-wrap',
     'justify-center',
     'px-4',
     'md:pl-0',
@@ -178,6 +183,7 @@ const ProjectCardTitleStyle = tw([
 
 const ProjectCardYearStyle = tw([
     'ProjectCardYearStyle',
+    'text-base',
     'text-gray-400'
 ]);
 
@@ -188,7 +194,7 @@ const ProjectCardDescriptionListStyle = tw([
 
 const ProjectCardDescriptionItemStyle = tw([
     'ProjectCardDescriptionItemStyle',
-    'text-base',
+    'text-sm',
     'text-justify',
     '[&:not(:last-child)]:mb-2'
 ]);
@@ -214,4 +220,10 @@ const ProjectCardTagItemStyle = tw([
 const ProjectCardLinkListStyle = tw([
     'ProjectCardLinkListStyle',
     'text-center'
+]);
+
+const ProjectCardCloseContainerStyle = tw([
+    'ProjectCardCloseContainerStyle',
+    'relative',
+    'basis-full'
 ]);

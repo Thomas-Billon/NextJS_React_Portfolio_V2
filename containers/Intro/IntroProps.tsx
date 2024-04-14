@@ -71,4 +71,4 @@ export const introProps: IntroProps = {
     canvasProps: canvasProps,
     modelProps: modelProps,
     particlesProps: particlesProps
-}
+};

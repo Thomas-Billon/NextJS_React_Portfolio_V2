@@ -11,7 +11,7 @@ import { tw } from '@/utils/Tailwind/TinyWind';
 import Variables from '@/styles/scss/variables.module.scss';
 
 
-const TooltipBubble = ({ children }: DefaultProps): React.ReactNode => {
+const TooltipBubble = ({ content }: { content: string }): React.ReactNode => {
     const tooltipContext = useTooltipContext();
 
     const isSmDown = isBreakpointSmDown();
@@ -31,7 +31,7 @@ const TooltipBubble = ({ children }: DefaultProps): React.ReactNode => {
                         className={TooltipBubbleStyle({ isClosed })}
                         style={{backgroundColor: Variables.gray800}}
                     >
-                        {children}
+                        <span dangerouslySetInnerHTML={{__html: content}}></span>
                         <FloatingArrow
                             className={TooltipBubbleArrowStyle}
                             ref={tooltipContext.data.arrow}

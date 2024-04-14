@@ -16,7 +16,7 @@ const ProjectGrid = ({ children }: DefaultProps): React.ReactNode => {
     const [activeIndex, setActiveIndex] = useState<number>(-1);
 
     if (typeof document !== 'undefined') {
-        useGridAnimation(document.querySelector('#projects-grid'));
+        useGridAnimation({ grid: document.querySelector('#projects-grid') });
     }
 
     const openCard = (index: number): void => {

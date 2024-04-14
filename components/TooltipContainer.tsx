@@ -17,7 +17,7 @@ export const useTooltipContext = (): ReturnType<typeof useTooltip> => {
 }
 
 const TooltipContainer = ({ children }: DefaultProps): React.ReactNode => {
-    const tooltip = useTooltip();
+    const tooltip = useTooltip({ isToggle: false });
 
     return(
         <TooltipContext.Provider value={tooltip}>

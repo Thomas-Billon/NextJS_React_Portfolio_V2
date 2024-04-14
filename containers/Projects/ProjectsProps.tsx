@@ -2,7 +2,12 @@ import { ProjectCardProps } from '@/components/ProjectCard';
 import { SkillEnum } from '@/utils/SkillEnum';
 
 
-export const projectProps: ProjectCardProps[] = [
+export interface ProjectProps {
+    cardProps: ProjectCardProps[];
+    minigameProps: string[];
+};
+
+const cardProps: ProjectCardProps[] = [
     {
         title: 'Porfolio v2',
         description: [
@@ -27,8 +32,7 @@ export const projectProps: ProjectCardProps[] = [
         title: 'Spicy Party',
         description: [
             'This is my first venture into the world of game development',
-            'Spicy Party is a mobile multiplayer card game based on the concept of Cards Against Humanity',
-            'It is currently available for free on the App store and the Play store'
+            'Spicy Party is a mobile multiplayer card game based on the concept of Cards Against Humanity'
         ],
         images: [
             { src: '/static/images/projects/spicy_party_1.jpg', alt: 'Spicy Party Logo' },
@@ -38,8 +42,20 @@ export const projectProps: ProjectCardProps[] = [
             { src: '/static/images/projects/spicy_party_5.jpg', alt: 'Gameplay Showcase 4' }
         ],
         links: [
-            { href: 'https://apps.apple.com/us/app/spicy-party/id1627063798', src: '/img2.jpg', alt: 'App Store' },
-            { href: 'https://play.google.com/store/apps/details?id=com.HoodlumInteractive.SpicyParty', src: '/img1.jpg', alt: 'Play Store' }
+            {
+                href: 'https://apps.apple.com/us/app/spicy-party/id1627063798',
+                src: '/static/images/projects/badge_app_store.png',
+                alt: 'Donwload on the App Store',
+                width: 160,
+                height: 53
+            },
+            {
+                href: 'https://play.google.com/store/apps/details?id=com.HoodlumInteractive.SpicyParty',
+                src: '/static/images/projects/badge_play_store.png',
+                alt: 'Get it on Google Play',
+                width: 180,
+                height: 53
+            }
         ],
         tags: [SkillEnum.CSharp, SkillEnum.DotNetCore, SkillEnum.Javascript],
         year: 2023
@@ -65,4 +81,48 @@ export const projectProps: ProjectCardProps[] = [
         tags: [SkillEnum.CSharp, SkillEnum.DotNetCore, SkillEnum.Javascript],
         year: 2015
     }
-]
+];
+
+const minigameProps: string[] = [
+        "Oh! Um... hi! <br />" +
+        "Yeah, you're already on the portfolio <br />" +
+        "So... there's nothing to see here, please click somewhere else"
+    ,
+        "Wait, I just... I just told you, nothing is here <br />" +
+        "Look, there's another interesting project right over there!"
+    ,
+        "Are you doing this on purpose?"
+    ,
+        "You have to be doing this on purpose"
+    ,
+        "Okay... I'm pretty sure you're doing this on purpose"
+    ,
+        "Oh great! You are doing this on purpose!"
+    ,
+        "I knew it! I... I had a feeling!"
+    ,
+        "I don't get it... What do you want from me?"
+    ,
+        "Look man, I don't want any trouble, just... just go away..."
+    ,
+        "Please?"
+    ,
+        "Do you even understand me?"
+    ,
+        "Hello?"
+    ,
+        "¿Holà?"
+    ,
+        "Bonjour ?"
+    ,
+        "<span style=\"font-style: italic\">" +
+            "Chinese hello?" +
+        "</span>"
+    ,
+        "Alright, no more button for you mister sinister!"
+];
+
+export const projectProps: ProjectProps = {
+    cardProps: cardProps,
+    minigameProps: minigameProps
+};
