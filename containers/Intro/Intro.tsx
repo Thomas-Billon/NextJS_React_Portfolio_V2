@@ -2,10 +2,10 @@
 
 import React, { ReactNode } from 'react';
 import { tw } from '@/utils/Tailwind/TinyWind';
-import ParticlesLoader from '@/components/ParticlesLoader';
-import CanvasLoader from '@/components/CanvasLoader';
-import ModelLoader from '@/components/ModelLoader';
-import IntroHeadline from '@/components/IntroHeadline';
+import ParticlesLoader from '@/components/Intro/ParticlesLoader';
+import CanvasLoader from '@/components/Intro/Three/CanvasLoader';
+import ModelLoader from '@/components/Intro/Three/ModelLoader';
+import IntroHeadline from '@/components/Intro/IntroHeadline';
 import { introProps as props } from './IntroProps';
 
 import './Intro.scss';

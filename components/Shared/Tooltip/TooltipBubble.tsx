@@ -2,17 +2,17 @@
 
 import React from 'react';
 import { FloatingArrow } from '@floating-ui/react';
-import { useTooltipContext } from '@/components/TooltipContainer';
+import { TooltipContext } from '@/components/Shared/Tooltip/TooltipContainer';
 import { TOOLTIP_ARROW_WIDTH, TOOLTIP_ARROW_HEIGHT, TOOLTIP_ARROW_RADIUS } from '@/hooks/UseTooltip';
+import { useCustomContext } from '@/hooks/UseCustomContext';
 import { isBreakpointSmDown } from '@/hooks/UseBreakpoint';
-import { DefaultProps } from '@/utils/React/Props';
 import { tw } from '@/utils/Tailwind/TinyWind';
 
 import Variables from '@/styles/scss/variables.module.scss';
 
 
 const TooltipBubble = ({ content }: { content: string }): React.ReactNode => {
-    const tooltipContext = useTooltipContext();
+    const tooltipContext = useCustomContext(TooltipContext, 'TooltipContainer');
 
     const isSmDown = isBreakpointSmDown();
     const isClosed = tooltipContext.data.status == 'close' || tooltipContext.data.status== 'unmounted';
@@ -72,6 +72,7 @@ const TooltipBubbleStyle = ({isClosed}: {isClosed: boolean}) => tw([
     'rounded',
     'drop-shadow-md',
     'cursor-default',
+    'select-none',
     'transition-all',
     isClosed && 'opacity-0',
     isClosed && 'scale-50',

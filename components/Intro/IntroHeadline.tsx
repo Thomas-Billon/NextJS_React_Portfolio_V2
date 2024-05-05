@@ -3,7 +3,7 @@
 import React, { ReactNode } from 'react';
 import { Props } from '@/utils/React/Props';
 import { Raleway, Roboto } from 'next/font/google';
-import DynamicTag from '@/components/DynamicTag';
+import DynamicTag from '@/components/Shared/DynamicTag';
 import { tw } from '@/utils/Tailwind/TinyWind';
 
 

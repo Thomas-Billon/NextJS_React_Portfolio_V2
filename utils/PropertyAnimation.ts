@@ -1,7 +1,7 @@
 interface AnimationProcess {
-    element: HTMLElement,
-    property: string,
-    intervalId: NodeJS.Timeout,
+    element: HTMLElement;
+    property: string;
+    intervalId: NodeJS.Timeout;
     onComplete?: (element?: HTMLElement) => void;
 }
 

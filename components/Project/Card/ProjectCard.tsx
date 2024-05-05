@@ -2,27 +2,27 @@
 
 import React from 'react';
 import Image from 'next/image';
-import ProjectCardButton, { ProjectCardButtonProps } from '@/components/ProjectCardButton';
-import ProjectCardClose from '@/components/ProjectCardClose';
-import ProjectCardMinigame from '@/components/ProjectCardMinigame';
-import TooltipContainer from '@/components/TooltipContainer';
+import ProjectCardButton, { ProjectCardButtonProps } from '@/components/Project/Card/ProjectCardButton';
+import ProjectCardClose from '@/components/Project/Card/ProjectCardClose';
+import ProjectCardButtonMinigame from '@/components/Project/Card/ProjectCardButtonMinigame';
+import TooltipContainer from '@/components/Shared/Tooltip/TooltipContainer';
 import { SkillEnum } from '@/utils/SkillEnum';
 import { tw } from '@/utils/Tailwind/TinyWind';
 import { Props } from '@/utils/React/Props';
 
 
 export interface ProjectCardProps {
-    title?: string,
-    description?: string[],
-    images?: ProjectCardImageProps[],
-    links?: ProjectCardButtonProps[],
-    tags?: SkillEnum[],
-    year?: number
+    title?: string;
+    description?: string[];
+    images?: ProjectCardImageProps[];
+    links?: ProjectCardButtonProps[];
+    tags?: SkillEnum[];
+    year?: number;
 }
 
 export interface ProjectCardImageProps {
-    src: string,
-    alt: string
+    src: string;
+    alt: string;
 }
 
 const ProjectCard = ({ props = {} }: Props<ProjectCardProps>): React.ReactNode => {
@@ -60,7 +60,7 @@ const ProjectCard = ({ props = {} }: Props<ProjectCardProps>): React.ReactNode =
                                             return(
                                                 link.isMinigame ?
                                                     <TooltipContainer key={index}>
-                                                        <ProjectCardMinigame { ...{ props: link }} />
+                                                        <ProjectCardButtonMinigame { ...{ props: link }} />
                                                     </TooltipContainer>
                                                 :
                                                     <ProjectCardButton key={index} { ...{ props: link }} />

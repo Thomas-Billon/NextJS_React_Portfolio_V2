@@ -1,10 +1,12 @@
-import { ProjectCardProps } from '@/components/ProjectCard';
+import { ProjectCardProps } from '@/components/Project/Card/ProjectCard';
+import { ProjectCardButtonMinigameProps } from '@/components/Project/Card/ProjectCardButtonMinigame';
+import { MinigameEnum } from '@/utils/MinigameEnum';
 import { SkillEnum } from '@/utils/SkillEnum';
 
 
 export interface ProjectProps {
     cardProps: ProjectCardProps[];
-    minigameProps: string[];
+    minigameProps: ProjectCardButtonMinigameProps[];
 };
 
 const cardProps: ProjectCardProps[] = [
@@ -83,43 +85,78 @@ const cardProps: ProjectCardProps[] = [
     }
 ];
 
-const minigameProps: string[] = [
-        "Oh! Um... hi! <br />" +
-        "Yeah, you're already on the portfolio <br />" +
-        "So... there's nothing to see here, please click somewhere else"
-    ,
-        "Wait, I just... I just told you, nothing is here <br />" +
-        "Look, there's another interesting project right over there!"
-    ,
-        "Are you doing this on purpose?"
-    ,
-        "You have to be doing this on purpose"
-    ,
-        "Okay... I'm pretty sure you're doing this on purpose"
-    ,
-        "Oh great! You are doing this on purpose!"
-    ,
-        "I knew it! I... I had a feeling!"
-    ,
-        "I don't get it... What do you want from me?"
-    ,
-        "Look man, I don't want any trouble, just... just go away..."
-    ,
-        "Please?"
-    ,
-        "Do you even understand me?"
-    ,
-        "Hello?"
-    ,
-        "¿Holà?"
-    ,
-        "Bonjour ?"
-    ,
-        "<span style=\"font-style: italic\">" +
-            "Chinese hello?" +
-        "</span>"
-    ,
-        "Alright, no more button for you mister sinister!"
+const minigameProps: ProjectCardButtonMinigameProps[] = [
+    {
+        text:
+            "Oh! Um... hi! <br />" +
+            "Yeah, you're already on the portfolio <br />" +
+            "So... there's nothing to see here, please click somewhere else"
+    },
+    {
+        text:
+            "Wait, I just... I just told you, nothing is here <br />" +
+            "Look, there's another interesting project right over there!"
+    },
+    {
+        text:
+            "Are you doing this on purpose?"
+    },
+    {
+        text:
+            "You have to be doing this on purpose"
+    },
+    {
+        text:
+            "Okay... I'm pretty sure you're doing this on purpose"
+    },
+    {
+        text:
+            "Oh great! You are doing this on purpose!"
+    },
+    {
+        text:
+            "I knew it! I... I had a feeling!"
+    },
+    {
+        text:
+            "I don't get it... What do you want from me?"
+    },
+    {
+        text:
+            "Look man, I don't want any trouble, just... just go away..."
+    },
+    {
+        text:
+            "Please?"
+    },
+    {
+        text:
+            "Do you even understand me?"
+    },
+    {
+        text:
+            "Hello?"
+    },
+    {
+        text:
+            "¿Holà?"
+    },
+    {
+        text:
+            "Bonjour ?"
+    },
+    {
+        text:
+            "<span style=\"font-style: italic\">" +
+                "Chinese hello?" +
+            "</span>"
+    },
+    {
+        text:
+            "Alright, no more button for you mister sinister!",
+        actionAtStart: MinigameEnum.DisableButton,
+        actionAtEnd: MinigameEnum.RemoveOpacity
+    }
 ];
 
 export const projectProps: ProjectProps = {

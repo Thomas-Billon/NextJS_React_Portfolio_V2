@@ -4,7 +4,7 @@ import React, { useState, TouchEvent, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { tw } from '@/utils/Tailwind/TinyWind';
 import { Props } from '@/utils/React/Props';
-import SceneLoader, { SceneLoaderProps } from '@/components/SceneLoader';
+import SceneLoader, { SceneLoaderProps } from '@/components/Intro/Three/SceneLoader';
 
 
 export interface CanvasLoaderProps extends SceneLoaderProps {}

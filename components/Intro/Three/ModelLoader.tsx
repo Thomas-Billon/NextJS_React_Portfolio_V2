@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState, useRef, useContext, RefObject } from 'react';
+import React, { useState, useRef, RefObject } from 'react';
 import { useFrame, useLoader, useThree } from '@react-three/fiber';
 import { useGLTF, Center, useFBO } from '@react-three/drei';
 import { Mesh, Vector3, Euler, MeshBasicMaterial, TextureLoader } from 'three';
 import { Props } from '@/utils/React/Props';
-import { SceneContext } from '@/components/SceneLoader';
+import { SceneContext } from '@/components/Intro/Three/SceneLoader';
+import { useCustomContext } from '@/hooks/UseCustomContext';
 import '@/utils/Three/EulerSlerp';
 
 
@@ -20,7 +21,7 @@ export interface ModelLoaderProps {
 
 const ModelLoader = ({ props = {} }: Props<ModelLoaderProps>): React.ReactNode => {
     // Grab context
-    const sceneContext = useContext(SceneContext);
+    const sceneContext = useCustomContext(SceneContext, 'SceneLoader');
 
     // Store refs
     const meshRef = useRef<Mesh>();

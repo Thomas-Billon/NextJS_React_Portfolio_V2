@@ -4,20 +4,20 @@ import { isAnimationRunning, startPropertyAnimation, stopPropertyAnimation } fro
 
 
 interface RectPosition {
-    top: number,
-    left: number
+    top: number;
+    left: number;
 }
 
 interface RectSize {
-    width: number,
-    height: number
+    width: number;
+    height: number;
 }
 
 interface Cell extends RectPosition, RectSize {}
 
 interface UseGridAnimationProps {
-    grid: HTMLElement | null,
-    duration?: number
+    grid: HTMLElement | null;
+    duration?: number;
 }
 
 export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps): void => {
@@ -122,10 +122,10 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
     }
 
     interface GridAnimationProperty {
-        element: HTMLElement,
-        oldValue: number,
-        newValue?: number,
-        isAnimated: boolean
+        element: HTMLElement;
+        oldValue: number;
+        newValue?: number;
+        isAnimated: boolean;
     }
 
     const startGridAnimationProperty = <T,>(ref: T, property: string, newValueRef: number, gridProperties: GridAnimationProperty[]): void => {

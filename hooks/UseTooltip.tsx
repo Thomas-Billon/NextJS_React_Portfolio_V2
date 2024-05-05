@@ -10,7 +10,7 @@ export const TOOLTIP_ARROW_RADIUS = 0;
 export const TOOLTIP_GAP = 2;
 
 interface UseTooltipProps {
-    isToggle?: boolean
+    isToggle?: boolean;
 }
 
 export function useTooltip({ isToggle = false }: UseTooltipProps) {
@@ -19,7 +19,7 @@ export function useTooltip({ isToggle = false }: UseTooltipProps) {
 
     const arrowRef = useRef(null);
 
-    const changeCallback = (value: boolean) => {
+    const changeOpenState = (value: boolean) => {
         // If tooltip needs to be manually open, we only handle closing
         if (!isToggle) {
             if (!value) {
@@ -46,7 +46,7 @@ export function useTooltip({ isToggle = false }: UseTooltipProps) {
         setIsOpen(true);
 
         if (!isToggle) {
-            // Automatically close after N ms based on tooltip text length
+            // Automatically close after N ms based on tooltip text length (100ms / character)
             setTimeout(() => {
                 const textLength = data.refs.floating.current?.innerText.length ?? 100;
 
@@ -56,10 +56,7 @@ export function useTooltip({ isToggle = false }: UseTooltipProps) {
                 }
 
                 const newTimeoutId = setTimeout(() => {
-                    setIsOpen(false);
-                    
-                    const button = data.refs.reference.current as HTMLElement;
-                    button.blur();
+                    closeTooltip();
                 }, timeoutValue);
 
                 clearTimeout(timeoutId);
@@ -70,12 +67,15 @@ export function useTooltip({ isToggle = false }: UseTooltipProps) {
 
     const closeTooltip = () => {
         setIsOpen(false);
+                    
+        const button = data.refs.reference.current as HTMLElement;
+        button.blur();
     }
 
     const data = useFloating({
         whileElementsMounted: autoUpdate,
         open: isOpen,
-        onOpenChange: changeCallback,
+        onOpenChange: changeOpenState,
         placement: 'bottom',
         middleware: [
             arrow({ element: arrowRef }),

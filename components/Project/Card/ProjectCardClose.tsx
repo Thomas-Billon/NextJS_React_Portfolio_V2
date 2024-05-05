@@ -1,14 +1,15 @@
 'use client';
 
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { tw } from '@/utils/Tailwind/TinyWind';
-import { GridContext } from '@/components/ProjectGrid';
+import { GridContext } from '@/components/Project/Grid/ProjectGrid';
+import { useCustomContext } from '@/hooks/UseCustomContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as fas from '@fortawesome/free-solid-svg-icons';
 
 
 const ProjectCardClose = (): React.ReactNode => {
-    const gridContext = useContext(GridContext);
+    const gridContext = useCustomContext(GridContext, 'ProjectGrid');
 
     const closeCard = (event: React.MouseEvent<HTMLElement>): void => {
         event.stopPropagation();

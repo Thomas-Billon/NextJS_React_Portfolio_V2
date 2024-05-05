@@ -4,7 +4,7 @@ import { Euler, Quaternion } from 'three';
 // Extend Euler class to include slerp method
 declare module 'three' {
     interface Euler {
-        slerp(e: Euler, a: number): void
+        slerp(e: Euler, a: number): void;
     }
 }
 

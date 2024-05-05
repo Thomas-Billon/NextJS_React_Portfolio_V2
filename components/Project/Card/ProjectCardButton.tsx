@@ -1,27 +1,33 @@
 'use client';
 
-import React, { useContext, useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { TooltipContext } from '@/components/TooltipContainer';
+import { TooltipContext } from '@/components/Shared/Tooltip/TooltipContainer';
+import { MinigameContext } from '@/components/Project/Card/ProjectCardButtonMinigame';
+import { useCustomContext } from '@/hooks/UseCustomContext';
 import { tw } from '@/utils/Tailwind/TinyWind';
-import { Props, ClickableProps } from '@/utils/React/Props';
+import { Props, ClickableProps, EnabledProps } from '@/utils/React/Props';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as fab from '@fortawesome/free-brands-svg-icons';
 
 
 export interface ProjectCardButtonProps {
-    href?: string,
-    src?: string,
-    alt?: string,
-    width?: number,
-    height?: number,
-    isMinigame?: boolean
+    href?: string;
+    src?: string;
+    alt?: string;
+    width?: number;
+    height?: number;
+    isMinigame?: boolean;
 }
 
-const ProjectCardButton = ({ props = {}, onClick = () => {} }: Props<ProjectCardButtonProps> & ClickableProps): React.ReactNode => {
-    const [isMinigameOver, setIsMinigameOver] = useState<boolean>(false);
-    const tooltipContext = useContext(TooltipContext);
+interface ProjectCardButtonExtendedProps extends ProjectCardButtonProps {
+    opacity?: number
+}
+
+const ProjectCardButton = ({ props = {}, onClick = () => {}, isEnabled = true, opacity }: Props<ProjectCardButtonProps> & ProjectCardButtonExtendedProps & ClickableProps & EnabledProps): React.ReactNode => {
+    const tooltipContext = props.isMinigame ? useCustomContext(TooltipContext, 'TooltipContainer') : null;
+    const minigameContext = props.isMinigame ? useCustomContext(MinigameContext, 'ProjectCardButtonMinigame') : null;
 
     const isLinkExternalUrl: boolean = props.href?.indexOf('https') != -1;
     const isLinkGithub: boolean = props.href?.indexOf('https://github.com/') != -1;
@@ -32,15 +38,17 @@ const ProjectCardButton = ({ props = {}, onClick = () => {} }: Props<ProjectCard
     };
 
     const clickEmptyLink = (): void => {
-        onClick();
+        if (isEnabled) {
+            onClick();
+        }
     }
 
-    const isLinkDisplayed = (props.isMinigame && isMinigameOver) || !props.isMinigame;
+    const isLinkDisplayed = (props.isMinigame && minigameContext?.isMinigameOver) || !props.isMinigame;
 
     return (
-        <span className={ProjectCardButtonContainerStyle} onClick={clickEmptyLink}>
+        <span className={ProjectCardButtonContainerStyle} onClick={clickEmptyLink} { ...(opacity != undefined ? { 'style': {opacity: opacity} } : {})}>
             <Link 
-                className={ProjectCardButtonStyle({ isLinkImage, isLinkGithub })}
+                className={ProjectCardButtonStyle({ isLinkImage, isLinkGithub, isEnabled })}
                 href={ isLinkDisplayed ? props.href ?? '' : '' }
                 scroll={isLinkDisplayed}
                 passHref={isLinkExternalUrl}
@@ -68,12 +76,14 @@ export default ProjectCardButton;
 const ProjectCardButtonContainerStyle = tw([
     'ProjectCardButtonContainerStyle',
     'inline-flex',
-    'spaced'
+    'spaced',
+    'transition-opacity'
 ]);
 
-const ProjectCardButtonStyle = ({ isLinkImage, isLinkGithub }: { isLinkImage: boolean, isLinkGithub: boolean }) => tw([
+const ProjectCardButtonStyle = ({ isLinkImage, isLinkGithub, isEnabled }: { isLinkImage: boolean, isLinkGithub: boolean, isEnabled: boolean }) => tw([
     'ProjectCardButtonStyle',
     'inline-block',
+    'select-none',
     isLinkGithub && 'p-2',
     !isLinkImage && 'bg-orange-light-400',
     !isLinkImage && 'hover:bg-orange-light-500',
@@ -84,7 +94,8 @@ const ProjectCardButtonStyle = ({ isLinkImage, isLinkGithub }: { isLinkImage: bo
     !isLinkImage && 'rounded',
     !isLinkImage && !isLinkGithub && 'px-4',
     !isLinkImage && !isLinkGithub && 'py-2',
-    !isLinkImage && !isLinkGithub && 'font-medium'
+    !isLinkImage && !isLinkGithub && 'font-medium',
+    !isEnabled && 'pointer-events-none'
 ]);
 
 const ProjectCardButtonImageStyle = tw([
