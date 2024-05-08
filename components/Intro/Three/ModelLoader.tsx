@@ -4,10 +4,10 @@ import React, { useState, useRef, RefObject } from 'react';
 import { useFrame, useLoader, useThree } from '@react-three/fiber';
 import { useGLTF, Center, useFBO } from '@react-three/drei';
 import { Mesh, Vector3, Euler, MeshBasicMaterial, TextureLoader } from 'three';
-import { Props } from '@/utils/React/Props';
-import { SceneContext } from '@/components/Intro/Three/SceneLoader';
+import { Props } from '@/utils/react/Props';
+import { SceneContext } from '@/components/intro/three/SceneLoader';
 import { useCustomContext } from '@/hooks/UseCustomContext';
-import '@/utils/Three/EulerSlerp';
+import '@/utils/three/EulerSlerp';
 
 
 export interface ModelLoaderProps {

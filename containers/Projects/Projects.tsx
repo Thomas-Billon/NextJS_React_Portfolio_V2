@@ -1,11 +1,11 @@
 // use server
 
 import React, { ReactNode } from 'react';
-import { tw } from '@/utils/Tailwind/TinyWind';
-import ProjectGrid from '@/components/Project/Grid/ProjectGrid';
-import ProjectGridItem from '@/components/Project/Grid/ProjectGridItem';
-import ProjectCard from '@/components/Project/Card/ProjectCard';
-import { projectProps as props } from './ProjectsProps';
+import { tw } from '@/utils/tailwind/TinyWind';
+import ProjectGrid from '@/components/project/grid/ProjectGrid';
+import ProjectGridItem from '@/components/project/grid/ProjectGridItem';
+import ProjectCard from '@/components/project/card/ProjectCard';
+import { projectProps as props } from './ProjectProps';
 
 
 const Projects = (): ReactNode => {

@@ -1,12 +1,12 @@
 // use server
 
 import React from 'react';
-import Intro from '@/containers/Intro/Intro';
-import Projects from '@/containers/Projects/Projects';
-import Skills from '@/containers/Skills/Skills';
-import Experience from '@/containers/Experience/Experience';
-import Education from '@/containers/Education/Education';
-import Contact from '@/containers/Contact/Contact';
+import Intro from '@/containers/intro/Intro';
+import Projects from '@/containers/projects/Projects';
+import Skills from '@/containers/skills/Skills';
+import Experience from '@/containers/experience/Experience';
+import Education from '@/containers/education/Education';
+import Contact from '@/containers/contact/Contact';
 
 
 const Home = (): React.ReactNode => {

@@ -1,11 +1,11 @@
 // use server
 
 import React, { ReactNode } from 'react';
-import { tw } from '@/utils/Tailwind/TinyWind';
-import ParticlesLoader from '@/components/Intro/ParticlesLoader';
-import CanvasLoader from '@/components/Intro/Three/CanvasLoader';
-import ModelLoader from '@/components/Intro/Three/ModelLoader';
-import IntroHeadline from '@/components/Intro/IntroHeadline';
+import { tw } from '@/utils/tailwind/TinyWind';
+import ParticlesLoader from '@/components/intro/ParticlesLoader';
+import CanvasLoader from '@/components/intro/three/CanvasLoader';
+import ModelLoader from '@/components/intro/three/ModelLoader';
+import IntroHeadline from '@/components/intro/IntroHeadline';
 import { introProps as props } from './IntroProps';
 
 import './Intro.scss';

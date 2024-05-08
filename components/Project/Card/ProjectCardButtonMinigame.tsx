@@ -1,11 +1,11 @@
 'use client';
 
 import React, { createContext, useEffect, useState } from 'react';
-import ProjectCardButton, { ProjectCardButtonProps } from '@/components/Project/Card/ProjectCardButton';
-import TooltipBubble from '@/components/Shared/Tooltip/TooltipBubble';
-import { Props } from '@/utils/React/Props';
-import { TooltipContext } from '@/components/Shared/Tooltip/TooltipContainer';
-import { projectProps } from '@/containers/Projects/ProjectsProps';
+import ProjectCardButton, { ProjectCardButtonProps } from '@/components/project/card/ProjectCardButton';
+import TooltipBubble from '@/components/shared/tooltip/TooltipBubble';
+import { Props } from '@/utils/react/Props';
+import { TooltipContext } from '@/components/shared/tooltip/TooltipContainer';
+import { projectProps } from '@/containers/projects/ProjectProps';
 import { MinigameEnum } from '@/utils/MinigameEnum';
 import { useCustomContext } from '@/hooks/UseCustomContext';
 

@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { tw } from '@/utils/Tailwind/TinyWind';
-import { GridContext } from '@/components/Project/Grid/ProjectGrid';
+import { tw } from '@/utils/tailwind/TinyWind';
+import { GridContext } from '@/components/project/grid/ProjectGrid';
 import { useCustomContext } from '@/hooks/UseCustomContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as fas from '@fortawesome/free-solid-svg-icons';

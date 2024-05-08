@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { tw } from '@/utils/Tailwind/TinyWind';
-import { GridContext } from '@/components/Project/Grid/ProjectGrid';
+import { tw } from '@/utils/tailwind/TinyWind';
+import { GridContext } from '@/components/project/grid/ProjectGrid';
 import { useCustomContext } from '@/hooks/UseCustomContext';
-import { DefaultProps, IterableProps } from '@/utils/React/Props';
+import { DefaultProps, IterableProps } from '@/utils/react/Props';
 
 
 const ProjectGridItem = ({ children, index = 0 }: DefaultProps & IterableProps): React.ReactNode => {

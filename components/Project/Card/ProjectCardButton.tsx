@@ -3,11 +3,11 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { TooltipContext } from '@/components/Shared/Tooltip/TooltipContainer';
-import { MinigameContext } from '@/components/Project/Card/ProjectCardButtonMinigame';
+import { TooltipContext } from '@/components/shared/tooltip/TooltipContainer';
+import { MinigameContext } from '@/components/project/card/ProjectCardButtonMinigame';
 import { useCustomContext } from '@/hooks/UseCustomContext';
-import { tw } from '@/utils/Tailwind/TinyWind';
-import { Props, ClickableProps, EnabledProps } from '@/utils/React/Props';
+import { tw } from '@/utils/tailwind/TinyWind';
+import { Props, ClickableProps, EnabledProps } from '@/utils/react/Props';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as fab from '@fortawesome/free-brands-svg-icons';
 

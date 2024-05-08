@@ -1,6 +1,6 @@
-import { CanvasLoaderProps } from '@/components/Intro/Three/CanvasLoader';
-import { ModelLoaderProps } from '@/components/Intro/Three/ModelLoader';
-import { ParticlesLoaderProps } from '@/components/Intro/ParticlesLoader';
+import { CanvasLoaderProps } from '@/components/intro/three/CanvasLoader';
+import { ModelLoaderProps } from '@/components/intro/three/ModelLoader';
+import { ParticlesLoaderProps } from '@/components/intro/ParticlesLoader';
 
 import Variables from '@/styles/scss/variables.module.scss';
 

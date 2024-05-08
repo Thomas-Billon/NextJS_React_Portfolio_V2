@@ -1,10 +1,10 @@
 // use server
 
 import React, { ReactNode } from 'react';
-import { Props } from '@/utils/React/Props';
+import { Props } from '@/utils/react/Props';
 import { Raleway, Roboto } from 'next/font/google';
-import DynamicTag from '@/components/Shared/DynamicTag';
-import { tw } from '@/utils/Tailwind/TinyWind';
+import DynamicTag from '@/components/shared/DynamicTag';
+import { tw } from '@/utils/tailwind/TinyWind';
 
 
 const roboto = Raleway({

@@ -1,5 +1,5 @@
-import { ProjectCardProps } from '@/components/Project/Card/ProjectCard';
-import { ProjectCardButtonMinigameProps } from '@/components/Project/Card/ProjectCardButtonMinigame';
+import { ProjectCardProps } from '@/components/project/card/ProjectCard';
+import { ProjectCardButtonMinigameProps } from '@/components/project/card/ProjectCardButtonMinigame';
 import { MinigameEnum } from '@/utils/MinigameEnum';
 import { SkillEnum } from '@/utils/SkillEnum';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext } from 'react';
-import { DefaultProps } from '@/utils/React/Props';
+import { DefaultProps } from '@/utils/react/Props';
 import { useTooltip } from '@/hooks/UseTooltip';
 
 export const TooltipContext = createContext<ReturnType<typeof useTooltip> | null>(null);

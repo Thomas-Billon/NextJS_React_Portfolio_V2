@@ -2,13 +2,13 @@
 
 import React from 'react';
 import Image from 'next/image';
-import ProjectCardButton, { ProjectCardButtonProps } from '@/components/Project/Card/ProjectCardButton';
-import ProjectCardClose from '@/components/Project/Card/ProjectCardClose';
-import ProjectCardButtonMinigame from '@/components/Project/Card/ProjectCardButtonMinigame';
-import TooltipContainer from '@/components/Shared/Tooltip/TooltipContainer';
+import ProjectCardButton, { ProjectCardButtonProps } from '@/components/project/card/ProjectCardButton';
+import ProjectCardClose from '@/components/project/card/ProjectCardClose';
+import ProjectCardButtonMinigame from '@/components/project/card/ProjectCardButtonMinigame';
+import TooltipContainer from '@/components/shared/tooltip/TooltipContainer';
 import { SkillEnum } from '@/utils/SkillEnum';
-import { tw } from '@/utils/Tailwind/TinyWind';
-import { Props } from '@/utils/React/Props';
+import { tw } from '@/utils/tailwind/TinyWind';
+import { Props } from '@/utils/react/Props';
 
 
 export interface ProjectCardProps {

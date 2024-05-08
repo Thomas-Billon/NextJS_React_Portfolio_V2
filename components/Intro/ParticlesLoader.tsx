@@ -4,8 +4,8 @@ import React, { useState, useEffect, useMemo, ReactNode } from 'react';
 import { loadSlim } from '@tsparticles/slim';
 import { Engine, Container, ISourceOptions } from '@tsparticles/engine';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
-import { tw } from '@/utils/Tailwind/TinyWind';
-import { Props } from '@/utils/React/Props';
+import { tw } from '@/utils/tailwind/TinyWind';
+import { Props } from '@/utils/react/Props';
 
 
 export interface ParticlesLoaderProps extends ISourceOptions {}

@@ -1,8 +1,8 @@
 'use client';
 
 import React, { createContext, useState } from 'react';
-import { tw } from '@/utils/Tailwind/TinyWind';
-import { DefaultProps } from '@/utils/React/Props';
+import { tw } from '@/utils/tailwind/TinyWind';
+import { DefaultProps } from '@/utils/react/Props';
 import { useGridAnimation } from '@/hooks/UseGridAnimation';
 
 

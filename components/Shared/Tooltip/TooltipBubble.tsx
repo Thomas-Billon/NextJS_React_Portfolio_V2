@@ -2,11 +2,11 @@
 
 import React from 'react';
 import { FloatingArrow } from '@floating-ui/react';
-import { TooltipContext } from '@/components/Shared/Tooltip/TooltipContainer';
+import { TooltipContext } from '@/components/shared/tooltip/TooltipContainer';
 import { TOOLTIP_ARROW_WIDTH, TOOLTIP_ARROW_HEIGHT, TOOLTIP_ARROW_RADIUS } from '@/hooks/UseTooltip';
 import { useCustomContext } from '@/hooks/UseCustomContext';
 import { isBreakpointSmDown } from '@/hooks/UseBreakpoint';
-import { tw } from '@/utils/Tailwind/TinyWind';
+import { tw } from '@/utils/tailwind/TinyWind';
 
 import Variables from '@/styles/scss/variables.module.scss';
 

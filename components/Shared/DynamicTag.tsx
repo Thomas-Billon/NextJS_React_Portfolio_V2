@@ -1,7 +1,7 @@
 // use server
 
 import React, { ElementType, ReactNode, JSX } from 'react';
-import { Props } from '@/utils/React/Props';
+import { Props } from '@/utils/react/Props';
 
 
 export interface DynamicTagProps {
