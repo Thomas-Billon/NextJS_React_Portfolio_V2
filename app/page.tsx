@@ -20,7 +20,6 @@ const Home = (): React.ReactNode => {
             <Contact/>
             <h2 style={{ fontSize: '20px' }}>Content</h2>
             <ul>
-                <li>Skills : Grid display with animated transition and overflow (maybe divide by sections or tabs)</li>
                 <li>Experience : Timeline with sepia effect on scroll down & timeline fills up</li>
                 <li>Education : Same</li>
                 <li>Contact : Regular contact form with Name / Email / Message inputs</li>

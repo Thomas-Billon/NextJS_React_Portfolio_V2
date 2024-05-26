@@ -8,7 +8,7 @@ import { Group, Vector3 } from 'three';
 import { useBreakpoint } from '@/hooks/UseBreakpoint';
 import { MouseButtonAction } from '@/utils/three/MouseButtonAction';
 import { Props } from '@/utils/react/Props';
-import { BreakpointTypeEnum } from '@/utils/BreakpointEnum';
+import { BreakpointTypeEnum } from '@/utils/enums/BreakpointEnum';
 
 import Variables from '@/styles/scss/variables.module.scss';
 

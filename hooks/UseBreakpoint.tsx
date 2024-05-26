@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useWindowSize } from '@/hooks/UseWindowSize';
 import tailwindConfig from '@/tailwind.config.js';
 import resolveConfig from 'tailwindcss/resolveConfig';
-import { BreakpointTypeEnum, BreakpointSizeEnum } from '@/utils/BreakpointEnum';
+import { BreakpointTypeEnum, BreakpointSizeEnum } from '@/utils/enums/BreakpointEnum';
 
 
 export const useBreakpoint = (): { currentBreakpoint: string, currentBreakpointSize: number } => {

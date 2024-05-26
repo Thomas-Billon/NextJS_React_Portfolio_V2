@@ -2,11 +2,11 @@
 
 import React from 'react';
 import Image from 'next/image';
-import ProjectCardButton, { ProjectCardButtonProps } from '@/components/project/card/ProjectCardButton';
-import ProjectCardClose from '@/components/project/card/ProjectCardClose';
-import ProjectCardButtonMinigame from '@/components/project/card/ProjectCardButtonMinigame';
+import ProjectCardButton, { ProjectCardButtonProps } from '@/components/projects/card/ProjectCardButton';
+import ProjectCardClose from '@/components/projects/card/ProjectCardClose';
+import ProjectCardButtonMinigame from '@/components/projects/card/ProjectCardButtonMinigame';
 import TooltipContainer from '@/components/shared/tooltip/TooltipContainer';
-import { SkillEnum } from '@/utils/SkillEnum';
+import { SkillEnum } from '@/utils/enums/SkillEnum';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { Props } from '@/utils/react/Props';
 
@@ -212,8 +212,9 @@ const ProjectCardTagItemStyle = tw([
     'text-orange-light-600',
     'text-xs',
     'font-medium',
-    'rounded border',
+    'border',
     'border-orange-light-400',
+    'rounded',
     'spaced'
 ]);
 

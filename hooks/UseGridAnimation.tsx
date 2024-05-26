@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useWindowSize } from '@/hooks/UseWindowSize';
-import { isAnimationRunning, startPropertyAnimation, stopPropertyAnimation } from '@/utils/PropertyAnimation';
+import { isAnimationRunning, startPropertyAnimation, stopPropertyAnimation } from '@/utils/global/PropertyAnimation';
 
 
 interface RectPosition {

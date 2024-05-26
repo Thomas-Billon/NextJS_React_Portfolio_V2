@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { tw } from '@/utils/tailwind/TinyWind';
-import { GridContext } from '@/components/project/grid/ProjectGrid';
+import { GridContext } from '@/components/projects/grid/ProjectGrid';
 import { useCustomContext } from '@/hooks/UseCustomContext';
 import { DefaultProps, IterableProps } from '@/utils/react/Props';
 

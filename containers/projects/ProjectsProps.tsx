@@ -1,10 +1,10 @@
-import { ProjectCardProps } from '@/components/project/card/ProjectCard';
-import { ProjectCardButtonMinigameProps } from '@/components/project/card/ProjectCardButtonMinigame';
-import { MinigameEnum } from '@/utils/MinigameEnum';
-import { SkillEnum } from '@/utils/SkillEnum';
+import { ProjectCardProps } from '@/components/projects/card/ProjectCard';
+import { ProjectCardButtonMinigameProps } from '@/components/projects/card/ProjectCardButtonMinigame';
+import { MinigameActionEnum } from '@/utils/enums/MinigameActionEnum';
+import { SkillEnum } from '@/utils/enums/SkillEnum';
 
 
-export interface ProjectProps {
+export interface ProjectsProps {
     cardProps: ProjectCardProps[];
     minigameProps: ProjectCardButtonMinigameProps[];
 };
@@ -154,12 +154,12 @@ const minigameProps: ProjectCardButtonMinigameProps[] = [
     {
         text:
             "Alright, no more button for you mister sinister!",
-        actionAtStart: MinigameEnum.DisableButton,
-        actionAtEnd: MinigameEnum.RemoveOpacity
+        actionAtStart: MinigameActionEnum.DisableButton,
+        actionAtEnd: MinigameActionEnum.RemoveOpacity
     }
 ];
 
-export const projectProps: ProjectProps = {
+export const projectsProps: ProjectsProps = {
     cardProps: cardProps,
     minigameProps: minigameProps
 };

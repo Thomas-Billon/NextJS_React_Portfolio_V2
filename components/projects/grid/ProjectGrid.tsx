@@ -41,9 +41,7 @@ export default ProjectGrid;
 
 const ProjectsGridStyle = tw([
     'ProjectsGridStyle',
-    'container',
-    'mx-auto',
-    'py-16',
+    'container-section',
     'grid',
     'grid-cols-1',
     'md:grid-cols-2',

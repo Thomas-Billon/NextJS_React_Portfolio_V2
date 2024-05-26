@@ -1,19 +1,19 @@
 'use client';
 
 import React, { createContext, useEffect, useState } from 'react';
-import ProjectCardButton, { ProjectCardButtonProps } from '@/components/project/card/ProjectCardButton';
+import ProjectCardButton, { ProjectCardButtonProps } from '@/components/projects/card/ProjectCardButton';
 import TooltipBubble from '@/components/shared/tooltip/TooltipBubble';
 import { Props } from '@/utils/react/Props';
 import { TooltipContext } from '@/components/shared/tooltip/TooltipContainer';
-import { projectProps } from '@/containers/projects/ProjectProps';
-import { MinigameEnum } from '@/utils/MinigameEnum';
+import { projectsProps } from '@/containers/projects/ProjectsProps';
+import { MinigameActionEnum } from '@/utils/enums/MinigameActionEnum';
 import { useCustomContext } from '@/hooks/UseCustomContext';
 
 
 export interface ProjectCardButtonMinigameProps {
     text: string;
-    actionAtStart?: MinigameEnum;
-    actionAtEnd?: MinigameEnum;
+    actionAtStart?: MinigameActionEnum;
+    actionAtEnd?: MinigameActionEnum;
 }
 
 export const MinigameContext = createContext({isMinigameOver: false});
@@ -29,7 +29,7 @@ const ProjectCardButtonMinigame = ({ props = {} }: Props<ProjectCardButtonProps>
 
     useEffect(() => {
         if (isClosed) {
-            handleMinigameAction(projectProps.minigameProps[minigameStep]?.actionAtEnd);
+            handleMinigameAction(projectsProps.minigameProps[minigameStep]?.actionAtEnd);
         }
     }, [isClosed]);
 
@@ -39,28 +39,28 @@ const ProjectCardButtonMinigame = ({ props = {} }: Props<ProjectCardButtonProps>
 
         tooltipContext?.openTooltip();
 
-        handleMinigameAction(projectProps.minigameProps[newStep]?.actionAtStart);
+        handleMinigameAction(projectsProps.minigameProps[newStep]?.actionAtStart);
     };
 
-    const handleMinigameAction = (action?: MinigameEnum): void => {
+    const handleMinigameAction = (action?: MinigameActionEnum): void => {
         if (!action) {
             return;
         }
 
         switch (action) {
-            case MinigameEnum.EnableButton:
+            case MinigameActionEnum.EnableButton:
                 enableButton();
                 break;
 
-            case MinigameEnum.DisableButton:
+            case MinigameActionEnum.DisableButton:
                 disableButton();
                 break;
 
-            case MinigameEnum.AddOpacity:
+            case MinigameActionEnum.AddOpacity:
                 removeOpacity();
                 break;
 
-            case MinigameEnum.RemoveOpacity:
+            case MinigameActionEnum.RemoveOpacity:
                 removeOpacity();
                 break;
         }
@@ -85,7 +85,7 @@ const ProjectCardButtonMinigame = ({ props = {} }: Props<ProjectCardButtonProps>
     return (
         <MinigameContext.Provider value={{isMinigameOver: false}}>
             <ProjectCardButton { ...{ props }} onClick={incrementMinigameStep} isEnabled={isEnabled} opacity={opacityValue} />
-            <TooltipBubble content={projectProps.minigameProps[minigameStep]?.text ?? ''} />
+            <TooltipBubble content={projectsProps.minigameProps[minigameStep]?.text ?? ''} />
         </MinigameContext.Provider>
     );
 };

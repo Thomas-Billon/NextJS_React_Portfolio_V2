@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { TooltipContext } from '@/components/shared/tooltip/TooltipContainer';
-import { MinigameContext } from '@/components/project/card/ProjectCardButtonMinigame';
+import { MinigameContext } from '@/components/projects/card/ProjectCardButtonMinigame';
 import { useCustomContext } from '@/hooks/UseCustomContext';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { Props, ClickableProps, EnabledProps } from '@/utils/react/Props';

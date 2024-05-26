@@ -4,7 +4,6 @@
 }
 
 .full {
-    @apply relative;
     @apply w-full;
     @apply h-full;
 }
@@ -49,8 +48,49 @@
     -webkit-text-stroke: 2px theme('colors.white');
 }
 
+.container-section {
+    @apply container;
+    @apply py-16;
+}
+
 .spaced {
     &:not(:last-child) {
         @apply me-2;
     }
+}
+
+.z-1 {
+    @apply z-[1];
+}
+
+.z-2 {
+    @apply z-[2];
+}
+
+.z-3 {
+    @apply z-[3];
+}
+
+.z-4 {
+    @apply z-[4];
+}
+
+.z-5 {
+    @apply z-[5];
+}
+
+.z-6 {
+    @apply z-[6];
+}
+
+.z-7 {
+    @apply z-[7];
+}
+
+.z-8 {
+    @apply z-[8];
+}
+
+.z-9 {
+    @apply z-[9];
 }

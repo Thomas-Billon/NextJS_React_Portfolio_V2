@@ -12,6 +12,7 @@ export enum SkillEnum {
     C = 'C',
     CPlusPlus = 'C++',
     CSharp = 'C#',
+    DotNet = '.NET',
     DotNetCore = '.NET Core',
     DotNetFramework = '.NET Framework',
     AspNet = 'ASP.NET',
@@ -23,9 +24,11 @@ export enum SkillEnum {
     Sql = 'SQL',
     MySql = 'MySQL',
     PostgreSql = 'PostgreSQL',
+    CosmosDb = 'CosmosDB',
     Javascript = 'Javascript',
     Typescript = 'Typescript',
     NodeJs = 'NodeJS',
+    Npm = 'NPM',
     NextJs = 'NextJS',
     ExpressJs = 'ExpressJS',
     React = 'React',
@@ -35,6 +38,8 @@ export enum SkillEnum {
     ThreeJs = 'ThreeJS',
     SocketIo = 'Socket.io',
     Ajax = 'AJAX',
+    Rest = 'REST',
+    Restful = 'RESTful',
     Html5 = 'HTML5',
     Css3 = 'CSS3',
     Scss = 'SCSS',
@@ -60,8 +65,11 @@ export enum SkillEnum {
     Illustrator = 'Illustrator',
     MicrosoftOffice = 'Microsoft Office',
     SonyVegas = 'Sony Vegas',
+    PhpStorm = 'PHP Storm',
     French = 'French',
     English = 'English',
     Spanish = 'Spanish',
     Japanese = 'Japanese'
 }
+
+export const getAllSkills = (): SkillEnum[] => Object.values(SkillEnum);
