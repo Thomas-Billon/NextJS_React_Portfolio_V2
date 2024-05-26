@@ -23,18 +23,29 @@ const SkillCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
     };
 
     const getFontSizeFromSkill = (skill: SkillEnum): number => {
-        const maxFontSize = 24;
-        const maxLength = 16;
+        let length = 0;
 
-        let length = skill.length;
-        if (length > maxLength) {
-            length = maxLength;
+        // Get length of longest word in skill
+        const words = skill.split(' ');
+        words.forEach(word => {
+            if (length < word.length) {
+                length = word.length;
+            }
+        });
+
+        const shiftFunctionValue = 8;
+        if (length <= shiftFunctionValue) {
+            // Parabolic function : f(x) = -4x + x²/4 + 26
+            // f(0) = 26    -> If text length is small, font size will be set to max i.e. 26px
+            // f(8) = 10    -> If text length is big, font size will be set to min i.e. 8px
+            return -4 * length + (length * length) / 4 + 26;
         }
-
-        // f(x) = -2x + x²/min + max
-        // f(0) = 24    -> If text length is small, font size will be set to max i.e. 24px
-        // f(16) = 8   -> If text length is big, font size will be set to min i.e. 8px
-        return -2 * length + (length * length) / maxLength + maxFontSize;
+        else {
+            // Linear function : f(x) = -x/2 + 14
+            // f(8) = 10    -> If text length is small, font size will be set to max i.e. 10px
+            // f(28) = 0    -> If text length is big, font size will be set to min i.e. 0px
+            return -length / 2 + 14;
+        }
     };
 
     return (
@@ -74,13 +85,16 @@ export default SkillCard;
 const SkillCardStyle = ({ imageRatio }: { imageRatio?: number }) =>  tw([
     'SkillCardStyle',
     'relative',
-    'w-20',
-    'h-20',
+    'w-16',
+    'h-16',
     'text-white',
     'overflow-hidden',
     'border-2',
     'border-off-white',
     'rounded-lg',
+    'transition-transform',
+    'duration-300',
+    'hover:scale-125',
     imageRatio == 1 && 'after:content-[""]',
     imageRatio == 1 && 'after:absolute',
     imageRatio == 1 && 'after:z-1',
@@ -120,13 +134,13 @@ const SkillCardTextStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
     'text-center',
     'font-bold',
     'overflow-hidden',
+    'cursor-default',
+    'select-none',
     imageRatio == 2 && 'absolute',
     imageRatio == 2 && 'right-0',
     imageRatio == 2 && 'h-full'
 ]);
 
 const SkillCardTitleStyle = tw([
-    'SkillCardTitleStyle',
-    'inline-flex',
-    'justify-center'
+    'SkillCardTitleStyle'
 ]);

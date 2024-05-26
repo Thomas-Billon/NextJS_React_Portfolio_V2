@@ -11,8 +11,8 @@ const Skills = (): ReactNode => {
         <section id="skills" className={SkillsStyle}>
             <ul className={SkillsCategoryListStyle}>
                 {
-                    props.cardProps.map((skillCategory, index) =>
-                        <SkillCategory key={index} { ...{ props: skillCategory }} />
+                    props.categoryProps.map((category, index) =>
+                        <SkillCategory key={index} { ...{ props: category }} />
                     )
                 }
             </ul>
@@ -33,8 +33,8 @@ const SkillsCategoryListStyle = tw([
     'container-section',
     'columns-1',
     'md:columns-2',
-    'xl:columns-3',
-    '2xl:columns-4',
+    'lg:columns-3',
+    'xl:columns-4',
     'gap-4',
     'space-y-4'
 ]);

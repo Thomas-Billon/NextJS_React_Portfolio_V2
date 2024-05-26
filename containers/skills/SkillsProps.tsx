@@ -3,10 +3,10 @@ import { SkillEnum } from '@/utils/enums/SkillEnum';
 
 
 export interface SkillsProps {
-    cardProps: SkillCategoryProps[];
+    categoryProps: SkillCategoryProps[];
 };
 
-const cardProps: SkillCategoryProps[] = [
+const categoryProps: SkillCategoryProps[] = [
     {
         title: 'Languages',
         skills: [
@@ -78,5 +78,5 @@ const cardProps: SkillCategoryProps[] = [
 ];
 
 export const skillsProps: SkillsProps = {
-    cardProps: cardProps
+    categoryProps: categoryProps
 };
