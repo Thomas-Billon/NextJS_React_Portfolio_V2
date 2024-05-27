@@ -27,6 +27,8 @@ export default ProjectGridItem;
 
 const ProjectGridItemStyle = ({ isActive }: { isActive: boolean }) => tw([
     'ProjectGridItemStyle',
+    'w-full',
+    'md:w-auto',
     isActive && 'col-span-1',
     isActive && 'md:col-span-2',
     isActive && 'row-span-2',
