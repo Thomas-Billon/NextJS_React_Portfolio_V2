@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useWindowSize } from '@/hooks/UseWindowSize';
-import { isAnimationRunning, startPropertyAnimation, stopPropertyAnimation } from '@/utils/global/PropertyAnimation';
+import { isAnimationRunning, startAnimation, stopAnimation } from '@/utils/global/StyleAnimation';
 
 
 interface RectPosition {
@@ -148,7 +148,7 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
 
             // Animates property to target value
             if (gridProperty.isAnimated && typeof gridProperty.newValue != 'undefined') {
-                startPropertyAnimation(gridProperty.element, property, gridProperty.newValue, {duration: duration, onComplete : () => {
+                startAnimation(gridProperty.element, property, [gridProperty.newValue], {duration: duration, onComplete : () => {
                     for(let gridPropertyOnComplete of gridProperties) {
                         gridPropertyOnComplete.element.style.setProperty(property, '');
                     }
@@ -174,7 +174,7 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
         const gridCells = [...grid.children] as HTMLElement[]
 
         // Stops grid animations
-        stopPropertyAnimation(gridContainer);
+        stopAnimation(gridContainer);
         
         // Updates grid ref to new values
         // Needs a timeout, for some reason offset values are off when read synchronously
@@ -186,7 +186,7 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
         for (let cell of gridCells) {
             const cellAnimated = cell.children[0] as HTMLElement;
 
-            stopPropertyAnimation(cellAnimated);
+            stopAnimation(cellAnimated);
         }
         
         // Updates cells ref to new values

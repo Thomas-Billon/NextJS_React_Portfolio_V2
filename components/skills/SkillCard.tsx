@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { SkillEnum } from '@/utils/enums/SkillEnum';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { Props } from '@/utils/react/Props';
-import { snakeCase } from '@/utils/global/StringExtension';
+import '@/utils/global/StringExtension';
 
 
 export interface SkillCardProps {
@@ -19,7 +19,7 @@ const SkillCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
     
     const getImageNameFromSkill = (skill: SkillEnum): string => {
         const enumKey = Object.keys(SkillEnum)[Object.values(SkillEnum).indexOf(skill)];
-        return snakeCase(enumKey);
+        return String.snakeCase(enumKey);
     };
 
     const getFontSizeFromSkill = (skill: SkillEnum): number => {

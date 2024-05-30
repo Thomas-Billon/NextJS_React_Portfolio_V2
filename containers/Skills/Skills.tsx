@@ -3,6 +3,7 @@
 import React, { ReactNode } from 'react';
 import { skillsProps as props } from './SkillsProps';
 import SkillCategory from '@/components/skills/SkillCategory';
+import SwipeCard from '@/components/skills/SwipeCard';
 import { tw } from '@/utils/tailwind/TinyWind';
 
 
@@ -16,6 +17,16 @@ const Skills = (): ReactNode => {
                     )
                 }
             </ul>
+
+            <div>
+                {
+                    props.categoryProps.map((category) =>
+                        category.skills?.map((skill, index) =>
+                            <SwipeCard key={index} { ...{ props: skill }} />
+                        )
+                    )
+                }
+            </div>
         </section>
     );
 };
@@ -25,7 +36,9 @@ export default Skills;
 
 const SkillsStyle = tw([
     'SkillsStyle',
-    'bg-purple-900'
+    'bg-purple-900',
+    'relative',
+    'pb-[400px]'
 ]);
 
 const SkillsCategoryListStyle = tw([
