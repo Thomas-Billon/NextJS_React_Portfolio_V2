@@ -34,7 +34,7 @@ const TooltipBubble = ({ content }: { content: string }): React.ReactNode => {
                         <span dangerouslySetInnerHTML={{__html: content}}></span>
                         <FloatingArrow
                             className={TooltipBubbleArrowStyle}
-                            ref={tooltipContext.data.arrow}
+                            ref={tooltipContext.data.arrowRef}
                             context={tooltipContext.data.context}
                             fill={Variables.gray800}
                             width={TOOLTIP_ARROW_WIDTH}

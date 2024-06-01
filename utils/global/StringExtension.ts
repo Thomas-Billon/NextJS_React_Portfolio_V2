@@ -61,7 +61,7 @@ String.prototype.parseFloatArray = function () {
 
 const parseFloatArray = (str: string): number[] | undefined => {
     const regexIterable = str.matchAll(/[-\d.]+/g);
-    const regexArray = [...regexIterable]?.[0];
+    const regexArray = [...regexIterable]?.map(item => item[0]);
 
     return regexArray?.map(item => parseFloat(item));
 }

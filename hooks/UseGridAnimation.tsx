@@ -39,8 +39,9 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
         observerRef.current?.observe(grid, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] });
     }, [grid]);
 
-    // Runs each time window size is changed
     const size = useWindowSize();
+    
+    // Runs each time window size is changed
     useEffect(() => {
         if (grid == null) {
             return;

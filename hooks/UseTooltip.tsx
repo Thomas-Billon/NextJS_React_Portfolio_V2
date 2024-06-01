@@ -13,21 +13,22 @@ interface UseTooltipProps {
     isToggle?: boolean;
 }
 
-export function useTooltip({ isToggle = false }: UseTooltipProps) {
+export const useTooltip = ({ isToggle = false }: UseTooltipProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
 
-    const arrowRef = useRef(null);
+    const arrowRef = useRef<HTMLElement>(null);
 
-    const changeOpenState = (value: boolean) => {
+    // Callback for useFloating hook when open/close event is triggered
+    const changeOpenState = (isOpenState: boolean) => {
         // If tooltip needs to be manually open, we only handle closing
         if (!isToggle) {
-            if (!value) {
+            if (!isOpenState) {
                 closeTooltip();
             }
         }
         else {
-            setTooltip(value);
+            setTooltip(isOpenState);
         }
     };
 
@@ -90,19 +91,19 @@ export function useTooltip({ isToggle = false }: UseTooltipProps) {
     const {isMounted, status} = useTransitionStatus(data.context);
   
     return useMemo(
-      () => ({
-        isMounted,
-        toggleTooltip,
-        openTooltip,
-        closeTooltip,
-        getReferenceProps,
-        getFloatingProps,
-        data: {
-            ...data,
-            status,
-            arrow: arrowRef
-        }
-      }),
-      [isMounted, toggleTooltip, openTooltip, closeTooltip, getReferenceProps, getFloatingProps, data]
+        () => ({
+            isMounted,
+            toggleTooltip,
+            openTooltip,
+            closeTooltip,
+            getReferenceProps,
+            getFloatingProps,
+            data: {
+                ...data,
+                status,
+                arrowRef: arrowRef
+            }
+        }),
+        [isMounted, toggleTooltip, openTooltip, closeTooltip, getReferenceProps, getFloatingProps, data, status, arrowRef]
     );
 }

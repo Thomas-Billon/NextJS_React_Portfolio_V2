@@ -1,65 +1,31 @@
 // use server
 'use client';
 
-import React, { RefObject, useRef, useState } from 'react';
+import React, { RefObject } from 'react';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { Props } from '@/utils/react/Props';
-import { Vector2 } from '@/utils/global/Vector2';
-import { startCssAnimation, stopCssAnimation, stopCssAnimationOnProperty } from '@/utils/global/CssAnimation';
 import { SkillCardProps } from '@/components/skills/SkillCard';
+import { useDragComponent } from '@/hooks/UseDragComponent';
 
 
 const SwipeCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
-    const cardRef = useRef<HTMLElement>(null);
-    const [isSwipingCard, setIsSwipingCard] = useState<boolean>(false);
-    const [swipePreviousPosition, setSwipePreviousPosition] = useState<Vector2>({x: 0, y: 0});
-    const [swipeOriginPosition, setSwipeOriginPosition] = useState<Vector2>({x: 0, y: 0});
-    const [swipeCurrentPosition, setSwipeCurrentPosition] = useState<Vector2>({x: 0, y: 0});
 
-    const OnTouchStart = (e : React.TouchEvent): void => {
-        if (e.touches.length == 1) {
-            setIsSwipingCard(true);
-            setSwipeOriginPosition({x: e.touches[0].clientX, y: e.touches[0].clientY});
-            setSwipeCurrentPosition({x: e.touches[0].clientX, y: e.touches[0].clientY});
+    const dragComponent = useDragComponent({isYAxisLocked: true, isAutoReset: true});
 
-            setSwipePreviousPosition({x: cardRef.current?.style.getPropertyValue('transform').parseFloat() ?? 0, y: 0});
-
-            if (cardRef.current) {
-                stopCssAnimationOnProperty(cardRef.current, 'transform');
-            }
-            // Fade + rotate & add mouse events
-            // Block scroll on start & unblock on end
-        }
-    }
-
-    const OnTouchMove = (e : React.TouchEvent): void => {
-        if (isSwipingCard) {
-            if (e.touches.length == 1) {
-                setSwipeCurrentPosition({x: e.touches[0].clientX, y: e.touches[0].clientY});
-
-                cardRef.current?.style.setProperty('transform', `translateX(${swipeCurrentPosition.x - swipeOriginPosition.x + swipePreviousPosition.x}px)`);
-            }
-        }
-    }
-
-    const OnTouchEnd = (e : React.TouchEvent): void => {
-        setIsSwipingCard(false);
-        setSwipeOriginPosition({x: 0, y: 0});
-        setSwipeCurrentPosition({x: 0, y: 0});
-
-        if (cardRef.current) {
-            startCssAnimation(cardRef.current, 'transform', [0], {format: 'translateX({0}px)'});
-        }
-    }
+    // Fade + rotate
+    // Block scroll on start & unblock on end for touch (in useDragComponent)
 
     return (
         <div className={SwipeCardStyle}>
             <div
-                ref={cardRef as RefObject<HTMLDivElement>}
-                className={SwipeCardContentStyle}
-                onTouchStart={OnTouchStart}
-                onTouchMove={OnTouchMove}
-                onTouchEnd={OnTouchEnd}
+                ref={dragComponent.componentRef as RefObject<HTMLDivElement>}
+                className={SwipeCardContentStyle({ isSwipingCard: dragComponent.isDraggingCard })}
+                onMouseDown={dragComponent.onDragStart}
+                onMouseMove={dragComponent.onDragMove}
+                onMouseUp={dragComponent.onDragEnd}
+                onTouchStart={dragComponent.onDragStart}
+                onTouchMove={dragComponent.onDragMove}
+                onTouchEnd={dragComponent.onDragEnd}
             >
                 { props.skill }
             </div>
@@ -81,12 +47,15 @@ const SwipeCardStyle = tw([
 ]);
 
 
-const SwipeCardContentStyle = tw([
+const SwipeCardContentStyle = ({ isSwipingCard }: { isSwipingCard: boolean }) => tw([
     'SwipeCardContentStyle',
     'flex',
     'items-center',
     'justify-center',
     'w-full',
     'h-full',
-    'bg-white'
+    'bg-white',
+    'select-none',
+    isSwipingCard && 'cursor-grabbing',
+    !isSwipingCard && 'cursor-grab'
 ]);
