@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useWindowSize } from '@/hooks/UseWindowSize';
-import { isAnimationRunning, startAnimation, stopAnimation } from '@/utils/global/StyleAnimation';
+import { isCssAnimationRunning, startCssAnimation, stopCssAnimation } from '@/utils/global/CssAnimation';
 
 
 interface RectPosition {
@@ -148,7 +148,7 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
 
             // Animates property to target value
             if (gridProperty.isAnimated && typeof gridProperty.newValue != 'undefined') {
-                startAnimation(gridProperty.element, property, [gridProperty.newValue], {duration: duration, onComplete : () => {
+                startCssAnimation(gridProperty.element, property, gridProperty.newValue, {duration: duration, onComplete : () => {
                     for(let gridPropertyOnComplete of gridProperties) {
                         gridPropertyOnComplete.element.style.setProperty(property, '');
                     }
@@ -174,7 +174,7 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
         const gridCells = [...grid.children] as HTMLElement[]
 
         // Stops grid animations
-        stopAnimation(gridContainer);
+        stopCssAnimation(gridContainer);
         
         // Updates grid ref to new values
         // Needs a timeout, for some reason offset values are off when read synchronously
@@ -186,7 +186,7 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
         for (let cell of gridCells) {
             const cellAnimated = cell.children[0] as HTMLElement;
 
-            stopAnimation(cellAnimated);
+            stopCssAnimation(cellAnimated);
         }
         
         // Updates cells ref to new values
@@ -214,7 +214,7 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
         const gridCells = [...grid.children] as HTMLElement[]
 
         // Checks if grid animations are running
-        if (isAnimationRunning(gridContainer)) {
+        if (isCssAnimationRunning(gridContainer)) {
             return true;
         }
 
@@ -222,7 +222,7 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
         for (let cell of gridCells) {
             const cellAnimated = cell.children[0] as HTMLElement;
 
-            if (isAnimationRunning(cellAnimated)) {
+            if (isCssAnimationRunning(cellAnimated)) {
                 return true;
             }
         }

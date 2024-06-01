@@ -5,13 +5,14 @@ import React, { RefObject, useRef, useState } from 'react';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { Props } from '@/utils/react/Props';
 import { Vector2 } from '@/utils/global/Vector2';
-import { startAnimation } from '@/utils/global/StyleAnimation';
+import { startCssAnimation, stopCssAnimation, stopCssAnimationOnProperty } from '@/utils/global/CssAnimation';
 import { SkillCardProps } from '@/components/skills/SkillCard';
 
 
 const SwipeCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
     const cardRef = useRef<HTMLElement>(null);
     const [isSwipingCard, setIsSwipingCard] = useState<boolean>(false);
+    const [swipePreviousPosition, setSwipePreviousPosition] = useState<Vector2>({x: 0, y: 0});
     const [swipeOriginPosition, setSwipeOriginPosition] = useState<Vector2>({x: 0, y: 0});
     const [swipeCurrentPosition, setSwipeCurrentPosition] = useState<Vector2>({x: 0, y: 0});
 
@@ -20,6 +21,14 @@ const SwipeCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
             setIsSwipingCard(true);
             setSwipeOriginPosition({x: e.touches[0].clientX, y: e.touches[0].clientY});
             setSwipeCurrentPosition({x: e.touches[0].clientX, y: e.touches[0].clientY});
+
+            setSwipePreviousPosition({x: cardRef.current?.style.getPropertyValue('transform').parseFloat() ?? 0, y: 0});
+
+            if (cardRef.current) {
+                stopCssAnimationOnProperty(cardRef.current, 'transform');
+            }
+            // Fade + rotate & add mouse events
+            // Block scroll on start & unblock on end
         }
     }
 
@@ -28,7 +37,7 @@ const SwipeCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
             if (e.touches.length == 1) {
                 setSwipeCurrentPosition({x: e.touches[0].clientX, y: e.touches[0].clientY});
 
-                cardRef.current?.style.setProperty('transform', `translateX(${swipeCurrentPosition.x - swipeOriginPosition.x}px)`);
+                cardRef.current?.style.setProperty('transform', `translateX(${swipeCurrentPosition.x - swipeOriginPosition.x + swipePreviousPosition.x}px)`);
             }
         }
     }
@@ -39,7 +48,7 @@ const SwipeCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
         setSwipeCurrentPosition({x: 0, y: 0});
 
         if (cardRef.current) {
-            startAnimation(cardRef.current, 'transform', [0], {format: 'translateX({0}px)'})
+            startCssAnimation(cardRef.current, 'transform', [0], {format: 'translateX({0}px)'});
         }
     }
 
