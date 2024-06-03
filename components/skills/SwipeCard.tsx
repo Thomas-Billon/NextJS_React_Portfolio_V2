@@ -1,7 +1,7 @@
 // use server
 'use client';
 
-import React, { RefObject } from 'react';
+import React, { RefObject, useEffect, useRef } from 'react';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { Props } from '@/utils/react/Props';
 import { SkillCardProps } from '@/components/skills/SkillCard';
@@ -9,23 +9,16 @@ import { useDragComponent } from '@/hooks/UseDragComponent';
 
 
 const SwipeCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
-
     const dragComponent = useDragComponent({isYAxisLocked: true, isAutoReset: true});
 
-    // Fade + rotate
-    // Block scroll on start & unblock on end for touch (in useDragComponent)
+    // TODO: Fade + rotate
+    // TODO: Block scroll on start & unblock on end for touch (in useDragComponent)
 
     return (
         <div className={SwipeCardStyle}>
             <div
                 ref={dragComponent.componentRef as RefObject<HTMLDivElement>}
-                className={SwipeCardContentStyle({ isSwipingCard: dragComponent.isDraggingCard })}
-                onMouseDown={dragComponent.onDragStart}
-                onMouseMove={dragComponent.onDragMove}
-                onMouseUp={dragComponent.onDragEnd}
-                onTouchStart={dragComponent.onDragStart}
-                onTouchMove={dragComponent.onDragMove}
-                onTouchEnd={dragComponent.onDragEnd}
+                className={SwipeCardContentStyle({ isSwipingCard: dragComponent.isDraggingComponent })}
             >
                 { props.skill }
             </div>

@@ -62,7 +62,7 @@ export function startCssAnimation(element: HTMLElement, property: string, target
     
     let origins = element.style.getPropertyValue(property).parseFloatArray();
 
-    if (!origins) {
+    if (!origins || origins.length == 0) {
         origins = new Array<number>(targets.length);
     }
     if (origins.length != targets.length) {

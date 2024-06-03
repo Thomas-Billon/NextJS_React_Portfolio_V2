@@ -1,32 +1,62 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import useStateRef from 'react-usestateref'
 import { Vector2 } from '@/utils/global/Vector2';
 import { startCssAnimation, stopCssAnimationOnProperty } from '@/utils/global/CssAnimation';
 
 
+export enum DragEventTypeEnum {
+    Mouse = 1 << 0,  
+    Touch = 1 << 1,
+    Both = Mouse | Touch
+}
+
 interface UseDragComponentProps {
+    eventType?: DragEventTypeEnum;
     isXAxisLocked?: boolean;
     isYAxisLocked?: boolean;
     isAutoReset?: boolean;
     duration?: number;
 }
 
-export function useDragComponent({ isXAxisLocked = false, isYAxisLocked = false, isAutoReset = false, duration = 250 }: UseDragComponentProps = {}) {
+export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLocked = false, isYAxisLocked = false, isAutoReset = false, duration = 250 }: UseDragComponentProps = {}) {
+    // Reference closures for useCallback methods
     const [isDraggingComponent, setIsDraggingCard] = useState<boolean>(false);
-    const [isResetPositionOnDrop, setIsResetPositionOnDrop] = useState<boolean>(false);
-    const [dragPreviousPosition, setDragPreviousPosition] = useState<Vector2>({x: 0, y: 0});
-    const [dragOriginPosition, setDragOriginPosition] = useState<Vector2>({x: 0, y: 0});
-    const [dragCurrentPosition, setDragCurrentPosition] = useState<Vector2>({x: 0, y: 0});
+    const [, setIsResetPositionOnDrop, isResetPositionOnDropRef] = useStateRef<boolean>(false);
+    const [, setDragPreviousPosition, dragPreviousPositionRef] = useStateRef<Vector2>({x: 0, y: 0});
+    const [, setDragOriginPosition, dragOriginPositionRef] = useStateRef<Vector2>({x: 0, y: 0});
+    const [, setDragCurrentPosition, dragCurrentPositionRef] = useStateRef<Vector2>({x: 0, y: 0});
 
     const componentRef = useRef<HTMLElement>(null);
 
-    const getClientPosition = (e : React.MouseEvent | React.TouchEvent) : Vector2 => {
-        if (e.nativeEvent instanceof MouseEvent) {
-            const mouseEvent = e as React.MouseEvent;
+    // Runs only once
+    useEffect(() => {
+        if (componentRef == null) {
+            return;
+        }
+
+        setIsResetPositionOnDrop(isAutoReset);
+
+        if ((eventType & DragEventTypeEnum.Mouse) != 0) {
+            componentRef.current?.addEventListener('mousedown', onDragStart);
+        }
+        if ((eventType & DragEventTypeEnum.Touch) != 0) {
+            componentRef.current?.addEventListener('touchstart', onDragStart);
+        }
+
+        return () => {
+            componentRef.current?.removeEventListener('mousedown', onDragStart);
+            componentRef.current?.removeEventListener('touchstart', onDragStart);
+        }
+    }, []);
+
+    const getClientPosition = (e : MouseEvent | TouchEvent) : Vector2 => {
+        if (e instanceof MouseEvent) {
+            const mouseEvent = e as MouseEvent;
 
             return { x: mouseEvent.clientX, y: mouseEvent.clientY }
         }
         else {
-            const touchEvent = e as React.TouchEvent;
+            const touchEvent = e as TouchEvent;
 
             if (touchEvent.touches.length != 1) {
                 return { x: 0, y: 0 }
@@ -36,10 +66,6 @@ export function useDragComponent({ isXAxisLocked = false, isYAxisLocked = false,
         }
     }
 
-    useEffect(() => {
-        setIsResetPositionOnDrop(isAutoReset);
-    }, []);
-
     const enableDrop = () => {
         setIsResetPositionOnDrop(false);
     }
@@ -48,7 +74,11 @@ export function useDragComponent({ isXAxisLocked = false, isYAxisLocked = false,
         setIsResetPositionOnDrop(true);
     }
 
-    const onDragStart = (e : React.MouseEvent | React.TouchEvent): void => {
+    const onDragStart = useCallback((e : MouseEvent | TouchEvent): void => {
+        if (componentRef == null) {
+            return;
+        }
+
         const clientPos = getClientPosition(e);
         
         setIsDraggingCard(true);
@@ -63,41 +93,58 @@ export function useDragComponent({ isXAxisLocked = false, isYAxisLocked = false,
         if (componentRef.current) {
             stopCssAnimationOnProperty(componentRef.current, 'transform');
         }
-    }
 
-    const onDragMove = (e : React.MouseEvent | React.TouchEvent): void => {
+        if ((eventType & DragEventTypeEnum.Mouse) != 0) {
+            window.addEventListener('mousemove', onDragMove);
+            window.addEventListener('mouseup', onDragEnd);
+        }
+        if ((eventType & DragEventTypeEnum.Touch) != 0) {
+            window.addEventListener('touchmove', onDragMove);
+            window.addEventListener('touchend', onDragEnd);
+        }
+    }, []);
+
+    const onDragMove = useCallback((e : MouseEvent | TouchEvent): void => {
+        if (componentRef == null) {
+            return;
+        }
+
         const clientPos = getClientPosition(e);
 
-        if (isDraggingComponent) {
-            setDragCurrentPosition({x: clientPos.x, y: clientPos.y});
+        setDragCurrentPosition({x: clientPos.x, y: clientPos.y});
 
-            const newPositionX = isXAxisLocked ? 0 : dragCurrentPosition.x - dragOriginPosition.x + dragPreviousPosition.x;
-            const newPositionY = isYAxisLocked ? 0 : dragCurrentPosition.y - dragOriginPosition.y + dragPreviousPosition.y;
+        const newPositionX = isXAxisLocked ? 0 : dragCurrentPositionRef.current.x - dragOriginPositionRef.current.x + dragPreviousPositionRef.current.x;
+        const newPositionY = isYAxisLocked ? 0 : dragCurrentPositionRef.current.y - dragOriginPositionRef.current.y + dragPreviousPositionRef.current.y;
 
-            componentRef.current?.style.setProperty('transform', `translateX(${newPositionX}px) translateY(${newPositionY}px)`);
+        componentRef.current?.style.setProperty('transform', `translateX(${newPositionX}px) translateY(${newPositionY}px)`);
+    }, []);
+
+    const onDragEnd = useCallback((e : MouseEvent | TouchEvent): void => {
+        if (componentRef == null) {
+            return;
         }
-    }
 
-    const onDragEnd = (e : React.MouseEvent | React.TouchEvent): void => {
         setIsDraggingCard(false);
         setDragOriginPosition({x: 0, y: 0});
         setDragCurrentPosition({x: 0, y: 0});
 
-        if (componentRef.current && isResetPositionOnDrop) {
+        if (componentRef.current && isResetPositionOnDropRef.current) {
             startCssAnimation(componentRef.current, 'transform', [0, 0], {duration, format: 'translateX({0}px) translateY({1}px)'});
         }
-    }
+
+        window.removeEventListener('mousemove', onDragMove);
+        window.removeEventListener('touchmove', onDragMove);
+        window.removeEventListener('mouseup', onDragEnd);
+        window.removeEventListener('touchend', onDragEnd);
+    }, []);
   
     return useMemo(
         () => ({
-            isDraggingCard: isDraggingComponent,
+            componentRef,
+            isDraggingComponent,
             enableDrop,
-            disableDrop,
-            onDragStart,
-            onDragMove,
-            onDragEnd,
-            componentRef
+            disableDrop
         }),
-        [isDraggingComponent, isResetPositionOnDrop, dragPreviousPosition, dragOriginPosition, dragCurrentPosition, componentRef]
+        [componentRef, isDraggingComponent]
     );
 }

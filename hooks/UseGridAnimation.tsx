@@ -32,11 +32,11 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
         }
 
         const observer: MutationObserver = new MutationObserver(observerCallback);
-
-        // This ensure the observer is only run once and the animation doesn't flicker even with strict mode on
-        observerRef.current?.disconnect();
+        
         observerRef.current = observer;
         observerRef.current?.observe(grid, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] });
+
+        return () => observerRef.current?.disconnect();
     }, [grid]);
 
     const size = useWindowSize();
