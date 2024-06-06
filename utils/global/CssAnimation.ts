@@ -52,63 +52,34 @@ interface AnimatePropertyOptions {
     onComplete?: (element?: HTMLElement) => void;
 }
 
-export function startCssAnimation(element: HTMLElement, property: string, target: number, options: AnimatePropertyOptions): void;
-export function startCssAnimation(element: HTMLElement, property: string, targets: number[], options: AnimatePropertyOptions): void;
-
-export function startCssAnimation(element: HTMLElement, property: string, targets: number | number[], { duration = 250, step = 5, format = '{0}px', onComplete = () => {} }: AnimatePropertyOptions = {}): void {
-    if (typeof targets == 'number') {
-        targets = [targets]
-    }
-    
-    let origins = element.style.getPropertyValue(property).parseFloatArray();
-
-    if (!origins || origins.length == 0) {
-        origins = new Array<number>(targets.length);
-    }
-    if (origins.length != targets.length) {
-        console.error(`Error - ${startCssAnimation.name} : Mismatch between origin (${origins}) & target (${targets}) on ${property} property`);
-        return;
-    }
-
+export function startCssAnimation(element: HTMLElement, property: string, target: number, { duration = 250, step = 5, format = '{0}px', onComplete = () => {} }: AnimatePropertyOptions = {}): void {
     if (step <= 0) {
         console.error(`Error - ${startCssAnimation.name} : Step cannot be inferior or equal to 0`);
         return;
     }
+    
+    const origin = element.style.getPropertyValue(property).parseFloat() ?? 0;
 
-    const intervalId = runCssAnimationOnProperty(element, property, origins, targets, {duration, step, format})
-
-    addCurrentAnimation({element, property, intervalId, onComplete});
-}
-
-const runCssAnimationOnProperty = (element: HTMLElement, property: string, origins: number[], targets: number[], { duration, step, format }: NonNullableFields<Omit<AnimatePropertyOptions, 'onComplete'>>): NodeJS.Timeout => {
     let i: number = 0;
     const intervalId = setInterval(() => {
         i++;
-        
-        let newValues: number[] = [];
-        for (let j = 0; j < origins.length; j++) {
-            const origin = origins[j];
-            const target = targets[j];
 
-            let newValue: number = 0;
-            if (duration <= 0) {
-                newValue = target;
-            }
-            else {
-                newValue = origin + (target - origin) / duration * (step * i);
-            }
-
-            newValues.push(newValue);
+        let newValue: number = 0;
+        if (duration <= 0) {
+            newValue = target;
+        }
+        else {
+            newValue = origin + (target - origin) / duration * (step * i);
         }
 
-        element.style.setProperty(property, String.format(format, ...newValues));
+        element.style.setProperty(property, String.format(format, newValue));
 
         if (i >= duration / step) {
             stopCssAnimationOnProperty(element, property);
         }
     }, step);
 
-    return intervalId;
+    addCurrentAnimation({element, property, intervalId, onComplete});
 }
 
 export const stopCssAnimation = (element: HTMLElement): void => {

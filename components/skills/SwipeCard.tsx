@@ -5,11 +5,11 @@ import React, { RefObject, useEffect, useRef } from 'react';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { Props } from '@/utils/react/Props';
 import { SkillCardProps } from '@/components/skills/SkillCard';
-import { useDragComponent } from '@/hooks/UseDragComponent';
+import { useSwipeComponent } from '@/hooks/UseSwipeComponent';
 
 
 const SwipeCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
-    const dragComponent = useDragComponent({isYAxisLocked: true, isAutoReset: true});
+    const swipeComponent = useSwipeComponent({distance: 300, isYAxisLocked: true, isAutoReset: true});
 
     // TODO: Fade + rotate
     // TODO: Block scroll on start & unblock on end for touch (in useDragComponent)
@@ -17,8 +17,8 @@ const SwipeCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
     return (
         <div className={SwipeCardStyle}>
             <div
-                ref={dragComponent.componentRef as RefObject<HTMLDivElement>}
-                className={SwipeCardContentStyle({ isSwipingCard: dragComponent.isDraggingComponent })}
+                ref={swipeComponent.componentRef as RefObject<HTMLDivElement>}
+                className={SwipeCardContentStyle({ isSwipingCard: swipeComponent.isDraggingComponent })}
             >
                 { props.skill }
             </div>
@@ -39,7 +39,6 @@ const SwipeCardStyle = tw([
     'h-[300px]'
 ]);
 
-
 const SwipeCardContentStyle = ({ isSwipingCard }: { isSwipingCard: boolean }) => tw([
     'SwipeCardContentStyle',
     'flex',
@@ -47,6 +46,7 @@ const SwipeCardContentStyle = ({ isSwipingCard }: { isSwipingCard: boolean }) =>
     'justify-center',
     'w-full',
     'h-full',
+    'transform',
     'bg-white',
     'select-none',
     isSwipingCard && 'cursor-grabbing',

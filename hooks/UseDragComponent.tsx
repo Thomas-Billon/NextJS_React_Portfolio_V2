@@ -10,7 +10,7 @@ export enum DragEventTypeEnum {
     Both = Mouse | Touch
 }
 
-interface UseDragComponentProps {
+export interface UseDragComponentProps {
     eventType?: DragEventTypeEnum;
     isXAxisLocked?: boolean;
     isYAxisLocked?: boolean;
@@ -19,8 +19,12 @@ interface UseDragComponentProps {
 }
 
 export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLocked = false, isYAxisLocked = false, isAutoReset = false, duration = 250 }: UseDragComponentProps = {}) {
+    const CSS_VARIABLE_OFFSET_X = '--tw-translate-x';
+    const CSS_VARIABLE_OFFSET_Y = '--tw-translate-y';
+    
     // Reference closures for useCallback methods
     const [isDraggingComponent, setIsDraggingCard] = useState<boolean>(false);
+    const [dragOffset, setDragOffset] = useState<Vector2>({x: 0, y: 0});
     const [, setIsResetPositionOnDrop, isResetPositionOnDropRef] = useStateRef<boolean>(false);
     const [, setDragPreviousPosition, dragPreviousPositionRef] = useStateRef<Vector2>({x: 0, y: 0});
     const [, setDragOriginPosition, dragOriginPositionRef] = useStateRef<Vector2>({x: 0, y: 0});
@@ -85,13 +89,15 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
         setDragOriginPosition({x: clientPos.x, y: clientPos.y});
         setDragCurrentPosition({x: clientPos.x, y: clientPos.y});
 
-        const previousPosition = componentRef.current?.style.getPropertyValue('transform').parseFloatArray()
-        if (previousPosition && previousPosition.length >= 2) {
-            setDragPreviousPosition({x: previousPosition[0], y: previousPosition[1]});
+        const previousPositionX = componentRef.current?.style.getPropertyValue(CSS_VARIABLE_OFFSET_X).parseFloat();
+        const previousPositionY = componentRef.current?.style.getPropertyValue(CSS_VARIABLE_OFFSET_Y).parseFloat();
+        if (previousPositionX !== undefined && previousPositionY !== undefined) {
+            setDragPreviousPosition({x: previousPositionX, y: previousPositionY});
         }
 
         if (componentRef.current) {
-            stopCssAnimationOnProperty(componentRef.current, 'transform');
+            stopCssAnimationOnProperty(componentRef.current, CSS_VARIABLE_OFFSET_X);
+            stopCssAnimationOnProperty(componentRef.current, CSS_VARIABLE_OFFSET_Y);
         }
 
         if ((eventType & DragEventTypeEnum.Mouse) != 0) {
@@ -116,7 +122,10 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
         const newPositionX = isXAxisLocked ? 0 : dragCurrentPositionRef.current.x - dragOriginPositionRef.current.x + dragPreviousPositionRef.current.x;
         const newPositionY = isYAxisLocked ? 0 : dragCurrentPositionRef.current.y - dragOriginPositionRef.current.y + dragPreviousPositionRef.current.y;
 
-        componentRef.current?.style.setProperty('transform', `translateX(${newPositionX}px) translateY(${newPositionY}px)`);
+        componentRef.current?.style.setProperty(CSS_VARIABLE_OFFSET_X, `${newPositionX}px`);
+        componentRef.current?.style.setProperty(CSS_VARIABLE_OFFSET_Y, `${newPositionY}px`);
+
+        setDragOffset({x: newPositionX, y: newPositionY});
     }, []);
 
     const onDragEnd = useCallback((e : MouseEvent | TouchEvent): void => {
@@ -129,7 +138,8 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
         setDragCurrentPosition({x: 0, y: 0});
 
         if (componentRef.current && isResetPositionOnDropRef.current) {
-            startCssAnimation(componentRef.current, 'transform', [0, 0], {duration, format: 'translateX({0}px) translateY({1}px)'});
+            startCssAnimation(componentRef.current, CSS_VARIABLE_OFFSET_X, 0, {duration, format: '{0}px'});
+            startCssAnimation(componentRef.current, CSS_VARIABLE_OFFSET_Y, 0, {duration, format: '{0}px'});
         }
 
         window.removeEventListener('mousemove', onDragMove);
@@ -142,9 +152,10 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
         () => ({
             componentRef,
             isDraggingComponent,
+            dragOffset,
             enableDrop,
             disableDrop
         }),
-        [componentRef, isDraggingComponent]
+        [componentRef, dragOffset, isDraggingComponent]
     );
 }
