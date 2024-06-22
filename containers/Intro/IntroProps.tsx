@@ -68,7 +68,7 @@ const particlesProps: ParticlesLoaderProps = {
 };
 
 export const introProps: IntroProps = {
-    canvasProps: canvasProps,
-    modelProps: modelProps,
-    particlesProps: particlesProps
+    canvasProps,
+    modelProps,
+    particlesProps
 };

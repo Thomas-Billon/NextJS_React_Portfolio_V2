@@ -1,13 +1,24 @@
 // use server
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { skillsProps as props } from './SkillsProps';
-import SkillCategory from '@/components/skills/SkillCategory';
+import SkillCategory, { SkillCategoryProps } from '@/components/skills/SkillCategory';
+import SkillPack from '@/components/skills/SkillPack';
 import SwipeCard from '@/components/skills/SwipeCard';
 import { tw } from '@/utils/tailwind/TinyWind';
+import { SkillEnum } from '@/utils/enums/SkillEnum';
 
 
 const Skills = (): ReactNode => {
+    let skills: SkillEnum[] = [];
+    props.categoryProps.map((category) =>
+        category.skills?.map((skill) => {
+            if (skill.skill) {
+                skills.push(skill.skill);
+            }
+        })
+    );
+
     return(
         <section id="skills" className={SkillsStyle}>
             <ul className={SkillsCategoryListStyle}>
@@ -18,15 +29,15 @@ const Skills = (): ReactNode => {
                 }
             </ul>
 
-            <div>
+            <SkillPack skills={skills}>
                 {
                     props.categoryProps.map((category) =>
-                        category.skills?.map((skill, index) =>
-                            <SwipeCard key={index} { ...{ props: skill }} />
-                        )
+                        category.skills?.map((skill) => {
+                            return <SwipeCard key={skills.findIndex((value) => value == skill.skill)} { ...{ props: skill }} />
+                        })
                     )
                 }
-            </div>
+            </SkillPack>
         </section>
     );
 };

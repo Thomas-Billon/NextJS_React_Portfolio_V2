@@ -160,6 +160,6 @@ const minigameProps: ProjectCardButtonMinigameProps[] = [
 ];
 
 export const projectsProps: ProjectsProps = {
-    cardProps: cardProps,
-    minigameProps: minigameProps
+    cardProps,
+    minigameProps
 };

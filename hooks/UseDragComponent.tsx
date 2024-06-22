@@ -25,7 +25,7 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
     // Reference closures for useCallback methods
     const [isDraggingComponent, setIsDraggingCard] = useState<boolean>(false);
     const [dragOffset, setDragOffset] = useState<Vector2>({x: 0, y: 0});
-    const [, setIsResetPositionOnDrop, isResetPositionOnDropRef] = useStateRef<boolean>(false);
+    const [isResetPositionOnDrop, setIsResetPositionOnDrop, isResetPositionOnDropRef] = useStateRef<boolean>(false);
     const [, setDragPreviousPosition, dragPreviousPositionRef] = useStateRef<Vector2>({x: 0, y: 0});
     const [, setDragOriginPosition, dragOriginPositionRef] = useStateRef<Vector2>({x: 0, y: 0});
     const [, setDragCurrentPosition, dragCurrentPositionRef] = useStateRef<Vector2>({x: 0, y: 0});
@@ -153,6 +153,7 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
             componentRef,
             isDraggingComponent,
             dragOffset,
+            isResetPositionOnDrop,
             enableDrop,
             disableDrop
         }),
