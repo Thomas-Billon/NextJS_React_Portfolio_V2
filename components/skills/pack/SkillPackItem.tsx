@@ -1,16 +1,15 @@
-// use server
 'use client';
 
 import React, { RefObject } from 'react';
 import { tw } from '@/utils/tailwind/TinyWind';
-import { Props } from '@/utils/react/Props';
-import { PackContext } from '@/components/skills/SkillPack';
-import { SkillCardProps } from '@/components/skills/SkillCard';
+import { DefaultProps, Props } from '@/utils/react/Props';
+import { PackContext } from '@/components/skills/pack/SkillPack';
+import { SkillCardProps } from '@/components/skills/card/SkillCard';
 import { useSwipeComponent } from '@/hooks/UseSwipeComponent';
 import { useCustomContext } from '@/hooks/UseCustomContext';
 
 
-const SwipeCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
+const SkillPackItem = ({ children, props = {} }: Props<SkillCardProps>): React.ReactNode => {
     const packContext = useCustomContext(PackContext, 'SkillPack');
 
     const zIndex = packContext.skillOrder.length - packContext.skillOrder.findIndex((value) => value == props.skill);
@@ -21,44 +20,35 @@ const SwipeCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
         }
     }});
 
-    // TODO: Apply style from skill card
-    // TODO: Clean up & rename stuff
+    // TODO: Fix issue on drop, card stays hovered
+    // TODO: Fix issue on drop, hover animation is visible behind pack
     // TODO: Block scroll on start & unblock on end for touch (in useDragComponent)
 
     return (
-        <div className={SwipeCardStyle} style={{ zIndex }}>
+        <li className={SwipeCardStyle} style={{ zIndex }}>
             <div
                 ref={swipeComponent.componentRef as RefObject<HTMLDivElement>}
                 className={SwipeCardContentStyle({ isSwipingCard: swipeComponent.isDraggingComponent })}
             >
-                { props.skill }
+                { children }
             </div>
-        </div>
+        </li>
     );
 };
 
-export default SwipeCard;
+export default SkillPackItem;
 
 
 const SwipeCardStyle = tw([
     'SwipeCardStyle',
-    'absolute',
-    'bottom-[100px]',
-    'left-1/2',
-    '-translate-x-1/2',
-    'w-[300px]',
-    'h-[300px]'
+    'inline-flex',
+    'w-0',
+    'justify-center'
 ]);
 
 const SwipeCardContentStyle = ({ isSwipingCard }: { isSwipingCard: boolean }) => tw([
     'SwipeCardContentStyle',
-    'flex',
-    'items-center',
-    'justify-center',
-    'w-full',
-    'h-full',
     'transform',
-    'bg-white',
     'select-none',
     isSwipingCard && 'cursor-grabbing',
     !isSwipingCard && 'cursor-grab'

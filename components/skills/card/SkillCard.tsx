@@ -16,6 +16,8 @@ export interface SkillCardProps {
 }
 
 const SkillCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
+
+    props.imageRatio = props.imageRatio ?? 1;
     
     const getImageNameFromSkill = (skill: SkillEnum): string => {
         const enumKey = Object.keys(SkillEnum)[Object.values(SkillEnum).indexOf(skill)];
@@ -49,7 +51,7 @@ const SkillCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
     };
 
     return (
-        <li
+        <div
             className={SkillCardStyle({ imageRatio: props.imageRatio })}
             style={{color: props.textColor, borderColor: props.backgroundColor, backgroundColor: props.backgroundColor}}
         >
@@ -66,6 +68,7 @@ const SkillCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
                             "256"
                         }
                         height="256"
+                        draggable={false}
                     />
                     <div className={SkillCardTextStyle({ imageRatio: props.imageRatio })}>
                         <span className={SkillCardTitleStyle} style={{ fontSize: getFontSizeFromSkill(props.skill) }}>
@@ -75,7 +78,7 @@ const SkillCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
                 </>
             }
             </div>
-        </li>
+        </div>
     );
 };
 
@@ -85,8 +88,8 @@ export default SkillCard;
 const SkillCardStyle = ({ imageRatio }: { imageRatio?: number }) =>  tw([
     'SkillCardStyle',
     'relative',
-    'w-16',
-    'h-16',
+    'w-48',
+    'h-48',
     'text-white',
     'overflow-hidden',
     'border-2',
@@ -94,7 +97,7 @@ const SkillCardStyle = ({ imageRatio }: { imageRatio?: number }) =>  tw([
     'rounded-lg',
     'transition-transform',
     'duration-300',
-    'hover:scale-125',
+    'hover:scale-110',
     imageRatio == 1 && 'after:content-[""]',
     imageRatio == 1 && 'after:absolute',
     imageRatio == 1 && 'after:z-1',
@@ -133,8 +136,6 @@ const SkillCardTextStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
     'justify-center',
     'text-center',
     'font-bold',
-    'overflow-hidden',
-    'cursor-default',
     'select-none',
     imageRatio == 2 && 'absolute',
     imageRatio == 2 && 'right-0',

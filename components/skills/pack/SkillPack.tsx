@@ -6,16 +6,10 @@ import { DefaultProps, Props } from '@/utils/react/Props';
 import { SkillEnum } from '@/utils/enums/SkillEnum';
 
 
-export interface PackContextProps {
-    skillOrder: SkillEnum[];
-    placeSkillInFirst: (skill: SkillEnum) => void;
-    placeSkillInLast: (skill: SkillEnum) => void;
-};
-
-export const PackContext = createContext<PackContextProps>({
-    skillOrder: [],
-    placeSkillInFirst: (_): void => {},
-    placeSkillInLast: (_): void => {}
+export const PackContext = createContext({
+    skillOrder: [] as SkillEnum[],
+    placeSkillInFirst: (_: SkillEnum): void => {},
+    placeSkillInLast: (_: SkillEnum): void => {}
 });
 
 export interface SkillPackProps {
@@ -38,9 +32,19 @@ const SkillPack = ({ children, skills = [] }: Props<SkillPackProps>): React.Reac
     
     return(
         <PackContext.Provider value={{ skillOrder, placeSkillInFirst, placeSkillInLast }}>
-            {children}
+            <ul className={SkillPackStyle}>
+                {children}
+            </ul>
         </PackContext.Provider>
     );
 };
 
 export default SkillPack;
+
+
+const SkillPackStyle = tw([
+    'SkillPackStyle',
+    'container-section',
+    'flex',
+    'justify-center'
+]);
