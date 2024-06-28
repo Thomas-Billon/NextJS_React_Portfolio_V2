@@ -91,7 +91,7 @@ const ProjectCardStyle = tw([
     'overflow-hidden',
     'rounded-lg',
     'md:aspect-video',
-    'shadow-md'
+    'shadow-lg'
 ]);
 
 const ProjectCardFullWidthStyle = tw([

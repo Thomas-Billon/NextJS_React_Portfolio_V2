@@ -6,10 +6,12 @@ import { SkillEnum } from '@/utils/enums/SkillEnum';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { Props } from '@/utils/react/Props';
 import '@/utils/global/StringExtension';
+import '@/utils/react/ReactExtension';
 
 
 export interface SkillCardProps {
     skill?: SkillEnum;
+    proficiency?: number;
     backgroundColor?: string;
     textColor?: string;
     imageRatio?: number;
@@ -35,25 +37,26 @@ const SkillCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
             }
         });
 
-        const shiftFunctionValue = 8;
-        if (length <= shiftFunctionValue) {
-            // Parabolic function : f(x) = -4x + x²/4 + 26
-            // f(0) = 26    -> If text length is small, font size will be set to max i.e. 26px
-            // f(8) = 10    -> If text length is big, font size will be set to min i.e. 8px
-            return -4 * length + (length * length) / 4 + 26;
-        }
-        else {
-            // Linear function : f(x) = -x/2 + 14
-            // f(8) = 10    -> If text length is small, font size will be set to max i.e. 10px
-            // f(28) = 0    -> If text length is big, font size will be set to min i.e. 0px
-            return -length / 2 + 14;
-        }
+        const minSize = 24;
+        const maxSize = 48;
+
+        // Linear function : f(x) = -2.4x + 48
+        // f(0) = 48    -> If text length is small, font size will be set to max i.e. 48px
+        // f(10) = 24   -> If text length is big, font size will be set to min i.e. 24px
+        const size = -2.4 * length + maxSize;
+
+        return size < minSize ? minSize : size;
     };
 
     return (
         <div
             className={SkillCardStyle({ imageRatio: props.imageRatio })}
-            style={{color: props.textColor, borderColor: props.backgroundColor, backgroundColor: props.backgroundColor}}
+            style={{
+                color: props.textColor,
+                borderColor: props.backgroundColor,
+                backgroundColor: props.backgroundColor,
+                '--tw-shadow-color': props.backgroundColor
+            }}
         >
             <div className={SkillCardDoubleWidthStyle}> {
                 props.skill &&
@@ -85,35 +88,47 @@ const SkillCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
 export default SkillCard;
 
 
-const SkillCardStyle = ({ imageRatio }: { imageRatio?: number }) =>  tw([
+const SkillCardStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
     'SkillCardStyle',
     'relative',
     'w-48',
     'h-48',
     'text-white',
     'overflow-hidden',
-    'border-2',
+    'border-4',
     'border-off-white',
     'rounded-lg',
     'transition-transform',
     'duration-300',
     'hover:scale-110',
-    imageRatio == 1 && 'after:content-[""]',
-    imageRatio == 1 && 'after:absolute',
-    imageRatio == 1 && 'after:z-1',
-    imageRatio == 1 && 'after:top-0',
-    imageRatio == 1 && 'after:left-0',
-    imageRatio == 1 && 'after:full',
-    imageRatio == 1 && 'after:bg-white',
-    imageRatio == 1 && 'after:transition-colors',
-    imageRatio == 1 && 'after:duration-300',
-    imageRatio == 1 && 'after:hover:bg-transparent'
+    'after:content-[""]',
+    'after:absolute',
+    'after:z-2',
+    'after:top-0',
+    'after:left-0',
+    'after:full',
+    'after:opacity-30',
+    'after:transition-shadow',
+    'after:duration-300',
+    'after:shadow-[inset_0_0_30px_15px_rgba(0,0,0,0)]',
+    'after:shadow-inherit',
+    'after:hover:shadow-transparent',
+    imageRatio == 1 && 'before:content-[""]',
+    imageRatio == 1 && 'before:absolute',
+    imageRatio == 1 && 'before:z-1',
+    imageRatio == 1 && 'before:top-0',
+    imageRatio == 1 && 'before:left-0',
+    imageRatio == 1 && 'before:full',
+    imageRatio == 1 && 'before:transition-color',
+    imageRatio == 1 && 'before:duration-300',
+    imageRatio == 1 && 'before:bg-off-white',
+    imageRatio == 1 && 'before:hover:bg-transparent'
 ]);
 
 const SkillCardDoubleWidthStyle = tw([
     'SkillCardDoubleWidthStyle',
     'relative',
-    'z-2',
+    'z-3',
     'flex',
     'w-[200%]',
     'transition-transform',
