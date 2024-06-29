@@ -9,13 +9,13 @@ import { projectsProps as props } from './ProjectsProps';
 
 
 const Projects = (): ReactNode => {
-    return(
+    return (
         <section id="projects" className={ProjectsStyle}>
             <ProjectGrid>
                 {
                     props.cardProps.map((project, index) =>
                         <ProjectGridItem key={index} index={index}>
-                            <ProjectCard { ...{ props: project }} />
+                            <ProjectCard {...{ props: project }} />
                         </ProjectGridItem>
                     )
                 }

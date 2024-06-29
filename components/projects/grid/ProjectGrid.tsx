@@ -21,13 +21,13 @@ const ProjectGrid = ({ children }: DefaultProps): React.ReactNode => {
 
     const openCard = (index: number): void => {
         setActiveIndex(index);
-    }
+    };
     
     const closeCard = (): void => {
         setActiveIndex(-1);
-    }
+    };
     
-    return(
+    return (
         <GridContext.Provider value={{ activeIndex, openCard, closeCard }}>
             <ul id="projects-grid" className={ProjectsGridStyle}>
                 {children}

@@ -109,7 +109,7 @@ module.exports = {
                 'sm': '520px'
             },
             zIndex: {
-                '100': '100',
+                '100': '100'
             }
         },
         container: {
@@ -126,4 +126,4 @@ module.exports = {
             addUtilities(postcss.parse(css).nodes);
         })
     ]
-}
+};

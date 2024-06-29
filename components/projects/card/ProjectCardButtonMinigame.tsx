@@ -16,9 +16,9 @@ export interface ProjectCardButtonMinigameProps {
     actionAtEnd?: MinigameActionEnum;
 }
 
-export const MinigameContext = createContext({isMinigameOver: false});
+export const MinigameContext = createContext({ isMinigameOver: false });
 
-const ProjectCardButtonMinigame = ({ props = {} }: Props<ProjectCardButtonProps>): React.ReactNode => {
+const ProjectCardButtonMinigame = ({ props = {}}: Props<ProjectCardButtonProps>): React.ReactNode => {
     const [isMinigameOver, setIsMinigameOver] = useState<boolean>(false);
     const [minigameStep, setMinigameStep] = useState<number>(-1);
     const [isEnabled, setIsEnabled] = useState<boolean>(true);
@@ -68,23 +68,23 @@ const ProjectCardButtonMinigame = ({ props = {} }: Props<ProjectCardButtonProps>
 
     const enableButton = (): void => {
         setIsEnabled(true);
-    }
+    };
 
     const disableButton = (): void => {
         setIsEnabled(false);
-    }
+    };
 
     const addOpacity = (): void => {
         setOpacityValue(1);
-    }
+    };
 
     const removeOpacity = (): void => {
         setOpacityValue(0);
-    }
+    };
 
     return (
-        <MinigameContext.Provider value={{isMinigameOver: false}}>
-            <ProjectCardButton { ...{ props }} onClick={incrementMinigameStep} isEnabled={isEnabled} opacity={opacityValue} />
+        <MinigameContext.Provider value={{ isMinigameOver: false }}>
+            <ProjectCardButton {...{ props }} onClick={incrementMinigameStep} isEnabled={isEnabled} opacity={opacityValue} />
             <TooltipBubble content={projectsProps.minigameProps[minigameStep]?.text ?? ''} />
         </MinigameContext.Provider>
     );

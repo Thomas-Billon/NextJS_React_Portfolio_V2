@@ -10,17 +10,15 @@ import { isNotNull } from '@/utils/global/NullableExtension';
 
 
 const Skills = (): ReactNode => {
-    return(
+    return (
         <section id="skills" className={SkillsStyle}>
-            <SkillPack skills={ props.cardProps.map((card) => card.skill).filter(isNotNull) }>
-                {
-                    props.cardProps.map((card, index) =>
-                        <SkillPackItem key={index} { ...{ props: card }}>
-                            <SkillCard { ...{ props: card }} />
-                        </SkillPackItem>
-                    )
-                }
-            </SkillPack>
+            <SkillPack skills={props.cardProps.map((card) => card.skill).filter(isNotNull)}> {
+                props.cardProps.map((card, index) =>
+                    <SkillPackItem key={index} {...{ props: card }}>
+                        <SkillCard {...{ props: card }} />
+                    </SkillPackItem>
+                )
+            } </SkillPack>
         </section>
     );
 };

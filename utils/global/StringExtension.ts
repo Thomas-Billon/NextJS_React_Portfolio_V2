@@ -27,20 +27,20 @@ const format = (str: string, ...args: any[]): string => {
                 ? args[number] 
                 : match
         );
-}
+};
 
 String.snakeCase = (str) => snakeCase(str);
 String.prototype.snakeCase = function() {
     return snakeCase(this as string);
-}
+};
 
 const snakeCase = (str: string): string => {
     return str
-        .replace(/\W+/g, " ")
+        .replace(/\W+/g, ' ')
         .split(/ |\B(?=[A-Z])/)
         .map(word => word.toLowerCase())
         .join('_');
-}
+};
 
 String.parseFloat = (str) => parseFloatSingle(str);
 String.prototype.parseFloat = function () {
@@ -52,7 +52,7 @@ const parseFloatSingle = (str: string): number | undefined => {
     const regexString = regexArray?.[0];
 
     return regexString ? parseFloat(regexString) : undefined;
-}
+};
 
 String.parseFloatArray = (str) => parseFloatArray(str);
 String.prototype.parseFloatArray = function () {
@@ -64,4 +64,4 @@ const parseFloatArray = (str: string): number[] | undefined => {
     const regexArray = [...regexIterable]?.map(item => item[0]);
 
     return regexArray?.map(item => parseFloat(item));
-}
+};

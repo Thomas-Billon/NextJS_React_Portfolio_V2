@@ -16,9 +16,9 @@ const ProjectCardClose = (): React.ReactNode => {
         gridContext.closeCard();
     };
 
-    return(
+    return (
         <span className={ProjectCardCloseStyle} onClick={closeCard}>
-            <FontAwesomeIcon icon={fas.faClose} size="lg" className="aspect-square"/>
+            <FontAwesomeIcon icon={fas.faClose} size="lg" fixedWidth />
         </span>
     );
 };

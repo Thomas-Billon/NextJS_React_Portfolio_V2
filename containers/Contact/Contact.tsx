@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 
 
 const Contact = (): ReactNode => {
-    return(
+    return (
         <section id="contact">
         </section>
     );

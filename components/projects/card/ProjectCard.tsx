@@ -25,7 +25,7 @@ export interface ProjectCardImageProps {
     alt: string;
 }
 
-const ProjectCard = ({ props = {} }: Props<ProjectCardProps>): React.ReactNode => {
+const ProjectCard = ({ props = {}}: Props<ProjectCardProps>): React.ReactNode => {
     return (
         <div className={ProjectCardStyle}>
             <div className={ProjectCardFullWidthStyle}>
@@ -37,8 +37,8 @@ const ProjectCard = ({ props = {} }: Props<ProjectCardProps>): React.ReactNode =
                                     <div key={index} className={ProjectCardImageItemStyle({ isFirstItem: (index == 0) })}>
                                         <Image className={ProjectCardImageStyle} src={image.src} alt={image.alt} width={1920} height={1080} />
                                     </div>
-                                )}
-                            </div>
+                                )
+                            } </div>
                             <div className={ProjectCardTextStyle}>
                                 <div className={ProjectCardTitleYearStyle}>
                                     <h4 className={ProjectCardTitleStyle}>{props.title}</h4>
@@ -47,27 +47,25 @@ const ProjectCard = ({ props = {} }: Props<ProjectCardProps>): React.ReactNode =
                                 <div className={ProjectCardDescriptionListStyle}> {
                                     props.description?.map((paragraph, index) => 
                                         <p key={index} className={ProjectCardDescriptionItemStyle}>{paragraph}</p>
-                                    )}
-                                </div>
+                                    )
+                                } </div>
                                 <div className={ProjectCardTagListStyle}> {
                                     props.tags?.map((tag, index) => 
                                         <span key={index} className={ProjectCardTagItemStyle}>{tag}</span>
-                                    )}
-                                </div>
+                                    )
+                                } </div>
                                 <div className={ProjectCardLinkListStyle}> {
-                                    props.links?.map((link, index) =>
-                                        {
-                                            return(
-                                                link.isMinigame ?
-                                                    <TooltipContainer key={index}>
-                                                        <ProjectCardButtonMinigame { ...{ props: link }} />
-                                                    </TooltipContainer>
-                                                :
-                                                    <ProjectCardButton key={index} { ...{ props: link }} />
-                                            );
-                                        }
-                                    )}
-                                </div>
+                                    props.links?.map((link, index) => {
+                                        return (
+                                            link.isMinigame ?
+                                                <TooltipContainer key={index}>
+                                                    <ProjectCardButtonMinigame {...{ props: link }} />
+                                                </TooltipContainer>
+                                            :
+                                                <ProjectCardButton key={index} {...{ props: link }} />
+                                        );
+                                    })
+                                } </div>
                                 <div className={ProjectCardCloseContainerStyle}>
                                     <ProjectCardClose />
                                 </div>

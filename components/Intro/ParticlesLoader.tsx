@@ -10,7 +10,7 @@ import { Props } from '@/utils/react/Props';
 
 export interface ParticlesLoaderProps extends ISourceOptions {}
 
-const ParticlesLoader = ({ className = '', props = {} }: Props<ParticlesLoaderProps>): ReactNode => {
+const ParticlesLoader = ({ className = '', props = {}}: Props<ParticlesLoaderProps>): ReactNode => {
     const [init, setInit] = useState<boolean>(false);
 
     useEffect(() => {
@@ -29,7 +29,8 @@ const ParticlesLoader = ({ className = '', props = {} }: Props<ParticlesLoaderPr
     return (
         init ?
             <Particles className={ParticlesStyle({ className })} options={options} particlesLoaded={particlesLoaded} />
-        : <></>
+        :
+            <></>
     );
 };
 

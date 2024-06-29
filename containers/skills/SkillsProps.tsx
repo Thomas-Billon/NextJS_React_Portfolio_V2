@@ -21,7 +21,7 @@ const cardProps: SkillCardProps[] = [
         skill: SkillEnum.CSharp,
         proficiency: 5,
         backgroundColor: '#390091'
-    },
+    }, /*
     {
         skill: SkillEnum.Javascript,
         proficiency: 4,
@@ -172,27 +172,31 @@ const cardProps: SkillCardProps[] = [
         skill: SkillEnum.NodeJs,
         proficiency: 2,
         backgroundColor: '#83CD29'
-    },
+    },*/
     {
         skill: SkillEnum.French,
         proficiency: 5,
+        backgroundColor: '#CD1125',
         imageRatio: 2
     },
     {
         skill: SkillEnum.English,
         proficiency: 5,
+        backgroundColor: '#00247C',
         imageRatio: 2
     },
     {
         skill: SkillEnum.Spanish,
         proficiency: 2,
-        textColor: '#C60B1C',
+        textColor: '#FDC400',
+        backgroundColor: '#C60B1C',
         imageRatio: 2
     },
     {
         skill: SkillEnum.Japanese,
         proficiency: 1,
         textColor: '#BC012E',
+        backgroundColor: '#FFFFFF',
         imageRatio: 2
     }
 ];

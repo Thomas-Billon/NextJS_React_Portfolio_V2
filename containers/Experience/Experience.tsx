@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 
 
 const Experience = (): ReactNode => {
-    return(
+    return (
         <section id="experience">
         </section>
     );

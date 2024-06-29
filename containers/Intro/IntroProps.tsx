@@ -47,7 +47,7 @@ const particlesProps: ParticlesLoaderProps = {
         modes: {
             repulse: { distance: 200, duration: 0.8, easing: 'ease-in-out-sine', factor: 3, speed: 3, maxSpeed: 10 }
         },
-        detectsOn: 'window',
+        detectsOn: 'window'
     },
     particles: {
         collisions: { overlap: { enable: true }},

@@ -20,17 +20,17 @@ const SkillPack = ({ children, skills = [] }: Props<SkillPackProps>): React.Reac
     const [skillOrder, setSkillOrder] = useState<SkillEnum[]>(skills);
 
     const placeSkillInFirst = (skill: SkillEnum): void => {
-    }
+    };
     
     const placeSkillInLast = (skill: SkillEnum): void => {
-        let newOrder = [...skillOrder]
-        newOrder = newOrder.filter(value => value != skill)
+        let newOrder = [...skillOrder];
+        newOrder = newOrder.filter(value => value != skill);
         newOrder.push(skill);
 
         setSkillOrder(newOrder);
-    }
+    };
     
-    return(
+    return (
         <PackContext.Provider value={{ skillOrder, placeSkillInFirst, placeSkillInLast }}>
             <ul className={SkillPackStyle}>
                 {children}

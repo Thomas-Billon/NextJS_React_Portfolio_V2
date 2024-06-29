@@ -12,7 +12,7 @@ export interface DynamicTagProps {
 const DynamicTag = ({ children, className = '', tag = 'div', dataNoSnippet = false }: Props<DynamicTagProps>): ReactNode => {
     const Tag = tag as ElementType;
     return (
-        <Tag className={className} { ...(dataNoSnippet ? { 'data-nosnippet': true } : {})}>
+        <Tag className={className} {...(dataNoSnippet ? { 'data-nosnippet': true } : {})}>
             {children}
         </Tag>
     );

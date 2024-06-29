@@ -14,7 +14,7 @@ const cardProps: ProjectCardProps[] = [
         title: 'Porfolio v2',
         description: [
             'The second iteration of my portfolio',
-            'I decided to remake it entirely with different languages & frameworks as a way to both learn and practice',
+            'I decided to remake it entirely with different languages & frameworks as a way to both learn and practice'
         ],
         images: [
             { src: '/img1.jpg', alt: 'Image 1' },
@@ -85,6 +85,7 @@ const cardProps: ProjectCardProps[] = [
     }
 ];
 
+/* eslint-disable quotes */
 const minigameProps: ProjectCardButtonMinigameProps[] = [
     {
         text:
@@ -158,6 +159,7 @@ const minigameProps: ProjectCardButtonMinigameProps[] = [
         actionAtEnd: MinigameActionEnum.RemoveOpacity
     }
 ];
+/* eslint-enable quotes */
 
 export const projectsProps: ProjectsProps = {
     cardProps,

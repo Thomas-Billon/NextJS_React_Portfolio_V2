@@ -4,8 +4,8 @@ $(document).ready(function() {
 		var winPosY = $(window).scrollTop();
 		var winHeight = $(window).height();
 
-		scaleLine($('.line-decoration-left'), "left", 50, winPosY, winHeight);
-		scaleLine($('.line-decoration-right'), "right", 50, winPosY, winHeight);
+		scaleLine($('.line-decoration-left'), 'left', 50, winPosY, winHeight);
+		scaleLine($('.line-decoration-right'), 'right', 50, winPosY, winHeight);
 	}
 
 	function scaleLine(elem, side, offset, winPosY, winHeight) {
@@ -21,9 +21,9 @@ $(document).ready(function() {
 
 				var result = finalPos / (winHeight / 3);															// Ratio de grossissement
 				var result2 = ($(this).parent().width() * result / 2) - ($(this).parent().width() / 2);				// Calcul de la translation pour compenser le grossissement
-					result2 = side == "left" ? -result2 : result2;
+					result2 = side == 'left' ? -result2 : result2;
 
-				$(this).css({"transform": "translateX(" + result2 + "px) scale(" + result + ", 1)"});
+				$(this).css({ 'transform': `translateX(${result2}px) scale(${result}, 1)` });
 			}
 		});
 	}

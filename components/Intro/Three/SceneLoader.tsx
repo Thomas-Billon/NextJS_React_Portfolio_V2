@@ -24,7 +24,7 @@ export interface SceneLoaderProps {
 
 export const SceneContext = createContext({ isMobile: false, ratio: 1 });
 
-const SceneLoader = ({ children, props = {} }: Props<SceneLoaderProps>): React.ReactNode => {
+const SceneLoader = ({ children, props = {}}: Props<SceneLoaderProps>): React.ReactNode => {
     // Store refs
     const groupRef = useRef<Group>();
     const controlRef = useRef<CameraControls>();

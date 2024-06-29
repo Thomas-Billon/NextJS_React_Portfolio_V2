@@ -17,4 +17,4 @@ Euler.prototype.slerp = function(e: Euler, a: number): void {
     qStart.slerp(qEnd, a);
 
     this.setFromQuaternion(qStart);
-}
+};

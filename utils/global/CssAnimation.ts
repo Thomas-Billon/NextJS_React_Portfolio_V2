@@ -22,17 +22,17 @@ const getCurrentAnimations = (element: HTMLElement): CssAnimationProcess[] => {
     }
     
     return animations;
-}
+};
 
 const getCurrentAnimationOnProperty = (element: HTMLElement, property: string): CssAnimationProcess | undefined => {
     return currentAnimations.find((currentAnimation) => {
         return currentAnimation.element.isEqualNode(element) && currentAnimation.property === property;
     });
-}
+};
 
 const addCurrentAnimation = (animation: CssAnimationProcess): void => {
     currentAnimations.push(animation);
-}
+};
 
 const removeCurrentAnimation = (animation: CssAnimationProcess): void => {
     animation.onComplete?.(animation.element);
@@ -40,7 +40,7 @@ const removeCurrentAnimation = (animation: CssAnimationProcess): void => {
     clearInterval(animation.intervalId);
 
     currentAnimations.splice(currentAnimations.indexOf(animation), 1);
-}
+};
 
 //#endregion Current CSS Animation Processes
 
@@ -78,7 +78,7 @@ export function startCssAnimation(element: HTMLElement, property: string, target
         }
     }, step);
 
-    addCurrentAnimation({element, property, intervalId, onComplete});
+    addCurrentAnimation({ element, property, intervalId, onComplete });
 }
 
 export const stopCssAnimation = (element: HTMLElement): void => {
@@ -87,7 +87,7 @@ export const stopCssAnimation = (element: HTMLElement): void => {
     for (let animation of animations) {
         removeCurrentAnimation(animation);
     }
-}
+};
 
 export const stopCssAnimationOnProperty = (element: HTMLElement, property: string): void => {
     const animation = getCurrentAnimationOnProperty(element, property);
@@ -95,7 +95,7 @@ export const stopCssAnimationOnProperty = (element: HTMLElement, property: strin
     if (animation) {
         removeCurrentAnimation(animation);
     }
-}
+};
 
 export const isCssAnimationRunning = (element: HTMLElement): boolean => getCurrentAnimations(element).length > 0 ? true : false;
 

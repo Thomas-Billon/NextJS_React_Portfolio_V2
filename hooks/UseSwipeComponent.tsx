@@ -15,7 +15,7 @@ export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 
     const CSS_PROPERTY_OPACITY = 'opacity';
     const CSS_VARIABLE_ROTATE = '--tw-rotate';
     
-    const dragComponent = useDragComponent({eventType, isXAxisLocked, isYAxisLocked, isAutoReset, duration});
+    const dragComponent = useDragComponent({ eventType, isXAxisLocked, isYAxisLocked, isAutoReset, duration });
 
     // Runs each time component is dragged
     useEffect(() => {
@@ -49,11 +49,11 @@ export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 
 
     const isCrossedThreshold = () => {
         return Math.abs(dragComponent.dragOffset.x) >= threshold || Math.abs(dragComponent.dragOffset.y) >= threshold;
-    }
+    };
 
     const isReachedDistance = () => {
         return Math.abs(dragComponent.dragOffset.x) >= distance || Math.abs(dragComponent.dragOffset.y) >= distance;
-    }
+    };
 
     const startSwipe = () => {
         if (!dragComponent.isResetPositionOnDrop) {
@@ -87,8 +87,8 @@ export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 
 
     const cancelSwipe = () => {
         if (dragComponent.componentRef.current) {
-            startCssAnimation(dragComponent.componentRef.current, CSS_PROPERTY_OPACITY, 1, {duration, format: '{0}'});
-            startCssAnimation(dragComponent.componentRef.current, CSS_VARIABLE_ROTATE, 0, {duration, format: '{0}deg'});
+            startCssAnimation(dragComponent.componentRef.current, CSS_PROPERTY_OPACITY, 1, { duration, format: '{0}' });
+            startCssAnimation(dragComponent.componentRef.current, CSS_VARIABLE_ROTATE, 0, { duration, format: '{0}deg' });
         }
     };
 
@@ -98,15 +98,24 @@ export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 
             const autoCompleteDuration = isReachedDistance() ? 0 : duration;
             const autoCompleteDirection = dragComponent.dragOffset.x / Math.abs(dragComponent.dragOffset.x);
 
-            startCssAnimation(dragComponent.componentRef.current, CSS_VARIABLE_OFFSET_X, distance * autoCompleteDirection, {duration: autoCompleteDuration, format: '{0}px', onComplete: () => {
-                dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_OFFSET_X, '0px');
-            }});
-            startCssAnimation(dragComponent.componentRef.current, CSS_PROPERTY_OPACITY, 0, {duration: autoCompleteDuration + opacityBufferDuration, format: '{0}', onComplete: () => {
-                dragComponent.componentRef.current?.style.setProperty(CSS_PROPERTY_OPACITY, '1');
-            }});
-            startCssAnimation(dragComponent.componentRef.current, CSS_VARIABLE_ROTATE, rotation * autoCompleteDirection, {duration: autoCompleteDuration, format: '{0}deg', onComplete: () => {
-                dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_ROTATE, '0deg');
-            }});
+            startCssAnimation(dragComponent.componentRef.current, CSS_VARIABLE_OFFSET_X, distance * autoCompleteDirection, {
+                duration: autoCompleteDuration, format: '{0}px',
+                onComplete: () => {
+                    dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_OFFSET_X, '0px');
+                }
+            });
+            startCssAnimation(dragComponent.componentRef.current, CSS_PROPERTY_OPACITY, 0, {
+                duration: autoCompleteDuration + opacityBufferDuration, format: '{0}',
+                onComplete: () => {
+                    dragComponent.componentRef.current?.style.setProperty(CSS_PROPERTY_OPACITY, '1');
+                }
+            });
+            startCssAnimation(dragComponent.componentRef.current, CSS_VARIABLE_ROTATE, rotation * autoCompleteDirection, {
+                duration: autoCompleteDuration, format: '{0}deg',
+                onComplete: () => {
+                    dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_ROTATE, '0deg');
+                }
+            });
 
             setTimeout(() => {
                 onComplete();

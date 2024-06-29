@@ -41,19 +41,19 @@ const ProjectCardButton = ({ props = {}, onClick = () => {}, isEnabled = true, o
         if (isEnabled) {
             onClick();
         }
-    }
+    };
 
     const isLinkDisplayed = (props.isMinigame && minigameContext?.isMinigameOver) || !props.isMinigame;
 
     return (
-        <span className={ProjectCardButtonContainerStyle} onClick={clickEmptyLink} { ...(opacity != undefined ? { 'style': {opacity: opacity} } : {})}>
+        <span className={ProjectCardButtonContainerStyle} onClick={clickEmptyLink} {...(opacity != undefined ? { 'style': { opacity: opacity }} : {})}>
             <Link 
                 className={ProjectCardButtonStyle({ isLinkImage, isLinkGithub, isEnabled })}
-                href={ isLinkDisplayed ? props.href ?? '' : '' }
+                href={isLinkDisplayed ? props.href ?? '' : ''}
                 scroll={isLinkDisplayed}
                 passHref={isLinkExternalUrl}
-                { ...(isLinkExternalUrl ? { 'target': '_blank' } : {})}
-                { ...(isLinkGithub ? { 'title': 'See source code' } : {})}
+                {...(isLinkExternalUrl ? { 'target': '_blank' } : {})}
+                {...(isLinkGithub ? { 'title': 'See source code' } : {})}
                 onClick={click}
                 ref={tooltipContext?.data.refs.setReference}
                 {...tooltipContext?.getReferenceProps()}
@@ -61,11 +61,10 @@ const ProjectCardButton = ({ props = {}, onClick = () => {}, isEnabled = true, o
                 isLinkImage ?
                     <Image className={ProjectCardButtonImageStyle} src={props.src ?? ''} alt={props.alt ?? ''} width={props.width ?? 120} height={props.height ?? 40} />
                 : isLinkGithub ?
-                    <FontAwesomeIcon icon={fab.faGithub} size='lg' className='aspect-square'/>
+                    <FontAwesomeIcon icon={fab.faGithub} size="lg" fixedWidth />
                 :
                     <span>See more</span>
-            }
-            </Link>
+            } </Link>
         </span>
     );
 };

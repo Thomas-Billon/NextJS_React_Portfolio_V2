@@ -64,14 +64,14 @@ export const useTooltip = ({ isToggle = false }: UseTooltipProps) => {
                 setTimeoutId(newTimeoutId);
             }, 0);
         }
-    }
+    };
 
     const closeTooltip = () => {
         setIsOpen(false);
                     
         const button = data.refs.reference.current as HTMLElement;
         button.blur();
-    }
+    };
 
     const data = useFloating({
         whileElementsMounted: autoUpdate,
@@ -84,11 +84,11 @@ export const useTooltip = ({ isToggle = false }: UseTooltipProps) => {
         ]
     });
 
-    const {getReferenceProps, getFloatingProps} = useInteractions([
-        useClick(data.context, {toggle: isToggle})
+    const { getReferenceProps, getFloatingProps } = useInteractions([
+        useClick(data.context, { toggle: isToggle })
     ]);
     
-    const {isMounted, status} = useTransitionStatus(data.context);
+    const { isMounted, status } = useTransitionStatus(data.context);
   
     return useMemo(
         () => ({
@@ -106,4 +106,4 @@ export const useTooltip = ({ isToggle = false }: UseTooltipProps) => {
         }),
         [isMounted, toggleTooltip, openTooltip, closeTooltip, getReferenceProps, getFloatingProps, data, status, arrowRef]
     );
-}
+};

@@ -17,7 +17,7 @@ const TooltipBubble = ({ content }: { content: string }): React.ReactNode => {
     const isSmDown = isBreakpointSmDown();
     const isClosed = tooltipContext.data.status == 'close' || tooltipContext.data.status== 'unmounted';
 
-    return(
+    return (
         <>
             {
                 tooltipContext.isMounted &&
@@ -29,9 +29,9 @@ const TooltipBubble = ({ content }: { content: string }): React.ReactNode => {
                 >
                     <div
                         className={TooltipBubbleStyle({ isClosed })}
-                        style={{backgroundColor: Variables.gray800}}
+                        style={{ backgroundColor: Variables.gray800 }}
                     >
-                        <span dangerouslySetInnerHTML={{__html: content}}></span>
+                        <span dangerouslySetInnerHTML={{ __html: content }}></span>
                         <FloatingArrow
                             className={TooltipBubbleArrowStyle}
                             ref={tooltipContext.data.arrowRef}
@@ -51,7 +51,7 @@ const TooltipBubble = ({ content }: { content: string }): React.ReactNode => {
 export default TooltipBubble;
 
 
-const TooltipBubbleContainerStyle = ({isSmDown}: {isSmDown: boolean}) => tw([
+const TooltipBubbleContainerStyle = ({ isSmDown }: { isSmDown: boolean }) => tw([
     'TooltipBubbleContainerStyle',
     'z-100',
     isSmDown && '!fixed',
@@ -61,7 +61,7 @@ const TooltipBubbleContainerStyle = ({isSmDown}: {isSmDown: boolean}) => tw([
     isSmDown && 'container'
 ]);
 
-const TooltipBubbleStyle = ({isClosed}: {isClosed: boolean}) => tw([
+const TooltipBubbleStyle = ({ isClosed }: { isClosed: boolean }) => tw([
     'TooltipBubbleStyle',
     'px-6',
     'py-2',

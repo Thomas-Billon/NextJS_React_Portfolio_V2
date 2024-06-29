@@ -5,8 +5,12 @@ import Image from 'next/image';
 import { SkillEnum } from '@/utils/enums/SkillEnum';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { Props } from '@/utils/react/Props';
+import { ProficiencyLevelEnum } from '@/utils/enums/ProficiencyLevelEnum';
 import '@/utils/global/StringExtension';
 import '@/utils/react/ReactExtension';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 
 
 export interface SkillCardProps {
@@ -17,7 +21,7 @@ export interface SkillCardProps {
     imageRatio?: number;
 }
 
-const SkillCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
+const SkillCard = ({ props = {}}: Props<SkillCardProps>): React.ReactNode => {
 
     props.imageRatio = props.imageRatio ?? 1;
     
@@ -49,37 +53,38 @@ const SkillCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
     };
 
     return (
-        <div
-            className={SkillCardStyle({ imageRatio: props.imageRatio })}
-            style={{
-                color: props.textColor,
-                borderColor: props.backgroundColor,
-                backgroundColor: props.backgroundColor,
-                '--tw-shadow-color': props.backgroundColor
-            }}
-        >
-            <div className={SkillCardDoubleWidthStyle}> {
-                props.skill &&
-                <>
-                    <Image
-                        className={SkillCardImageStyle({ imageRatio: props.imageRatio })}
-                        src={`/static/images/skills/${getImageNameFromSkill(props.skill)}.png`}
-                        alt={props.skill}
-                        width={
-                            props.imageRatio == 2 ? "512" :
-                            props.imageRatio == 1 ? "256" :
-                            "256"
-                        }
-                        height="256"
-                        draggable={false}
-                    />
-                    <div className={SkillCardTextStyle({ imageRatio: props.imageRatio })}>
-                        <span className={SkillCardTitleStyle} style={{ fontSize: getFontSizeFromSkill(props.skill) }}>
-                            {props.skill}
+        props.skill &&
+        <div className={SkillCardStyle}>
+            <div className={SkillCardDoubleWidthStyle} style={{ color: props.textColor, backgroundColor: props.backgroundColor }}>
+                <Image
+                    className={SkillCardImageStyle({ imageRatio: props.imageRatio })}
+                    src={`/static/images/skills/${getImageNameFromSkill(props.skill)}.png`}
+                    alt={props.skill}
+                    width={
+                        props.imageRatio == 2 ? '512' :
+                        props.imageRatio == 1 ? '256' :
+                        '256'
+                    }
+                    height="256"
+                    draggable={false}
+                />
+                <div className={SkillCardTextStyle({ imageRatio: props.imageRatio })}>
+                    <h4 className={SkillCardTitleStyle} style={{ fontSize: getFontSizeFromSkill(props.skill) }}>
+                        {props.skill}
+                    </h4>
+                    <div className={SkillCardProficiencyStyle}>
+                        <div> {
+                            [...Array(5).keys()].map((proficiency, index) =>
+                                <span key={index}>
+                                    <FontAwesomeIcon icon={proficiency + 1 <= (props.proficiency ?? ProficiencyLevelEnum.Novice) ? fas.faStar : far.faStar} size="lg" fixedWidth />
+                                </span>
+                            )
+                        } </div>
+                        <span>
+                            {ProficiencyLevelEnum[props.proficiency ?? ProficiencyLevelEnum.Novice]}
                         </span>
                     </div>
-                </>
-            }
+                </div>
             </div>
         </div>
     );
@@ -88,56 +93,37 @@ const SkillCard = ({ props = {} }: Props<SkillCardProps>): React.ReactNode => {
 export default SkillCard;
 
 
-const SkillCardStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
+const SkillCardStyle = tw([
     'SkillCardStyle',
     'relative',
     'w-48',
     'h-48',
     'text-white',
     'overflow-hidden',
-    'border-4',
-    'border-off-white',
     'rounded-lg',
+    'group',
     'transition-transform',
     'duration-300',
-    'hover:scale-110',
-    'after:content-[""]',
-    'after:absolute',
-    'after:z-2',
-    'after:top-0',
-    'after:left-0',
-    'after:full',
-    'after:opacity-30',
-    'after:transition-shadow',
-    'after:duration-300',
-    'after:shadow-[inset_0_0_30px_15px_rgba(0,0,0,0)]',
-    'after:shadow-inherit',
-    'after:hover:shadow-transparent',
-    imageRatio == 1 && 'before:content-[""]',
-    imageRatio == 1 && 'before:absolute',
-    imageRatio == 1 && 'before:z-1',
-    imageRatio == 1 && 'before:top-0',
-    imageRatio == 1 && 'before:left-0',
-    imageRatio == 1 && 'before:full',
-    imageRatio == 1 && 'before:transition-color',
-    imageRatio == 1 && 'before:duration-300',
-    imageRatio == 1 && 'before:bg-off-white',
-    imageRatio == 1 && 'before:hover:bg-transparent'
+    'hover:scale-110'
 ]);
 
 const SkillCardDoubleWidthStyle = tw([
     'SkillCardDoubleWidthStyle',
-    'relative',
+    'absolute',
     'z-3',
     'flex',
     'w-[200%]',
+    'h-full',
     'transition-transform',
     'duration-300',
-    'hover:-translate-x-1/2'
+    'group-hover:-translate-x-1/2'
 ]);
 
 const SkillCardImageStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
     'SkillCardImageStyle',
+    'transition-opacity',
+    'duration-300',
+    'group-hover:opacity-0',
     imageRatio == 1 && 'w-1/2',
     imageRatio == 2 && 'w-full'
 ]);
@@ -147,6 +133,8 @@ const SkillCardTextStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
     'w-1/2',
     'p-2',
     'flex',
+    'flex-col',
+    'gap-2',
     'items-center',
     'justify-center',
     'text-center',
@@ -158,5 +146,10 @@ const SkillCardTextStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
 ]);
 
 const SkillCardTitleStyle = tw([
-    'SkillCardTitleStyle'
+    'SkillCardTitleStyle',
+    'leading-tight'
+]);
+
+const SkillCardProficiencyStyle = tw([
+    'SkillCardProficiencyStyle'
 ]);

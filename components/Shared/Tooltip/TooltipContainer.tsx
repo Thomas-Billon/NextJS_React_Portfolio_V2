@@ -9,7 +9,7 @@ export const TooltipContext = createContext<ReturnType<typeof useTooltip> | null
 const TooltipContainer = ({ children }: DefaultProps): React.ReactNode => {
     const tooltip = useTooltip({ isToggle: false });
 
-    return(
+    return (
         <TooltipContext.Provider value={tooltip}>
             {children}
         </TooltipContext.Provider>

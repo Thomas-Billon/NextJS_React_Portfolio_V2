@@ -12,17 +12,17 @@ import './Intro.scss';
 
 
 const Intro = (): ReactNode => {
-    return(
+    return (
         <section id="intro" className={IntroStyle}>
             <div id="explosion-center" className={ExplosionCenterStyle}></div>
             <div id="explosion-corner" className={ExplosionCornerStyle}></div>
-            <ParticlesLoader className="z-10" { ...{ props: props.particlesProps }} />
+            <ParticlesLoader className="z-10" {...{ props: props.particlesProps }} />
             <IntroHeadline className="z-20" mainlineStyle="shadow" sublineStyle="transparent" dataNoSnippet={true} />
             <IntroHeadline className="z-30" mainlineStyle="full" sublineStyle="transparent" dataNoSnippet={true} />
-            <CanvasLoader className="z-40" { ...{ props: props.canvasProps }}>
+            <CanvasLoader className="z-40" {...{ props: props.canvasProps }}>
                 {
                     props.modelProps.map((model, index) => 
-                        <ModelLoader key={index} { ...{ props: model }} />
+                        <ModelLoader key={index} {...{ props: model }} />
                     )
                 }
             </CanvasLoader>

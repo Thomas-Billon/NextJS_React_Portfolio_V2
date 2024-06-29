@@ -19,7 +19,7 @@ export interface ModelLoaderProps {
     targetRotation?: [x: number, y: number, z:number];
 }
 
-const ModelLoader = ({ props = {} }: Props<ModelLoaderProps>): React.ReactNode => {
+const ModelLoader = ({ props = {}}: Props<ModelLoaderProps>): React.ReactNode => {
     // Grab context
     const sceneContext = useCustomContext(SceneContext, 'SceneLoader');
 

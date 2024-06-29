@@ -9,32 +9,34 @@ import { useSwipeComponent } from '@/hooks/UseSwipeComponent';
 import { useCustomContext } from '@/hooks/UseCustomContext';
 
 
-const SkillPackItem = ({ children, props = {} }: Props<SkillCardProps>): React.ReactNode => {
+const SkillPackItem = ({ children, props = {}}: Props<SkillCardProps>): React.ReactNode => {
     const packContext = useCustomContext(PackContext, 'SkillPack');
 
-    const order = packContext.skillOrder.findIndex((value) => value == props.skill);
-    const zIndex = packContext.skillOrder.length - order;
+    const index = packContext.skillOrder.findIndex((value) => value == props.skill);
+    const zIndex = packContext.skillOrder.length - index;
 
-    const swipeComponent = useSwipeComponent({distance: 300, threshold: 100, isYAxisLocked: true, isAutoReset: true, onComplete: () => {
-        if (props.skill) {
-            packContext.placeSkillInLast(props.skill);
+    const swipeComponent = useSwipeComponent({
+        distance: 300, threshold: 100, isYAxisLocked: true, isAutoReset: true,
+        onComplete: () => {
+            if (props.skill) {
+                packContext.placeSkillInLast(props.skill);
+            }
         }
-    }});
+    });
 
-    // TODO: Display skill proficiency
     // TODO: Fix issue on drag, only accept left mouse click
-    // TODO: Fix issue on drop, card stays hovered
+    // TODO: Fix issue on drop, pointer stays on grab if not moving
     // TODO: Fix issue on drop, hover animation is visible behind pack
     // TODO: Block scroll on start & unblock on end for touch (in useDragComponent)
     // TODO: Add buttons on each side
 
     return (
-        <li className={SwipeCardStyle} style={{ zIndex }}>
+        <li className={SwipeCardStyle({ cardIndex: index })} style={{ zIndex }}>
             <div
                 ref={swipeComponent.componentRef as RefObject<HTMLDivElement>}
-                className={SwipeCardContentStyle({ isSwipingCard: swipeComponent.isDraggingComponent, cardOrder: order })}
+                className={SwipeCardContentStyle({ isSwipingCard: swipeComponent.isDraggingComponent })}
             >
-                { children }
+                {children}
             </div>
         </li>
     );
@@ -43,18 +45,21 @@ const SkillPackItem = ({ children, props = {} }: Props<SkillCardProps>): React.R
 export default SkillPackItem;
 
 
-const SwipeCardStyle = tw([
+const SwipeCardStyle = ({ cardIndex }: { cardIndex: number }) => tw([
     'SwipeCardStyle',
     'inline-flex',
     'w-0',
-    'justify-center'
+    'justify-center',
+    'transition-transform',
+    cardIndex <= 1 && 'shadow-lg',
+    cardIndex == 1 && 'scale-95',
+    cardIndex > 1 && 'scale-90'
 ]);
 
-const SwipeCardContentStyle = ({ isSwipingCard, cardOrder }: { isSwipingCard: boolean, cardOrder: number }) => tw([
+const SwipeCardContentStyle = ({ isSwipingCard }: { isSwipingCard: boolean }) => tw([
     'SwipeCardContentStyle',
     'transform',
     'select-none',
     isSwipingCard && 'cursor-grabbing',
-    !isSwipingCard && 'cursor-grab',
-    cardOrder <= 1 && 'shadow-lg'
+    !isSwipingCard && 'cursor-grab'
 ]);

@@ -16,5 +16,5 @@ export const MouseButtonAction = Object.freeze( {
     TOUCH_DOLLY_ROTATE: 4096,
     TOUCH_ZOOM_TRUCK: 8192,
     TOUCH_ZOOM_OFFSET: 16384,
-    TOUCH_ZOOM_ROTATE: 32768,
+    TOUCH_ZOOM_ROTATE: 32768
 } as const );

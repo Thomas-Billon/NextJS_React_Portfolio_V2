@@ -15,7 +15,7 @@ const ProjectGridItem = ({ children, index = 0 }: DefaultProps & IterableProps):
         gridContext.openCard(index);
     };
 
-    return(
+    return (
         <li className={ProjectGridItemStyle({ isActive: (gridContext.activeIndex == index) })} onClick={openCard}>
             {children}
         </li>

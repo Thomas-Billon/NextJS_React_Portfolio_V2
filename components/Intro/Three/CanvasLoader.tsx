@@ -9,7 +9,7 @@ import SceneLoader, { SceneLoaderProps } from '@/components/intro/three/SceneLoa
 
 export interface CanvasLoaderProps extends SceneLoaderProps {}
 
-const CanvasLoader = ({ children, className = '', props = {} }: Props<SceneLoaderProps>): React.ReactNode => {
+const CanvasLoader = ({ children, className = '', props = {}}: Props<SceneLoaderProps>): React.ReactNode => {
     const [scrollPosition, setScrollPosition] = useState<number>(0);
     const [touchPosition, setTouchPosition] = useState<number>(0);
 
@@ -40,7 +40,7 @@ const CanvasLoader = ({ children, className = '', props = {} }: Props<SceneLoade
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
         >
-            <SceneLoader { ...{ props: props }}>
+            <SceneLoader {...{ props: props }}>
                 {children}
             </SceneLoader>
         </Canvas>

@@ -37,7 +37,7 @@ export const useBreakpoint = (): { currentBreakpoint: string, currentBreakpointS
     }, [size]);
 
     return { currentBreakpoint, currentBreakpointSize };
-}
+};
 
 export const isBreakpointXsDown = (): boolean => isBreakpointDown(BreakpointTypeEnum.Xs);
 export const isBreakpointSmDown = (): boolean => isBreakpointDown(BreakpointTypeEnum.Sm);
@@ -54,7 +54,7 @@ const isBreakpointDown = (breakpoint: string): boolean => {
         return true;
     }
     return false;
-}
+};
 
 export const isBreakpointXsUp = (): boolean => isBreakpointUp(BreakpointTypeEnum.Xs);
 export const isBreakpointSmUp = (): boolean => isBreakpointUp(BreakpointTypeEnum.Sm);
@@ -71,7 +71,7 @@ const isBreakpointUp = (breakpoint: string): boolean => {
         return true;
     }
     return false;
-}
+};
 
 export const isBreakpointXsOnly = (): boolean => isBreakpointOnly(BreakpointTypeEnum.Xs);
 export const isBreakpointSmOnly = (): boolean => isBreakpointOnly(BreakpointTypeEnum.Sm);
@@ -88,4 +88,4 @@ const isBreakpointOnly = (breakpoint: string): boolean => {
         return true;
     }
     return false;
-}
+};

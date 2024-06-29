@@ -35,7 +35,7 @@ const IntroHeadline = ({ className = '', mainlineStyle = '', sublineStyle = '', 
             </DynamicTag>
             <div
                 className={IntroSublineStyle({ isTransparent })}
-                { ...(dataNoSnippet ? { 'data-nosnippet': true } : {})}
+                {...(dataNoSnippet ? { 'data-nosnippet': true } : {})}
             >
                 A full-stack developer with a passion for challenges and problem solving<br/>
                 I also create video games during my spare time

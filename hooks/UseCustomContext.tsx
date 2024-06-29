@@ -8,9 +8,9 @@ export const useCustomContext = <T extends {} | null>(context: React.Context<T>,
             throw new Error(`Components must be wrapped in <${tagName} />`);
         }
         else {
-            throw new Error(`Components must be wrapped in context provider`);
+            throw new Error('Components must be wrapped in context provider');
         }
     }
 
     return contextValue;
-}
+};
