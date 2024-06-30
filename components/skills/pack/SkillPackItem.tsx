@@ -24,9 +24,6 @@ const SkillPackItem = ({ children, props = {}}: Props<SkillCardProps>): React.Re
         }
     });
 
-    // TODO: Fix issue on drag, only accept left mouse click
-    // TODO: Fix issue on drop, pointer stays on grab if not moving
-    // TODO: Fix issue on drop, hover animation is visible behind pack
     // TODO: Block scroll on start & unblock on end for touch (in useDragComponent)
     // TODO: Add buttons on each side
 
@@ -34,7 +31,7 @@ const SkillPackItem = ({ children, props = {}}: Props<SkillCardProps>): React.Re
         <li className={SwipeCardStyle({ cardIndex: index })} style={{ zIndex }}>
             <div
                 ref={swipeComponent.componentRef as RefObject<HTMLDivElement>}
-                className={SwipeCardContentStyle({ isSwipingCard: swipeComponent.isDraggingComponent })}
+                className={SwipeCardContentStyle({ cardIndex: index, isSwipingCard: swipeComponent.isDraggingComponent })}
             >
                 {children}
             </div>
@@ -50,16 +47,17 @@ const SwipeCardStyle = ({ cardIndex }: { cardIndex: number }) => tw([
     'inline-flex',
     'w-0',
     'justify-center',
-    'transition-transform',
     cardIndex <= 1 && 'shadow-lg',
+    cardIndex <= 1 && 'transition-transform',
     cardIndex == 1 && 'scale-95',
-    cardIndex > 1 && 'scale-90'
+    cardIndex > 1 && 'scale-50'
 ]);
 
-const SwipeCardContentStyle = ({ isSwipingCard }: { isSwipingCard: boolean }) => tw([
+const SwipeCardContentStyle = ({ cardIndex, isSwipingCard }: { cardIndex: number, isSwipingCard: boolean }) => tw([
     'SwipeCardContentStyle',
     'transform',
     'select-none',
-    isSwipingCard && 'cursor-grabbing',
-    !isSwipingCard && 'cursor-grab'
+    cardIndex >= 1 && 'cursor-auto',
+    cardIndex < 1 && isSwipingCard && 'cursor-grabbing',
+    cardIndex < 1 && !isSwipingCard && 'cursor-grab'
 ]);

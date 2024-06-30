@@ -83,6 +83,11 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
             return;
         }
 
+        // Only allow left click
+        if (e instanceof MouseEvent && (e.buttons != 1 || e.button != 0)) {
+            return;
+        }
+
         const clientPos = getClientPosition(e);
         
         setIsDraggingCard(true);
@@ -157,6 +162,6 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
             enableDrop,
             disableDrop
         }),
-        [componentRef, dragOffset, isDraggingComponent]
+        [componentRef, dragOffset, isDraggingComponent, isResetPositionOnDrop]
     );
 }
