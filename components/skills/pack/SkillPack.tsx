@@ -1,8 +1,9 @@
 'use client';
 
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { tw } from '@/utils/tailwind/TinyWind';
-import { DefaultProps, Props } from '@/utils/react/Props';
+import SkillPackButton from '@/components/skills/pack/SkillPackButton';
+import { Props } from '@/utils/react/Props';
 import { SkillEnum } from '@/utils/enums/SkillEnum';
 
 
@@ -32,9 +33,13 @@ const SkillPack = ({ children, skills = [] }: Props<SkillPackProps>): React.Reac
     
     return (
         <PackContext.Provider value={{ skillOrder, placeSkillInFirst, placeSkillInLast }}>
-            <ul className={SkillPackStyle}>
-                {children}
-            </ul>
+            <div className={SkillPackStyle}>
+                <SkillPackButton {...{ props: { direction: -1 }}} />
+                <ul className={SkillPackCardListStyle}>
+                    {children}
+                </ul>
+                <SkillPackButton {...{ props: { direction: 1 }}} />
+            </div>
         </PackContext.Provider>
     );
 };
@@ -46,5 +51,13 @@ const SkillPackStyle = tw([
     'SkillPackStyle',
     'container-section',
     'flex',
-    'justify-center'
+    'justify-center',
+    'items-center',
+    'gap-10'
+]);
+
+const SkillPackCardListStyle = tw([
+    'SkillPackCardListStyle',
+    'flex',
+    'px-24'
 ]);
