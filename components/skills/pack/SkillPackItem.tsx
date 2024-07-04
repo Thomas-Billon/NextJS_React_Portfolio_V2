@@ -28,10 +28,10 @@ const SkillPackItem = ({ children, props = {}}: Props<SkillCardProps>): React.Re
     // TODO: Add buttons on each side
 
     return (
-        <li className={SwipeCardStyle({ cardIndex: index })} style={{ zIndex }}>
+        <li className={SkillPackItemStyle({ cardIndex: index })} style={{ zIndex }}>
             <div
                 ref={swipeComponent.componentRef as RefObject<HTMLDivElement>}
-                className={SwipeCardContentStyle({ cardIndex: index, isSwipingCard: swipeComponent.isDraggingComponent })}
+                className={SkillPackItemSwipeStyle({ cardIndex: index, isSwipingCard: swipeComponent.isDraggingComponent })}
             >
                 {children}
             </div>
@@ -42,21 +42,21 @@ const SkillPackItem = ({ children, props = {}}: Props<SkillCardProps>): React.Re
 export default SkillPackItem;
 
 
-const SwipeCardStyle = ({ cardIndex }: { cardIndex: number }) => tw([
-    'SwipeCardStyle',
+const SkillPackItemStyle = ({ cardIndex }: { cardIndex: number }) => tw([
+    'SkillPackItemStyle',
     'inline-flex',
     'w-0',
     'justify-center',
-    cardIndex <= 1 && 'shadow-lg',
     cardIndex <= 1 && 'transition-transform',
     cardIndex == 1 && 'scale-95',
     cardIndex > 1 && 'scale-50'
 ]);
 
-const SwipeCardContentStyle = ({ cardIndex, isSwipingCard }: { cardIndex: number, isSwipingCard: boolean }) => tw([
-    'SwipeCardContentStyle',
+const SkillPackItemSwipeStyle = ({ cardIndex, isSwipingCard }: { cardIndex: number, isSwipingCard: boolean }) => tw([
+    'SkillPackItemSwipeStyle',
     'transform',
     'select-none',
+    cardIndex <= 1 && 'shadow-lg',
     cardIndex >= 1 && 'cursor-auto',
     cardIndex < 1 && isSwipingCard && 'cursor-grabbing',
     cardIndex < 1 && !isSwipingCard && 'cursor-grab'

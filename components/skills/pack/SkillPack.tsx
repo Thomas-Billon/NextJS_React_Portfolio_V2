@@ -35,7 +35,7 @@ const SkillPack = ({ children, skills = [] }: Props<SkillPackProps>): React.Reac
         <PackContext.Provider value={{ skillOrder, placeSkillInFirst, placeSkillInLast }}>
             <div className={SkillPackStyle}>
                 <SkillPackButton {...{ props: { direction: -1 }}} />
-                <ul className={SkillPackCardListStyle}>
+                <ul className={SkillPackItemListStyle}>
                     {children}
                 </ul>
                 <SkillPackButton {...{ props: { direction: 1 }}} />
@@ -56,8 +56,8 @@ const SkillPackStyle = tw([
     'gap-10'
 ]);
 
-const SkillPackCardListStyle = tw([
-    'SkillPackCardListStyle',
+const SkillPackItemListStyle = tw([
+    'SkillPackItemCardListStyle',
     'flex',
     'px-24'
 ]);

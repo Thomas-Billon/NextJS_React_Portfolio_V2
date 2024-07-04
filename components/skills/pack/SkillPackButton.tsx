@@ -30,6 +30,7 @@ const SkillPackButtonStyle = ({ direction }: { direction: number }) => tw([
     'h-14',
     'bg-off-white',
     'rounded-full',
+    'shadow-md',
     'scale-90',
     'transition',
     'duration-300',
