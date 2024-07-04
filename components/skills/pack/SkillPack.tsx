@@ -1,13 +1,16 @@
 'use client';
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, RefObject, useRef } from 'react';
 import { tw } from '@/utils/tailwind/TinyWind';
 import SkillPackButton from '@/components/skills/pack/SkillPackButton';
 import { Props } from '@/utils/react/Props';
 import { SkillEnum } from '@/utils/enums/SkillEnum';
+import { useSwipeComponent } from '@/hooks/UseSwipeComponent';
+import useStateRef from 'react-usestateref';
 
 
 export const PackContext = createContext({
+    swipeCard: null as RefObject<ReturnType<typeof useSwipeComponent>> | null,
     skillOrder: [] as SkillEnum[],
     placeSkillInFirst: (_: SkillEnum): void => {},
     placeSkillInLast: (_: SkillEnum): void => {}
@@ -18,13 +21,14 @@ export interface SkillPackProps {
 };
 
 const SkillPack = ({ children, skills = [] }: Props<SkillPackProps>): React.ReactNode => {
-    const [skillOrder, setSkillOrder] = useState<SkillEnum[]>(skills);
+    const swipeCard = useRef<ReturnType<typeof useSwipeComponent> | null>(null);
+    const [skillOrder, setSkillOrder, skillOrderRef] = useStateRef<SkillEnum[]>(skills);
 
     const placeSkillInFirst = (skill: SkillEnum): void => {
     };
     
     const placeSkillInLast = (skill: SkillEnum): void => {
-        let newOrder = [...skillOrder];
+        let newOrder = [...skillOrderRef.current];
         newOrder = newOrder.filter(value => value != skill);
         newOrder.push(skill);
 
@@ -32,7 +36,7 @@ const SkillPack = ({ children, skills = [] }: Props<SkillPackProps>): React.Reac
     };
     
     return (
-        <PackContext.Provider value={{ skillOrder, placeSkillInFirst, placeSkillInLast }}>
+        <PackContext.Provider value={{ swipeCard, skillOrder, placeSkillInFirst, placeSkillInLast }}>
             <div className={SkillPackStyle}>
                 <SkillPackButton {...{ props: { direction: -1 }}} />
                 <ul className={SkillPackItemListStyle}>

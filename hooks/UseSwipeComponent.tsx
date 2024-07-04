@@ -123,9 +123,27 @@ export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 
         }
     };
 
+    const swipeLeft = () => {
+        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_OFFSET_X, '0px');
+        dragComponent.componentRef.current?.style.setProperty(CSS_PROPERTY_OPACITY, '1');
+        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_ROTATE, '0deg');
+        dragComponent.dragOffset.x = -1;
+        completeSwipe();
+    };
+
+    const swipeRight = () => {
+        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_OFFSET_X, '0px');
+        dragComponent.componentRef.current?.style.setProperty(CSS_PROPERTY_OPACITY, '1');
+        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_ROTATE, '0deg');
+        dragComponent.dragOffset.x = 1;
+        completeSwipe();
+    };
+
     return useMemo(
         () => ({
-            ...dragComponent
+            ...dragComponent,
+            swipeLeft,
+            swipeRight
         }),
         [dragComponent]
     );
