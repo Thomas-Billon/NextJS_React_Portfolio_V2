@@ -10,12 +10,12 @@ export interface UseSwipeComponentProps extends UseDragComponentProps {
     onComplete?: () => void;
 }
 
-export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 10, onComplete = () => {}, eventType, isXAxisLocked, isYAxisLocked, isAutoReset, duration = 250 }: UseSwipeComponentProps = {}) {
+export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 10, onComplete = () => {}, eventType, isXAxisLocked, isYAxisLocked, isAutoReset, duration = 250, onDrag, onDrop }: UseSwipeComponentProps = {}) {
     const CSS_VARIABLE_OFFSET_X = '--tw-translate-x';
-    const CSS_PROPERTY_OPACITY = 'opacity';
     const CSS_VARIABLE_ROTATE = '--tw-rotate';
+    const CSS_PROPERTY_OPACITY = 'opacity';
     
-    const dragComponent = useDragComponent({ eventType, isXAxisLocked, isYAxisLocked, isAutoReset, duration });
+    const dragComponent = useDragComponent({ eventType, isXAxisLocked, isYAxisLocked, isAutoReset, duration, onDrag, onDrop });
 
     // Runs each time component is dragged
     useEffect(() => {
@@ -70,6 +70,11 @@ export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 
         if (isCrossedThreshold() && dragComponent.isResetPositionOnDrop) {
             dragComponent.enableDrop();
         }
+
+        // Tilt
+        const rotationTarget = dragComponent.dragOffset.x * rotation / distance;
+
+        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_ROTATE, `${rotationTarget}deg`);
         
         // Opacity
         const opacityX = Math.abs(dragComponent.dragOffset.x) / distance;
@@ -78,17 +83,12 @@ export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 
         const opacityTarget = 1 - Math.min(Math.max(opacityX, opacityY), 1);
 
         dragComponent.componentRef.current?.style.setProperty(CSS_PROPERTY_OPACITY, opacityTarget.toString());
-
-        // Tilt
-        const rotationTarget = dragComponent.dragOffset.x * rotation / distance;
-
-        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_ROTATE, `${rotationTarget}deg`);
     };
 
     const cancelSwipe = () => {
         if (dragComponent.componentRef.current) {
-            startCssAnimation(dragComponent.componentRef.current, CSS_PROPERTY_OPACITY, 1, { duration, format: '{0}' });
             startCssAnimation(dragComponent.componentRef.current, CSS_VARIABLE_ROTATE, 0, { duration, format: '{0}deg' });
+            startCssAnimation(dragComponent.componentRef.current, CSS_PROPERTY_OPACITY, 1, { duration, format: '{0}' });
         }
     };
 
@@ -101,19 +101,19 @@ export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 
             startCssAnimation(dragComponent.componentRef.current, CSS_VARIABLE_OFFSET_X, distance * autoCompleteDirection, {
                 duration: autoCompleteDuration, format: '{0}px',
                 onComplete: () => {
-                    dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_OFFSET_X, '0px');
-                }
-            });
-            startCssAnimation(dragComponent.componentRef.current, CSS_PROPERTY_OPACITY, 0, {
-                duration: autoCompleteDuration + opacityBufferDuration, format: '{0}',
-                onComplete: () => {
-                    dragComponent.componentRef.current?.style.setProperty(CSS_PROPERTY_OPACITY, '1');
+                    resetPosition();
                 }
             });
             startCssAnimation(dragComponent.componentRef.current, CSS_VARIABLE_ROTATE, rotation * autoCompleteDirection, {
                 duration: autoCompleteDuration, format: '{0}deg',
                 onComplete: () => {
-                    dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_ROTATE, '0deg');
+                    resetRotation();
+                }
+            });
+            startCssAnimation(dragComponent.componentRef.current, CSS_PROPERTY_OPACITY, 0, {
+                duration: autoCompleteDuration + opacityBufferDuration, format: '{0}',
+                onComplete: () => {
+                    resetOpacity();
                 }
             });
 
@@ -124,19 +124,35 @@ export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 
     };
 
     const swipeLeft = () => {
-        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_OFFSET_X, '0px');
-        dragComponent.componentRef.current?.style.setProperty(CSS_PROPERTY_OPACITY, '1');
-        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_ROTATE, '0deg');
+        resetPosition();
+        resetRotation();
+        resetOpacity();
+
         dragComponent.dragOffset.x = -1;
+
         completeSwipe();
     };
 
     const swipeRight = () => {
-        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_OFFSET_X, '0px');
-        dragComponent.componentRef.current?.style.setProperty(CSS_PROPERTY_OPACITY, '1');
-        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_ROTATE, '0deg');
+        resetPosition();
+        resetRotation();
+        resetOpacity();
+
         dragComponent.dragOffset.x = 1;
+
         completeSwipe();
+    };
+
+    const resetPosition = () => {
+        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_OFFSET_X, '0px');
+    };
+
+    const resetRotation = () => {
+        dragComponent.componentRef.current?.style.setProperty(CSS_VARIABLE_ROTATE, '0deg');
+    };
+
+    const resetOpacity = () => {
+        dragComponent.componentRef.current?.style.setProperty(CSS_PROPERTY_OPACITY, '1');
     };
 
     return useMemo(

@@ -33,6 +33,7 @@ const ProjectCardCloseStyle = tw([
     'right-0',
     'cursor-pointer',
     'text-gray-500',
+    'transition-colors',
     'hover:text-orange-light-500',
-    'transition-colors'
+    'active:text-orange-light-500'
 ]);

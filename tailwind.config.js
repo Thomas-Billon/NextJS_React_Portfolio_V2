@@ -120,6 +120,9 @@ module.exports = {
             }
         }
     },
+    future: {
+        hoverOnlyWhenSupported: true
+    },
     plugins: [
         plugin(function({ addUtilities, postcss }) {
             const css = fs.readFileSync('./styles/scss/globals.scss', 'utf-8');

@@ -104,7 +104,8 @@ const SkillCardStyle = tw([
     'group',
     'transition-transform',
     'duration-300',
-    'hover:scale-110'
+    'hover:scale-110',
+    'active:scale-110'
 ]);
 
 const SkillCardDoubleWidthStyle = tw([
@@ -116,7 +117,8 @@ const SkillCardDoubleWidthStyle = tw([
     'h-full',
     'transition-transform',
     'duration-300',
-    'group-hover:-translate-x-1/2'
+    'group-hover:-translate-x-1/2',
+    'group-active:-translate-x-1/2'
 ]);
 
 const SkillCardImageStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
@@ -124,6 +126,7 @@ const SkillCardImageStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
     'transition-opacity',
     'duration-300',
     'group-hover:opacity-0',
+    'group-active:opacity-0',
     imageRatio == 1 && 'w-1/2',
     imageRatio == 2 && 'w-full'
 ]);

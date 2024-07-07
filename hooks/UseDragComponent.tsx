@@ -16,11 +16,17 @@ export interface UseDragComponentProps {
     isYAxisLocked?: boolean;
     isAutoReset?: boolean;
     duration?: number;
+    onDrag?: () => void;
+    onDrop?: () => void;
 }
 
-export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLocked = false, isYAxisLocked = false, isAutoReset = false, duration = 250 }: UseDragComponentProps = {}) {
+export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLocked = false, isYAxisLocked = false, isAutoReset = false, duration = 250, onDrag = () => {}, onDrop = () => {} }: UseDragComponentProps = {}) {
     const CSS_VARIABLE_OFFSET_X = '--tw-translate-x';
     const CSS_VARIABLE_OFFSET_Y = '--tw-translate-y';
+    const CSS_PROPERTY_WIDTH = 'width';
+    const CSS_PROPERTY_OVERFLOW_Y = 'overflow-y';
+    const CSS_PROPERTY_TOP = 'top';
+    const CSS_PROPERTY_POSITION = 'position';
     
     // Reference closures for useCallback methods
     const [isDraggingComponent, setIsDraggingCard] = useState<boolean>(false);
@@ -29,6 +35,7 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
     const [, setDragPreviousPosition, dragPreviousPositionRef] = useStateRef<Vector2>({ x: 0, y: 0 });
     const [, setDragOriginPosition, dragOriginPositionRef] = useStateRef<Vector2>({ x: 0, y: 0 });
     const [, setDragCurrentPosition, dragCurrentPositionRef] = useStateRef<Vector2>({ x: 0, y: 0 });
+    const scrollPosition = useRef<number>(0);
 
     const componentRef = useRef<HTMLElement>(null);
 
@@ -77,6 +84,24 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
     const disableDrop = () => {
         setIsResetPositionOnDrop(true);
     };
+    
+    const enableScroll = () => {
+        document.body.style.removeProperty(CSS_PROPERTY_WIDTH);
+        document.body.style.removeProperty(CSS_PROPERTY_OVERFLOW_Y);
+        document.body.style.removeProperty(CSS_PROPERTY_TOP);
+        document.body.style.removeProperty(CSS_PROPERTY_POSITION);
+        
+        window.scrollTo(0, scrollPosition.current);
+    };
+    
+    const disableScroll = () => {
+        scrollPosition.current = window.scrollY;
+        
+        document.body.style.setProperty(CSS_PROPERTY_WIDTH, '100%');
+        document.body.style.setProperty(CSS_PROPERTY_OVERFLOW_Y, 'scroll');
+        document.body.style.setProperty(CSS_PROPERTY_TOP, `-${window.scrollY}px`);
+        document.body.style.setProperty(CSS_PROPERTY_POSITION, 'fixed');
+    };
 
     const onDragStart = useCallback((e : MouseEvent | TouchEvent): void => {
         if (componentRef == null) {
@@ -113,6 +138,10 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
             window.addEventListener('touchmove', onDragMove);
             window.addEventListener('touchend', onDragEnd);
         }
+
+        disableScroll();
+
+        onDrag();
     }, []);
 
     const onDragMove = useCallback((e : MouseEvent | TouchEvent): void => {
@@ -151,6 +180,10 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
         window.removeEventListener('touchmove', onDragMove);
         window.removeEventListener('mouseup', onDragEnd);
         window.removeEventListener('touchend', onDragEnd);
+
+        enableScroll();
+
+        onDrop();
     }, []);
   
     return useMemo(

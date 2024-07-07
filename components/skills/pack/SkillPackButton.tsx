@@ -51,10 +51,14 @@ const SkillPackButtonStyle = ({ direction }: { direction: number }) => tw([
     'duration-300',
     'hover:text-white',
     'hover:scale-100',
+    'active:text-white',
+    'active:scale-100',
     direction < 0 && 'text-purple-500',
     direction > 0 && 'text-red-500',
     direction < 0 && 'hover:bg-purple-500',
-    direction > 0 && 'hover:bg-red-500'
+    direction > 0 && 'hover:bg-red-500',
+    direction < 0 && 'active:bg-purple-500',
+    direction > 0 && 'active:bg-red-500'
 ]);
 
 const SkillPackButtonIconStyle = tw([

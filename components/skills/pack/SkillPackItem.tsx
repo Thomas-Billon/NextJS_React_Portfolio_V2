@@ -1,6 +1,6 @@
 'use client';
 
-import React, { RefObject, useEffect, useRef } from 'react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { Props } from '@/utils/react/Props';
 import { PackContext } from '@/components/skills/pack/SkillPack';
@@ -31,8 +31,6 @@ const SkillPackItem = ({ children, props = {}}: Props<SkillCardProps>): React.Re
             packContext.swipeCard = swipeRef;
         }
     }, [packContext, swipeRef, index]);
-
-    // TODO: Block scroll on start & unblock on end for touch (in useDragComponent)
 
     return (
         <li className={SkillPackItemStyle({ cardIndex: index })} style={{ zIndex }}>
