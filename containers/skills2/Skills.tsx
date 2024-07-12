@@ -28,6 +28,5 @@ export default Skills;
 
 const SkillsStyle = tw([
     'SkillsStyle',
-    'bg-purple-900',
-    'relative'
+    'bg-purple-900'
 ]);

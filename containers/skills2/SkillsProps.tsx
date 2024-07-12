@@ -21,7 +21,7 @@ const cardProps: SkillCardProps[] = [
         skill: SkillEnum.CSharp,
         proficiency: 5,
         backgroundColor: '#390091'
-    }, /*
+    },
     {
         skill: SkillEnum.Javascript,
         proficiency: 4,
@@ -172,7 +172,7 @@ const cardProps: SkillCardProps[] = [
         skill: SkillEnum.NodeJs,
         proficiency: 2,
         backgroundColor: '#83CD29'
-    },*/
+    },
     {
         skill: SkillEnum.French,
         proficiency: 5,
