@@ -33,7 +33,7 @@ export enum SkillEnum {
     ExpressJs = 'ExpressJS',
     React = 'React',
     Angular = 'Angular',
-    PetiteVue = 'Petite Vue',
+    Vue = 'Vue',
     JQuery = 'JQuery',
     ThreeJs = 'ThreeJS',
     SocketIo = 'Socket.io',

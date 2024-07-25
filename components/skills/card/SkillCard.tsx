@@ -58,7 +58,7 @@ const SkillCard = ({ props = {}}: Props<SkillCardProps>): React.ReactNode => {
             <div className={SkillCardDoubleWidthStyle} style={{ color: props.textColor, backgroundColor: props.backgroundColor }}>
                 <Image
                     className={SkillCardImageStyle({ imageRatio: props.imageRatio })}
-                    src={`/static/images/skills/${getImageNameFromSkill(props.skill)}.png`}
+                    src={`/static/images/skills/${getImageNameFromSkill(props.skill)}.jpg`}
                     alt={props.skill}
                     width={
                         props.imageRatio == 2 ? '512' :
@@ -135,6 +135,7 @@ const SkillCardTextStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
     'SkillCardTextStyle',
     'w-1/2',
     'p-2',
+    'pt-4',
     'flex',
     'flex-col',
     'gap-2',
@@ -150,7 +151,7 @@ const SkillCardTextStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
 
 const SkillCardTitleStyle = tw([
     'SkillCardTitleStyle',
-    'leading-tight'
+    'leading-none'
 ]);
 
 const SkillCardProficiencyStyle = tw([

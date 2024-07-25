@@ -6,7 +6,6 @@ import { Props } from '@/utils/react/Props';
 import { PackContext } from '@/components/skills/pack/SkillPack';
 import { useCustomContext } from '@/hooks/UseCustomContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as fas from '@fortawesome/free-solid-svg-icons';
 import * as far from '@fortawesome/free-regular-svg-icons';
 
 
@@ -31,7 +30,7 @@ const SkillPackButton = ({ props = {}}: Props<SkillPackButtonProps>): React.Reac
     return (
         props.direction &&
         <button className={SkillPackButtonStyle({ direction: props.direction })} onClick={click}> {
-            <FontAwesomeIcon icon={props.direction < 0 ? fas.faClose : far.faHeart} className={SkillPackButtonIconStyle} size="xl" fixedWidth />
+            <FontAwesomeIcon icon={props.direction < 0 ? far.faThumbsUp : far.faHeart} className={SkillPackButtonIconStyle} size="xl" fixedWidth />
         } </button>
     );
 };
@@ -53,6 +52,8 @@ const SkillPackButtonStyle = ({ direction }: { direction: number }) => tw([
     'hover:scale-100',
     'active:text-white',
     'active:scale-100',
+    direction < 0 && 'pb-0.5',
+    direction > 0 && 'pt-0.5',
     direction < 0 && 'text-purple-500',
     direction > 0 && 'text-red-500',
     direction < 0 && 'hover:bg-purple-500',

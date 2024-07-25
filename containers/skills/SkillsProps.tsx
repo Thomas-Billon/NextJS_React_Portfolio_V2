@@ -1,6 +1,8 @@
 import { SkillCardProps } from '@/components/skills/card/SkillCard';
 import { SkillEnum } from '@/utils/enums/SkillEnum';
 
+import Variables from '@/styles/scss/variables.module.scss';
+
 
 export interface SkillsProps {
     cardProps: SkillCardProps[];
@@ -10,7 +12,7 @@ const cardProps: SkillCardProps[] = [
     {
         skill: SkillEnum.Html5,
         proficiency: 5,
-        backgroundColor: '#F16529'
+        backgroundColor: '#F06529'
     },
     {
         skill: SkillEnum.Css3,
@@ -26,7 +28,7 @@ const cardProps: SkillCardProps[] = [
         skill: SkillEnum.Javascript,
         proficiency: 4,
         backgroundColor: '#F0DB4F',
-        textColor: '#313131'
+        textColor: '#323330'
     },
     {
         skill: SkillEnum.Typescript,
@@ -36,12 +38,12 @@ const cardProps: SkillCardProps[] = [
     {
         skill: SkillEnum.Php,
         proficiency: 4,
-        backgroundColor: '#6082BB'
+        backgroundColor: '#777BB3'
     },
     {
         skill: SkillEnum.CPlusPlus,
         proficiency: 2,
-        backgroundColor: '#2E40A5'
+        backgroundColor: '#1D2D97'
     },
     {
         skill: SkillEnum.C,
@@ -51,47 +53,47 @@ const cardProps: SkillCardProps[] = [
     {
         skill: SkillEnum.ShellScript,
         proficiency: 1,
-        backgroundColor: '#2A3538'
+        backgroundColor: '#293137'
     },
     {
         skill: SkillEnum.Scss,
         proficiency: 5,
-        backgroundColor: '#CD679B'
+        backgroundColor: '#CC6699'
     },
     {
         skill: SkillEnum.Bootstrap,
         proficiency: 5,
-        backgroundColor: '#8312F9'
+        backgroundColor: '#7B12F8'
     },
     {
         skill: SkillEnum.Tailwind,
         proficiency: 4,
-        backgroundColor: '#39BCF9'
+        backgroundColor: '#38BDF8'
     },
     {
         skill: SkillEnum.JQuery,
         proficiency: 4,
-        backgroundColor: '#1465AC'
+        backgroundColor: '#333333'
     },
     {
         skill: SkillEnum.DotNet,
         proficiency: 4,
-        backgroundColor: '#1665AC'
+        backgroundColor: '#512BD4'
     },
     {
         skill: SkillEnum.React,
         proficiency: 3,
-        backgroundColor: '#60DAFA'
+        backgroundColor: '#61DAFB'
     },
     {
         skill: SkillEnum.Angular,
         proficiency: 3,
-        backgroundColor: '#DE0032'
+        backgroundColor: '#E90464'
     },
     {
-        skill: SkillEnum.PetiteVue,
+        skill: SkillEnum.Vue,
         proficiency: 2,
-        backgroundColor: '#41B782'
+        backgroundColor: '#41B883'
     },
     {
         skill: SkillEnum.ThreeJs,
@@ -114,14 +116,19 @@ const cardProps: SkillCardProps[] = [
         backgroundColor: '#000000'
     },
     {
+        skill: SkillEnum.Unity,
+        proficiency: 5,
+        backgroundColor: '#141414'
+    },
+    {
         skill: SkillEnum.MySql,
         proficiency: 4,
-        backgroundColor: '#005E86'
+        backgroundColor: '#E48D1A'
     },
     {
         skill: SkillEnum.PostgreSql,
         proficiency: 4,
-        backgroundColor: '#31648C'
+        backgroundColor: '#336791'
     },
     {
         skill: SkillEnum.Aws,
@@ -131,22 +138,17 @@ const cardProps: SkillCardProps[] = [
     {
         skill: SkillEnum.Apache,
         proficiency: 3,
-        backgroundColor: '#C02040'
+        backgroundColor: '#272660'
     },
     {
         skill: SkillEnum.Azure,
         proficiency: 2,
-        backgroundColor: '#0C57A0'
+        backgroundColor: '#003E6C'
     },
     {
         skill: SkillEnum.CosmosDb,
         proficiency: 2,
-        backgroundColor: '#1566BF'
-    },
-    {
-        skill: SkillEnum.Unity,
-        proficiency: 5,
-        backgroundColor: '#110B09'
+        backgroundColor: '#272660'
     },
     {
         skill: SkillEnum.Photoshop,
@@ -161,42 +163,37 @@ const cardProps: SkillCardProps[] = [
     {
         skill: SkillEnum.Git,
         proficiency: 4,
-        backgroundColor: '#F05133'
-    },
-    {
-        skill: SkillEnum.Svn,
-        proficiency: 2,
-        backgroundColor: '#809CC9'
+        backgroundColor: '#F03C2E'
     },
     {
         skill: SkillEnum.NodeJs,
         proficiency: 2,
-        backgroundColor: '#83CD29'
+        backgroundColor: '#5FA04E'
     },
     {
         skill: SkillEnum.French,
         proficiency: 5,
-        backgroundColor: '#CD1125',
+        backgroundColor: '#CE1126',
         imageRatio: 2
     },
     {
         skill: SkillEnum.English,
         proficiency: 5,
-        backgroundColor: '#00247C',
+        backgroundColor: '#012169',
         imageRatio: 2
     },
     {
         skill: SkillEnum.Spanish,
         proficiency: 2,
-        textColor: '#FDC400',
-        backgroundColor: '#C60B1C',
+        backgroundColor: '#C60B1E',
+        textColor: '#FFC400',
         imageRatio: 2
     },
     {
         skill: SkillEnum.Japanese,
         proficiency: 1,
-        textColor: '#BC012E',
         backgroundColor: '#FFFFFF',
+        textColor: '#BC002D',
         imageRatio: 2
     }
 ];
