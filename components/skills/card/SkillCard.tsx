@@ -73,16 +73,16 @@ const SkillCard = ({ props = {}}: Props<SkillCardProps>): React.ReactNode => {
                         {props.skill}
                     </h4>
                     <div className={SkillCardProficiencyStyle}>
-                        <div> {
+                        <div className={SkillCardProficiencyIconsStyle}> {
                             [...Array(5).keys()].map((proficiency, index) =>
                                 <span key={index}>
                                     <FontAwesomeIcon icon={proficiency + 1 <= (props.proficiency ?? ProficiencyLevelEnum.Novice) ? fas.faStar : far.faStar} size="lg" fixedWidth />
                                 </span>
                             )
                         } </div>
-                        <span>
+                        <div className={SkillCardProficiencyTextStyle}>
                             {ProficiencyLevelEnum[props.proficiency ?? ProficiencyLevelEnum.Novice]}
-                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,12 +96,12 @@ export default SkillCard;
 const SkillCardStyle = tw([
     'SkillCardStyle',
     'relative',
-    'w-48',
-    'h-48',
+    'w-full',
+    'h-full',
     'text-white',
     'overflow-hidden',
     'rounded-lg',
-    'group',
+    'group/card',
     'transition-transform',
     'duration-300',
     'hover:scale-110',
@@ -117,16 +117,16 @@ const SkillCardDoubleWidthStyle = tw([
     'h-full',
     'transition-transform',
     'duration-300',
-    'group-hover:-translate-x-1/2',
-    'group-active:-translate-x-1/2'
+    'group-hover/card:-translate-x-1/2',
+    'group-active/card:-translate-x-1/2'
 ]);
 
 const SkillCardImageStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
     'SkillCardImageStyle',
     'transition-opacity',
     'duration-300',
-    'group-hover:opacity-0',
-    'group-active:opacity-0',
+    'group-hover/card:opacity-0',
+    'group-active/card:opacity-0',
     imageRatio == 1 && 'w-1/2',
     imageRatio == 2 && 'w-full'
 ]);
@@ -144,6 +144,7 @@ const SkillCardTextStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
     'text-center',
     'font-bold',
     'select-none',
+    'group-[.display-grid]/pack-item:scale-50',
     imageRatio == 2 && 'absolute',
     imageRatio == 2 && 'right-0',
     imageRatio == 2 && 'h-full'
@@ -156,4 +157,13 @@ const SkillCardTitleStyle = tw([
 
 const SkillCardProficiencyStyle = tw([
     'SkillCardProficiencyStyle'
+]);
+
+const SkillCardProficiencyIconsStyle = tw([
+    'SkillCardProficiencyIconsStyle',
+    'flex'
+]);
+
+const SkillCardProficiencyTextStyle = tw([
+    'SkillCardProficiencyTextStyle'
 ]);

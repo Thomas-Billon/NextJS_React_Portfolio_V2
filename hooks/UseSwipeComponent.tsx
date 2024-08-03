@@ -10,12 +10,12 @@ export interface UseSwipeComponentProps extends UseDragComponentProps {
     onComplete?: () => void;
 }
 
-export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 10, onComplete = () => {}, eventType, isXAxisLocked, isYAxisLocked, isAutoReset, duration = 250, onDrag, onDrop }: UseSwipeComponentProps = {}) {
+export function useSwipeComponent({ threshold = 100, distance = 200, rotation = 10, onComplete = () => {}, eventType, isEnabled, isXAxisLocked, isYAxisLocked, isAutoReset, duration = 250, onDrag, onDrop }: UseSwipeComponentProps = {}) {
     const CSS_VARIABLE_OFFSET_X = '--tw-translate-x';
     const CSS_VARIABLE_ROTATE = '--tw-rotate';
     const CSS_PROPERTY_OPACITY = 'opacity';
     
-    const dragComponent = useDragComponent({ eventType, isXAxisLocked, isYAxisLocked, isAutoReset, duration, onDrag, onDrop });
+    const dragComponent = useDragComponent({ eventType, isEnabled, isXAxisLocked, isYAxisLocked, isAutoReset, duration, onDrag, onDrop });
 
     // Runs each time component is dragged
     useEffect(() => {

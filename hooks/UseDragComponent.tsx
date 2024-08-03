@@ -12,6 +12,7 @@ export enum DragEventTypeEnum {
 
 export interface UseDragComponentProps {
     eventType?: DragEventTypeEnum;
+    isEnabled?: boolean;
     isXAxisLocked?: boolean;
     isYAxisLocked?: boolean;
     isAutoReset?: boolean;
@@ -20,7 +21,7 @@ export interface UseDragComponentProps {
     onDrop?: () => void;
 }
 
-export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLocked = false, isYAxisLocked = false, isAutoReset = false, duration = 250, onDrag = () => {}, onDrop = () => {} }: UseDragComponentProps = {}) {
+export function useDragComponent({ eventType = DragEventTypeEnum.Both, isEnabled = true, isXAxisLocked = false, isYAxisLocked = false, isAutoReset = false, duration = 250, onDrag = () => {}, onDrop = () => {} }: UseDragComponentProps = {}) {
     const CSS_VARIABLE_OFFSET_X = '--tw-translate-x';
     const CSS_VARIABLE_OFFSET_Y = '--tw-translate-y';
     const CSS_PROPERTY_WIDTH = 'width';
@@ -32,6 +33,7 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
     const [isDraggingComponent, setIsDraggingCard] = useState<boolean>(false);
     const [dragOffset, setDragOffset] = useState<Vector2>({ x: 0, y: 0 });
     const [isResetPositionOnDrop, setIsResetPositionOnDrop, isResetPositionOnDropRef] = useStateRef<boolean>(false);
+    const [, setIsEnabled, isEnabledRef] = useStateRef<boolean>(true);
     const [, setDragPreviousPosition, dragPreviousPositionRef] = useStateRef<Vector2>({ x: 0, y: 0 });
     const [, setDragOriginPosition, dragOriginPositionRef] = useStateRef<Vector2>({ x: 0, y: 0 });
     const [, setDragCurrentPosition, dragCurrentPositionRef] = useStateRef<Vector2>({ x: 0, y: 0 });
@@ -59,6 +61,10 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
             componentRef.current?.removeEventListener('touchstart', onDragStart);
         };
     }, []);
+
+    useEffect(() => {
+        setIsEnabled(isEnabled);
+    }, [setIsEnabled, isEnabled]);
 
     const getClientPosition = (e : MouseEvent | TouchEvent) : Vector2 => {
         if (e instanceof MouseEvent) {
@@ -108,6 +114,10 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
             return;
         }
 
+        if (!isEnabledRef.current) {
+            return;
+        }
+
         // Only allow left click
         if (e instanceof MouseEvent && (e.buttons != 1 || e.button != 0)) {
             return;
@@ -149,6 +159,10 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
             return;
         }
 
+        if (!isEnabledRef.current) {
+            return;
+        }
+
         const clientPos = getClientPosition(e);
 
         setDragCurrentPosition({ x: clientPos.x, y: clientPos.y });
@@ -164,6 +178,10 @@ export function useDragComponent({ eventType = DragEventTypeEnum.Both, isXAxisLo
 
     const onDragEnd = useCallback((e : MouseEvent | TouchEvent): void => {
         if (componentRef == null) {
+            return;
+        }
+
+        if (!isEnabledRef.current) {
             return;
         }
 
