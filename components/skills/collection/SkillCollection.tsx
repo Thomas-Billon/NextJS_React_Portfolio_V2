@@ -33,7 +33,7 @@ const SkillCollection = ({ children, skills = [] }: Props<SkillCollectionProps>)
 
     return (
         <CollectionContext.Provider value={{ collectionDisplay, toggleCollectionDisplay }}>
-            <div className={SkillCollectionStyle}>
+            <div id="skill-collection" className={SkillCollectionStyle}>
                 {
                     collectionDisplay === SkillCollectionDisplayEnum.Grid ?
                         <SkillGrid>

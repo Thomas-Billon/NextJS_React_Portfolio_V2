@@ -16,7 +16,7 @@ const ProjectGrid = ({ children }: DefaultProps): React.ReactNode => {
     const [activeIndex, setActiveIndex] = useState<number>(-1);
 
     if (typeof document !== 'undefined') {
-        useGridAnimation({ grid: document.querySelector('#projects-grid') });
+        useGridAnimation({ grid: document.querySelector('#project-grid') });
     }
 
     const openCard = (index: number): void => {
@@ -29,7 +29,7 @@ const ProjectGrid = ({ children }: DefaultProps): React.ReactNode => {
     
     return (
         <GridContext.Provider value={{ activeIndex, openCard, closeCard }}>
-            <ul id="projects-grid" className={ProjectsGridStyle}>
+            <ul id="project-grid" className={ProjectsGridStyle}>
                 {children}
             </ul>
         </GridContext.Provider>
