@@ -5,7 +5,7 @@ export enum BreakpointTypeEnum {
     Md = 'md',
     Lg = 'lg',
     Xl = 'xl',
-    Xxl = '2xl'
+    Xxl = '2xl',
 }
 
 export enum BreakpointSizeEnum {
@@ -15,5 +15,5 @@ export enum BreakpointSizeEnum {
     Md = 768,
     Lg = 1024,
     Xl = 1280,
-    Xxl = 1536
+    Xxl = 1536,
 }

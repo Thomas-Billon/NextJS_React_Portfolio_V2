@@ -21,7 +21,7 @@ export interface ModelLoaderProps {
 
 const ModelLoader = ({ props = {}}: Props<ModelLoaderProps>): React.ReactNode => {
     // Grab context
-    const sceneContext = useCustomContext(SceneContext, 'SceneLoader');
+    const sceneContext = useCustomContext(SceneContext);
 
     // Store refs
     const meshRef = useRef<Mesh>();

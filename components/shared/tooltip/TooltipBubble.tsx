@@ -12,7 +12,7 @@ import Variables from '@/styles/scss/variables.module.scss';
 
 
 const TooltipBubble = ({ content }: { content: string }): React.ReactNode => {
-    const tooltipContext = useCustomContext(TooltipContext, 'TooltipContainer');
+    const tooltipContext = useCustomContext(TooltipContext);
 
     const isSmDown = isBreakpointSmDown();
     const isClosed = tooltipContext.data.status == 'close' || tooltipContext.data.status== 'unmounted';

@@ -3,7 +3,7 @@
 import React, { ReactNode } from 'react';
 import { tw } from '@/utils/tailwind/TinyWind';
 import ProjectGrid from '@/components/projects/grid/ProjectGrid';
-import ProjectGridItem from '@/components/projects/grid/ProjectGridItem';
+import ProjectGridCell from '@/components/projects/grid/ProjectGridCell';
 import ProjectCard from '@/components/projects/card/ProjectCard';
 import { projectsProps as props } from './ProjectsProps';
 
@@ -14,9 +14,9 @@ const Projects = (): ReactNode => {
             <ProjectGrid>
                 {
                     props.cardProps.map((project, index) =>
-                        <ProjectGridItem key={index} index={index}>
+                        <ProjectGridCell key={index} index={index}>
                             <ProjectCard {...{ props: project }} />
-                        </ProjectGridItem>
+                        </ProjectGridCell>
                     )
                 }
             </ProjectGrid>

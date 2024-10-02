@@ -18,6 +18,7 @@ export enum SkillEnum {
     AspNet = 'ASP.NET',
     AspNetMvc = 'ASP.NET MVC',
     EntityFramework = 'Entity Framework',
+    EntityFrameworkCore = 'Entity Framework Core',
     XUnit = 'XUnit',
     MsTest = 'MSTest',
     Php = 'PHP',
@@ -69,7 +70,7 @@ export enum SkillEnum {
     French = 'French',
     English = 'English',
     Spanish = 'Spanish',
-    Japanese = 'Japanese'
+    Japanese = 'Japanese',
 }
 
 export const getAllSkills = (): SkillEnum[] => Object.values(SkillEnum);

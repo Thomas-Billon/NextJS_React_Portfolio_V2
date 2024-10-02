@@ -7,8 +7,8 @@ import { useCustomContext } from '@/hooks/UseCustomContext';
 import { DefaultProps, IterableProps } from '@/utils/react/Props';
 
 
-const ProjectGridItem = ({ children, index = 0 }: DefaultProps & IterableProps): React.ReactNode => {
-    const gridContext = useCustomContext(GridContext, 'ProjectGrid');
+const ProjectGridCell = ({ children, index = 0 }: DefaultProps & IterableProps): React.ReactNode => {
+    const gridContext = useCustomContext(GridContext);
 
     const openCard = (event: React.MouseEvent<HTMLElement>): void => {
         event.stopPropagation();
@@ -16,17 +16,17 @@ const ProjectGridItem = ({ children, index = 0 }: DefaultProps & IterableProps):
     };
 
     return (
-        <li className={ProjectGridItemStyle({ isActive: (gridContext.activeIndex == index) })} onClick={openCard}>
+        <li className={ProjectGridCellStyle({ isActive: (gridContext.activeIndex == index) })} onClick={openCard}>
             {children}
         </li>
     );
 };
 
-export default ProjectGridItem;
+export default ProjectGridCell;
 
 
-const ProjectGridItemStyle = ({ isActive }: { isActive: boolean }) => tw([
-    'ProjectGridItemStyle',
+const ProjectGridCellStyle = ({ isActive }: { isActive: boolean }) => tw([
+    'ProjectGridCellStyle',
     'w-full',
     'md:w-auto',
     isActive && 'col-span-1',

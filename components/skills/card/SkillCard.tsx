@@ -144,7 +144,7 @@ const SkillCardTextStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
     'text-center',
     'font-bold',
     'select-none',
-    'group-[.display-grid]/pack-item:scale-50',
+    'group-[.SkillGridStyle]/skill-grid:scale-50',
     imageRatio == 2 && 'absolute',
     imageRatio == 2 && 'right-0',
     imageRatio == 2 && 'h-full'

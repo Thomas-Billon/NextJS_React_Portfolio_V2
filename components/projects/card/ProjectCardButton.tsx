@@ -26,8 +26,8 @@ interface ProjectCardButtonExtendedProps extends ProjectCardButtonProps {
 }
 
 const ProjectCardButton = ({ props = {}, onClick = () => {}, isEnabled = true, opacity }: Props<ProjectCardButtonProps> & ProjectCardButtonExtendedProps & ClickableProps & EnabledProps): React.ReactNode => {
-    const tooltipContext = props.isMinigame ? useCustomContext(TooltipContext, 'TooltipContainer') : null;
-    const minigameContext = props.isMinigame ? useCustomContext(MinigameContext, 'ProjectCardButtonMinigame') : null;
+    const tooltipContext = props.isMinigame ? useCustomContext(TooltipContext) : null;
+    const minigameContext = props.isMinigame ? useCustomContext(MinigameContext) : null;
 
     const isLinkExternalUrl: boolean = props.href?.indexOf('https') != -1;
     const isLinkGithub: boolean = props.href?.indexOf('https://github.com/') != -1;

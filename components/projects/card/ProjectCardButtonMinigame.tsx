@@ -23,7 +23,7 @@ const ProjectCardButtonMinigame = ({ props = {}}: Props<ProjectCardButtonProps>)
     const [minigameStep, setMinigameStep] = useState<number>(-1);
     const [isEnabled, setIsEnabled] = useState<boolean>(true);
     const [opacityValue, setOpacityValue] = useState<number>();
-    const tooltipContext = useCustomContext(TooltipContext, 'TooltipContainer');
+    const tooltipContext = useCustomContext(TooltipContext);
 
     const isClosed = tooltipContext.data.status == 'close' || tooltipContext.data.status== 'unmounted';
 

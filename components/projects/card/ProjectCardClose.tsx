@@ -9,7 +9,7 @@ import * as fas from '@fortawesome/free-solid-svg-icons';
 
 
 const ProjectCardClose = (): React.ReactNode => {
-    const gridContext = useCustomContext(GridContext, 'ProjectGrid');
+    const gridContext = useCustomContext(GridContext);
 
     const closeCard = (event: React.MouseEvent<HTMLElement>): void => {
         event.stopPropagation();
