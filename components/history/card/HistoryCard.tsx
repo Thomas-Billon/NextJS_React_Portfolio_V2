@@ -35,22 +35,26 @@ export interface HistoryCardSchoolProps extends HistoryCardProps {
 const HistoryCard = ({ props = {}}: Props<HistoryCardProps>): React.ReactNode => {
     return (
         <div className={HistoryCardStyle}>
-            <span>{props.date?.toLocaleDateString()}</span>
-            <span> {
-                props.type === HistoryEventEnum.CompanyCreation ?
-                    <HistoryCardCompanyCreation {...{ props }} />
-                : props.type === HistoryEventEnum.CompanyOnboarding ?
-                    <HistoryCardCompanyOnboarding {...{ props }} />
-                : props.type === HistoryEventEnum.CompanyPromotion ?
-                    <HistoryCardCompanyPromotion {...{ props }} />
-                : props.type === HistoryEventEnum.SchoolEnrollment ?
-                    <HistoryCardSchoolEnrollment {...{ props }} />
-                : props.type === HistoryEventEnum.SchoolGraduation ?
-                    <HistoryCardSchoolGraduation {...{ props }} />
-                : props.type === HistoryEventEnum.Birthday ?
-                    <HistoryCardBirthday {...{ props }} />
-                : <></>
-            } </span>
+            <div className={HistoryCardDateStyle}>
+                {props.date?.toLocaleDateString()}
+            </div>
+            <div className={HistoryCardTypeStyle}>
+                {
+                    props.type === HistoryEventEnum.CompanyCreation ?
+                        <HistoryCardCompanyCreation {...{ props }} />
+                    : props.type === HistoryEventEnum.CompanyOnboarding ?
+                        <HistoryCardCompanyOnboarding {...{ props }} />
+                    : props.type === HistoryEventEnum.CompanyPromotion ?
+                        <HistoryCardCompanyPromotion {...{ props }} />
+                    : props.type === HistoryEventEnum.SchoolEnrollment ?
+                        <HistoryCardSchoolEnrollment {...{ props }} />
+                    : props.type === HistoryEventEnum.SchoolGraduation ?
+                        <HistoryCardSchoolGraduation {...{ props }} />
+                    : props.type === HistoryEventEnum.Birthday ?
+                        <HistoryCardBirthday {...{ props }} />
+                    : <></>
+                }
+            </div>
         </div>
     );
 };
@@ -59,5 +63,32 @@ export default HistoryCard;
 
 
 const HistoryCardStyle = tw([
-    'HistoryCardStyle'
+    'HistoryCardStyle',
+    'relative',
+    'card',
+    'bg-white',
+    'flex',
+    'flex-row',
+    'items-center',
+    'py-4',
+    'group-[.HistoryTimelineEventStyle]/left:text-left',
+    'group-[.HistoryTimelineEventStyle]/left:flex-row',
+    'group-[.HistoryTimelineEventStyle]/right:text-right',
+    'group-[.HistoryTimelineEventStyle]/right:flex-row-reverse'
+]);
+
+const HistoryCardDateStyle = tw([
+    'HistoryCardDateStyle',
+    'basis-2/12',
+    'text-2xl',
+    'text-center',
+    'text-orange-light-300',
+    'font-bold'
+]);
+
+const HistoryCardTypeStyle = tw([
+    'HistoryCardTypeStyle',
+    'basis-10/12',
+    'group-[.HistoryTimelineEventStyle]/left:pr-8',
+    'group-[.HistoryTimelineEventStyle]/right:pl-8'
 ]);

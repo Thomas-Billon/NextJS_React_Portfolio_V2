@@ -46,7 +46,6 @@ const ProjectsGridStyle = tw([
     'grid-cols-1',
     'md:grid-cols-2',
     'xl:grid-cols-3',
-    'gap-y-4',
-    'md:gap-4',
-    'md:auto-rows-fr'
+    'auto-rows-fr',
+    'gap-4'
 ]);

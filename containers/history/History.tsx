@@ -14,7 +14,7 @@ const History = (): ReactNode => {
             <HistoryTimeline>
                 {
                     props.eventProps.map((event, index) =>
-                        <HistoryTimelineEvent key={index}>
+                        <HistoryTimelineEvent key={index} index={index}>
                             <HistoryCard {...{ props: event }}/>
                         </HistoryTimelineEvent>
                     )

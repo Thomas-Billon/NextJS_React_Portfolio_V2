@@ -85,11 +85,9 @@ const ProjectCardStyle = tw([
     'ProjectCardStyle',
     'w-full',
     'h-full',
+    'card',
     'bg-white',
-    'overflow-hidden',
-    'rounded-lg',
-    'md:aspect-video',
-    'shadow-lg'
+    'md:aspect-video'
 ]);
 
 const ProjectCardFullWidthStyle = tw([
@@ -204,6 +202,7 @@ const ProjectCardTagListStyle = tw([
 
 const ProjectCardTagItemStyle = tw([
     'ProjectCardTagItemStyle',
+    'inline-block',
     'px-2',
     'py-0.5',
     'bg-orange-light-100',

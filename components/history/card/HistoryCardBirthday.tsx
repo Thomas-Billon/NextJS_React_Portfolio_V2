@@ -18,5 +18,5 @@ export default HistoryCardBirthday;
 
 
 const HistoryCardBirthdayStyle = tw([
-    'HistoryvBirthdayStyle'
+    'HistoryBirthdayStyle'
 ]);

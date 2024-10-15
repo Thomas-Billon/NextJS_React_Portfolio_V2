@@ -1,15 +1,15 @@
-import { HistoryEventProps, HistoryEventCompanyProps, HistoryEventSchoolProps } from '@/components/history/HistoryEvent';
+import { HistoryCardProps, HistoryCardCompanyProps, HistoryCardSchoolProps } from '@/components/history/card/HistoryCard';
 import { HistoryEventEnum } from '@/utils/enums/HistoryEventEnum';
 import { SkillEnum } from '@/utils/enums/SkillEnum';
 import { DateOnly } from '@/utils/global/DateOnly';
 
 
 export interface HistoryProps {
-    eventProps: HistoryEventProps[];
+    eventProps: HistoryCardProps[];
 };
 
 /* eslint-disable quotes */
-const timeFrameProps: HistoryEventProps[] | HistoryEventCompanyProps[] | HistoryEventSchoolProps[] = [
+const timeFrameProps: HistoryCardProps[] | HistoryCardCompanyProps[] | HistoryCardSchoolProps[] = [
     {
         date: new DateOnly(2024, 1, 8),
         type: HistoryEventEnum.CompanyOnboarding,

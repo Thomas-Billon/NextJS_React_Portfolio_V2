@@ -24,5 +24,8 @@ export default HistoryTimeline;
 
 const HistoryTimelineStyle = tw([
     'HistoryTimelineStyle',
-    'container-section'
+    'container-section',
+    'flex',
+    'flex-col',
+    'gap-32'
 ]);
