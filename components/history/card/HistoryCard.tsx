@@ -40,12 +40,10 @@ const HistoryCard = ({ props = {}}: Props<HistoryCardProps>): React.ReactNode =>
             </div>
             <div className={HistoryCardTypeStyle}>
                 {
-                    props.type === HistoryEventEnum.CompanyCreation ?
-                        <HistoryCardCompanyCreation {...{ props }} />
-                    : props.type === HistoryEventEnum.CompanyOnboarding ?
+                    props.type === HistoryEventEnum.CompanyCreation ||
+                    props.type === HistoryEventEnum.CompanyOnboarding ||
+                    props.type === HistoryEventEnum.CompanyPromotion ?
                         <HistoryCardCompanyOnboarding {...{ props }} />
-                    : props.type === HistoryEventEnum.CompanyPromotion ?
-                        <HistoryCardCompanyPromotion {...{ props }} />
                     : props.type === HistoryEventEnum.SchoolEnrollment ?
                         <HistoryCardSchoolEnrollment {...{ props }} />
                     : props.type === HistoryEventEnum.SchoolGraduation ?
@@ -79,7 +77,8 @@ const HistoryCardStyle = tw([
 
 const HistoryCardDateStyle = tw([
     'HistoryCardDateStyle',
-    'basis-2/12',
+    'basis-3/12',
+    'xl:basis-2/12',
     'text-2xl',
     'text-center',
     'text-orange-light-300',
@@ -88,7 +87,8 @@ const HistoryCardDateStyle = tw([
 
 const HistoryCardTypeStyle = tw([
     'HistoryCardTypeStyle',
-    'basis-10/12',
+    'basis-9/12',
+    'xl:basis-10/12',
     'group-[.HistoryTimelineEventStyle]/left:pr-8',
     'group-[.HistoryTimelineEventStyle]/right:pl-8'
 ]);

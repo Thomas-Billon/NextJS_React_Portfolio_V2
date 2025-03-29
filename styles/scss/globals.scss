@@ -60,9 +60,10 @@
 }
 
 .spaced {
-    &:not(:last-child) {
-        @apply me-2;
-    }
+    @apply flex;
+    @apply flex-wrap;
+    @apply gap-x-2;
+    @apply gap-y-1;
 }
 
 .rtl {

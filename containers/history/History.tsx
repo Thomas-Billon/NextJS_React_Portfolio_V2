@@ -29,5 +29,6 @@ export default History;
 
 const HistoryStyle = tw([
     'HistoryStyle',
+    'overflow-hidden',
     'bg-off-white'
 ]);

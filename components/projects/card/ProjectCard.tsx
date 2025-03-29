@@ -6,6 +6,7 @@ import ProjectCardButton, { ProjectCardButtonProps } from '@/components/projects
 import ProjectCardClose from '@/components/projects/card/ProjectCardClose';
 import ProjectCardButtonMinigame from '@/components/projects/card/ProjectCardButtonMinigame';
 import TooltipContainer from '@/components/shared/tooltip/TooltipContainer';
+import SkillFlag from '@/components/shared/SkillFlag';
 import { SkillEnum } from '@/utils/enums/SkillEnum';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { Props } from '@/utils/react/Props';
@@ -49,9 +50,9 @@ const ProjectCard = ({ props = {}}: Props<ProjectCardProps>): React.ReactNode =>
                                         <p key={index} className={ProjectCardDescriptionItemStyle}>{paragraph}</p>
                                     )
                                 } </div>
-                                <div className={ProjectCardTagListStyle}> {
+                                <div className={ProjectCardTagStyle}> {
                                     props.tags?.map((tag, index) => 
-                                        <span key={index} className={ProjectCardTagItemStyle}>{tag}</span>
+                                        <SkillFlag key={index} props={{ skill: tag }}/>
                                     )
                                 } </div>
                                 <div className={ProjectCardLinkListStyle}> {
@@ -195,29 +196,16 @@ const ProjectCardDescriptionItemStyle = tw([
     '[&:not(:last-child)]:mb-2'
 ]);
 
-const ProjectCardTagListStyle = tw([
-    'ProjectCardTagListStyle',
+const ProjectCardTagStyle = tw([
+    'ProjectCardTagStyle',
+    'spaced',
     'mb-8'
-]);
-
-const ProjectCardTagItemStyle = tw([
-    'ProjectCardTagItemStyle',
-    'inline-block',
-    'px-2',
-    'py-0.5',
-    'bg-orange-light-100',
-    'text-orange-light-600',
-    'text-xs',
-    'font-medium',
-    'border',
-    'border-orange-light-400',
-    'rounded',
-    'spaced'
 ]);
 
 const ProjectCardLinkListStyle = tw([
     'ProjectCardLinkListStyle',
-    'text-center'
+    'spaced',
+    'justify-center'
 ]);
 
 const ProjectCardCloseContainerStyle = tw([

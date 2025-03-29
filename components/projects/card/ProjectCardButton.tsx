@@ -74,8 +74,6 @@ export default ProjectCardButton;
 
 const ProjectCardButtonContainerStyle = tw([
     'ProjectCardButtonContainerStyle',
-    'inline-flex',
-    'spaced',
     'transition-opacity'
 ]);
 

@@ -6,6 +6,7 @@ import { HistoryCardCompanyProps } from '@/components/history/card/HistoryCard';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as fas from '@fortawesome/free-solid-svg-icons';
+import SkillFlag from '@/components/shared/SkillFlag';
 
 
 const HistoryCardCompanyOnboarding = ({ props = {}}: Props<HistoryCardCompanyProps>): React.ReactNode => {
@@ -15,17 +16,19 @@ const HistoryCardCompanyOnboarding = ({ props = {}}: Props<HistoryCardCompanyPro
                 <h4 className={HistoryCardCompanyOnboardingTitleStyle}>New job</h4>
                 <span className={HistoryCardCompanyOnboardingSubtitleStyle}> - I started working as a {props.jobTitle} at {props.companyName}</span>
             </div>
-            <div>
-                <FontAwesomeIcon icon={fas.faSuitcase} size="lg" fixedWidth />
-                <span>{props.jobTitle}</span>
-            </div>
-            <div>
-                <FontAwesomeIcon icon={fas.faBuilding} size="lg" fixedWidth />
-                <span>{props.companyName}</span>
-            </div>
-            <div>
-                <FontAwesomeIcon icon={fas.faLocationDot} size="lg" fixedWidth />
-                <span>{props.companyLocation}</span>
+            <div className={HistoryCardCompanyOnboardingDetailGroupStyle}>
+                <div className={HistoryCardCompanyOnboardingDetailStyle}>
+                    <FontAwesomeIcon icon={fas.faSuitcase} className={HistoryCardCompanyOnboardingIconStyle} size="lg" fixedWidth />
+                    <span>{props.jobTitle}</span>
+                </div>
+                <div className={HistoryCardCompanyOnboardingDetailStyle}>
+                    <FontAwesomeIcon icon={fas.faBuilding} className={HistoryCardCompanyOnboardingIconStyle} size="lg" fixedWidth />
+                    <span>{props.companyName}</span>
+                </div>
+                <div className={HistoryCardCompanyOnboardingDetailStyle}>
+                    <FontAwesomeIcon icon={fas.faLocationDot} className={HistoryCardCompanyOnboardingIconStyle} size="lg" fixedWidth />
+                    <span>{props.companyLocation}</span>
+                </div>
             </div>
             <ul className={HistoryCardCompanyOnboardingDescriptionListStyle}>
                 {
@@ -34,10 +37,10 @@ const HistoryCardCompanyOnboarding = ({ props = {}}: Props<HistoryCardCompanyPro
                     )
                 }
             </ul>
-            <div className={HistoryCardCompanyOnboardingTechListStyle}>
+            <div className={HistoryCardCompanyOnboardingTechStyle}>
                 {
                     props.techStack?.map((tech, index) => 
-                        <span key={index} className={HistoryCardCompanyOnboardingTechItemStyle}>{tech}</span>
+                        <SkillFlag key={index} props={{ skill: tech }}/>
                     )
                 }
             </div>
@@ -71,6 +74,25 @@ const HistoryCardCompanyOnboardingSubtitleStyle = tw([
     'text-base'
 ]);
 
+const HistoryCardCompanyOnboardingDetailGroupStyle = tw([
+    'HistoryCardCompanyOnboardingDetailGroupStyle',
+    'mb-4'
+]);
+
+const HistoryCardCompanyOnboardingDetailStyle = tw([
+    'HistoryCardCompanyOnboardingDetailStyle',
+    'flex',
+    'group-[.HistoryTimelineEventStyle]/left:flex-row',
+    'group-[.HistoryTimelineEventStyle]/right:flex-row-reverse'
+]);
+
+const HistoryCardCompanyOnboardingIconStyle = tw([
+    'HistoryCardCompanyOnboardingIconStyle',
+    'text-gray-800',
+    'group-[.HistoryTimelineEventStyle]/left:mr-2',
+    'group-[.HistoryTimelineEventStyle]/right:ml-2'
+]);
+
 const HistoryCardCompanyOnboardingDescriptionListStyle = tw([
     'HistoryCardCompanyOnboardingDescriptionListStyle',
     'list-disc',
@@ -85,21 +107,8 @@ const HistoryCardCompanyOnboardingDescriptionItemStyle = tw([
     'text-sm'
 ]);
 
-const HistoryCardCompanyOnboardingTechListStyle = tw([
-    'HistoryCardCompanyOnboardingTechListStyle'
-]);
-
-const HistoryCardCompanyOnboardingTechItemStyle = tw([
-    'HistoryCardCompanyOnboardingTechItemStyle',
-    'inline-block',
-    'px-2',
-    'py-0.5',
-    'bg-orange-light-100',
-    'text-orange-light-600',
-    'text-xs',
-    'font-medium',
-    'border',
-    'border-orange-light-400',
-    'rounded',
-    'spaced'
+const HistoryCardCompanyOnboardingTechStyle = tw([
+    'HistoryCardCompanyOnboardingTechStyle',
+    'spaced',
+    'group-[.HistoryTimelineEventStyle]/right:flex-row-reverse'
 ]);
