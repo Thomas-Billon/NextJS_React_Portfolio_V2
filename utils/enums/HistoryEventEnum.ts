@@ -1,4 +1,4 @@
-export enum HistoryEventEnum {
+export enum HistoryTypeEnum {
     CompanyCreation = 1,
     CompanyOnboarding = 2,
     CompanyPromotion = 3,

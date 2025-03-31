@@ -39,7 +39,7 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
         return () => observerRef.current?.disconnect();
     }, [grid]);
 
-    const size = useWindowSize();
+    const windowSize = useWindowSize();
     
     // Runs each time window size is changed
     useEffect(() => {
@@ -66,7 +66,7 @@ export const useGridAnimation = ({ grid, duration = 250 }: UseGridAnimationProps
 
         cellPositions.current = newCellPositions;
         gridSize.current = newGridSize;
-    }, [grid, size]);
+    }, [grid, windowSize]);
 
     // Animates grid & cells when class is updated
     const observerCallback = () => {

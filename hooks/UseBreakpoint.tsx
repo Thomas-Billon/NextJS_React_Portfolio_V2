@@ -10,7 +10,7 @@ export const useBreakpoint = (): { currentBreakpoint: string, currentBreakpointS
     const [currentBreakpointSize, setCurrentBreakpointSize] = useState<number>(BreakpointSizeEnum.Undefined);
 
     // Runs each time window size is changed
-    const size = useWindowSize();
+    const windowSize = useWindowSize();
     useEffect(() => {
         const screens: Record<string, string> = resolveConfig(tailwindConfig).theme.screens;
         const breakpoints: string[] = Object.keys(screens).reverse();
@@ -18,12 +18,12 @@ export const useBreakpoint = (): { currentBreakpoint: string, currentBreakpointS
         let breakpoint: string = BreakpointTypeEnum.Undefined;
         let breakpointSize: number = BreakpointSizeEnum.Undefined;
         
-        if (size.width) {
+        if (windowSize.width) {
             breakpoint = BreakpointTypeEnum.Xs;
             breakpointSize = BreakpointSizeEnum.Xs;
 
             for (let i = 0; i < breakpoints.length; i++) {
-                if ((size.width ?? 0) > parseFloat(screens[breakpoints[i]])) {
+                if ((windowSize.width ?? 0) > parseFloat(screens[breakpoints[i]])) {
                     breakpoint = breakpoints[i];
                     breakpointSize = parseFloat(screens[breakpoints[i]]);
                     break;
@@ -34,7 +34,7 @@ export const useBreakpoint = (): { currentBreakpoint: string, currentBreakpointS
         setCurrentBreakpoint(breakpoint);
         setCurrentBreakpointSize(breakpointSize);
 
-    }, [size]);
+    }, [windowSize]);
 
     return { currentBreakpoint, currentBreakpointSize };
 };

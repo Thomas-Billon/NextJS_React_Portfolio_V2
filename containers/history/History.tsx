@@ -3,9 +3,9 @@
 import React, { ReactNode } from 'react';
 import { historyProps as props } from './HistoryProps';
 import { tw } from '@/utils/tailwind/TinyWind';
-import HistoryCard from '@/components/history/card/HistoryCard';
 import HistoryTimeline from '@/components/history/timeline/HistoryTimeline';
 import HistoryTimelineEvent from '@/components/history/timeline/HistoryTimelineEvent';
+import HistoryNode from '@/components/history/card/HistoryNode';
 
 
 const History = (): ReactNode => {
@@ -14,8 +14,8 @@ const History = (): ReactNode => {
             <HistoryTimeline>
                 {
                     props.eventProps.map((event, index) =>
-                        <HistoryTimelineEvent key={index} index={index}>
-                            <HistoryCard {...{ props: event }}/>
+                        <HistoryTimelineEvent key={index}>
+                            <HistoryNode {...{ props: event }}/>
                         </HistoryTimelineEvent>
                     )
                 }

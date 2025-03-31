@@ -19,10 +19,11 @@ export const useWindowSize = (): WindowSize => {
                 height: window.innerHeight
             });
         };
-
-        window.addEventListener('resize', handleResize);
+        
+        // Runs at once to init object with correct values
         handleResize();
 
+        window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 

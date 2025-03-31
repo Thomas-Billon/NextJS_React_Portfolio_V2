@@ -2,20 +2,16 @@
 
 import React from 'react';
 import { Props } from '@/utils/react/Props';
-import HistoryCardCompanyCreation from '@/components/history/card/HistoryCardCompanyCreation';
-import HistoryCardCompanyOnboarding from '@/components/history/card/HistoryCardCompanyOnboarding';
-import HistoryCardCompanyPromotion from '@/components/history/card/HistoryCardCompanyPromotion';
-import HistoryCardSchoolGraduation from '@/components/history/card/HistoryCardSchoolGraduation';
-import HistoryCardSchoolEnrollment from '@/components/history/card/HistoryCardSchoolEnrollment';
-import HistoryCardBirthday from '@/components/history/card/HistoryCardBirthday';
-import { HistoryEventEnum } from '@/utils/enums/HistoryEventEnum';
+import { HistoryTypeEnum } from '@/utils/enums/HistoryEventEnum';
 import { tw } from '@/utils/tailwind/TinyWind';
 import { SkillEnum } from '@/utils/enums/SkillEnum';
+import { HistoryNodeCompanyProps } from '@/components/history/card/HistoryNode';
+import SkillFlag from '@/components/shared/SkillFlag';
 
 
 export interface HistoryCardProps {
     date?: Date;
-    type?: HistoryEventEnum;
+    type?: HistoryTypeEnum;
 };
 
 export interface HistoryCardCompanyProps extends HistoryCardProps {
@@ -35,24 +31,39 @@ export interface HistoryCardSchoolProps extends HistoryCardProps {
 const HistoryCard = ({ props = {}}: Props<HistoryCardProps>): React.ReactNode => {
     return (
         <div className={HistoryCardStyle}>
-            <div className={HistoryCardDateStyle}>
-                {props.date?.toLocaleDateString()}
-            </div>
-            <div className={HistoryCardTypeStyle}>
-                {
-                    props.type === HistoryEventEnum.CompanyCreation ||
-                    props.type === HistoryEventEnum.CompanyOnboarding ||
-                    props.type === HistoryEventEnum.CompanyPromotion ?
-                        <HistoryCardCompanyOnboarding {...{ props }} />
-                    : props.type === HistoryEventEnum.SchoolEnrollment ?
-                        <HistoryCardSchoolEnrollment {...{ props }} />
-                    : props.type === HistoryEventEnum.SchoolGraduation ?
-                        <HistoryCardSchoolGraduation {...{ props }} />
-                    : props.type === HistoryEventEnum.Birthday ?
-                        <HistoryCardBirthday {...{ props }} />
-                    : <></>
-                }
-            </div>
+            {
+                props.type === HistoryTypeEnum.CompanyCreation ||
+                props.type === HistoryTypeEnum.CompanyOnboarding ||
+                props.type === HistoryTypeEnum.CompanyPromotion ?
+                    <ul className={HistoryCardJobDescriptionListStyle}>
+                        {
+                            (props as HistoryNodeCompanyProps).job?.description?.map((paragraph, index) => 
+                                <li key={index} className={HistoryCardJobDescriptionItemStyle}>{paragraph}</li>
+                            )
+                        }
+                    </ul>
+                : <></>
+            }
+            {
+                props.type === HistoryTypeEnum.CompanyCreation ||
+                props.type === HistoryTypeEnum.CompanyOnboarding ||
+                props.type === HistoryTypeEnum.CompanyPromotion ?
+                    <div className={HistoryCardJobTechStackStyle}>
+                        {
+                            (props as HistoryNodeCompanyProps).techStack?.map((tech, index) => 
+                                <SkillFlag key={index} props={{ skill: tech }}/>
+                            )
+                        }
+                    </div>
+                : <></>
+            }
+            {
+                props.type === HistoryTypeEnum.Birthday ?
+                    <p className={HistoryCardBirthdayStyle}>
+                        Hello world!
+                    </p>
+                : <></>
+            }
         </div>
     );
 };
@@ -62,33 +73,30 @@ export default HistoryCard;
 
 const HistoryCardStyle = tw([
     'HistoryCardStyle',
-    'relative',
     'card',
-    'bg-white',
-    'flex',
-    'flex-row',
-    'items-center',
-    'py-4',
-    'group-[.HistoryTimelineEventStyle]/left:text-left',
-    'group-[.HistoryTimelineEventStyle]/left:flex-row',
-    'group-[.HistoryTimelineEventStyle]/right:text-right',
-    'group-[.HistoryTimelineEventStyle]/right:flex-row-reverse'
+    'p-4',
+    'ml-4',
+    'bg-white'
 ]);
 
-const HistoryCardDateStyle = tw([
-    'HistoryCardDateStyle',
-    'basis-3/12',
-    'xl:basis-2/12',
-    'text-2xl',
-    'text-center',
-    'text-orange-light-300',
-    'font-bold'
+const HistoryCardJobDescriptionListStyle = tw([
+    'HistoryCardJobDescriptionListStyle',
+    'list-disc',
+    'pl-4',
+    'mb-4',
+    'text-sm'
 ]);
 
-const HistoryCardTypeStyle = tw([
-    'HistoryCardTypeStyle',
-    'basis-9/12',
-    'xl:basis-10/12',
-    'group-[.HistoryTimelineEventStyle]/left:pr-8',
-    'group-[.HistoryTimelineEventStyle]/right:pl-8'
+const HistoryCardJobDescriptionItemStyle = tw([
+    'HistoryCardJobDescriptionItemStyle'
+]);
+
+const HistoryCardJobTechStackStyle = tw([
+    'HistoryCardJobTechStackStyle',
+    'spaced'
+]);
+
+const HistoryCardBirthdayStyle = tw([
+    'HistoryCardBirthdayStyle',
+    'text-base'
 ]);
