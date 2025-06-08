@@ -7,8 +7,8 @@ import { DefaultProps, Props } from '@/utils/react/Props';
 
 const SkillGridCell = ({ children }: Props<DefaultProps>): React.ReactNode => {
     return (
-        <li className={SkillGridCellStyle}>
-            <div className={SkillGridCellCardContainerStyle}>
+        <li className={styles.SkillGridCellStyle}>
+            <div className={styles.SkillGridCellCardContainerStyle}>
                 {children}
             </div>
         </li>
@@ -18,19 +18,19 @@ const SkillGridCell = ({ children }: Props<DefaultProps>): React.ReactNode => {
 export default SkillGridCell;
 
 
-const SkillGridCellStyle = tw([
-    'SkillGridCellStyle',
-    'inline-flex',
-    'justify-center'
-]);
+const styles = tw({
+    SkillGridCellStyle: [
+        'inline-flex',
+        'justify-center'
+    ],
 
-const SkillGridCellCardContainerStyle = tw([
-    'SkillGridCellCardContainerStyle',
-    'shrink-0',
-    'transform',
-    'select-none',
-    'w-24',
-    'h-24',
-    'shadow-lg',
-    'cursor-auto'
-]);
+    SkillGridCellCardContainerStyle: [
+        'shrink-0',
+        'transform',
+        'select-none',
+        'w-24',
+        'h-24',
+        'shadow-lg',
+        'cursor-auto'
+    ]
+});

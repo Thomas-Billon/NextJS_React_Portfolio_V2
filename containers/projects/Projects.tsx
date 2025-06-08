@@ -10,7 +10,7 @@ import { projectsProps as props } from './ProjectsProps';
 
 const Projects = (): ReactNode => {
     return (
-        <section id="projects" className={ProjectsStyle}>
+        <section id="projects" className={styles.ProjectsStyle}>
             <ProjectGrid>
                 {
                     props.cardProps.map((project, index) =>
@@ -27,7 +27,8 @@ const Projects = (): ReactNode => {
 export default Projects;
 
 
-const ProjectsStyle = tw([
-    'ProjectsStyle',
-    'bg-off-white'
-]);
+const styles = tw({
+    ProjectsStyle: [
+        'bg-off-white'
+    ]
+});

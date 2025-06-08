@@ -6,7 +6,7 @@ import SkillStackButton from '@/components/skills/stack/SkillStackButton';
 import { Props } from '@/utils/react/Props';
 import { SkillEnum } from '@/utils/enums/SkillEnum';
 import { useSwipeComponent } from '@/hooks/UseSwipeComponent';
-import { SkillCollectionButtonEnum } from '@/utils/enums/SkillCollectionButtonEnum';
+import { SkillLayoutButtonEnum } from '@/utils/enums/SkillLayoutButtonEnum';
 
 
 export const StackContext = createContext({
@@ -39,12 +39,12 @@ const SkillStack = ({ children, props = {}}: Props<SkillStackProps>): React.Reac
     
     return (
         <StackContext.Provider value={{ swipeCard, skillOrder, placeSkillInFirst, placeSkillInLast }}>
-            <div className={SkillStackStyle}>
-                <SkillStackButton {...{ props: { buttonType: SkillCollectionButtonEnum.SwipeLeft }}} />
-                <ul className={SkillStackFrameContainerStyle}>
+            <div className={styles.SkillStackStyle}>
+                <SkillStackButton {...{ props: { buttonType: SkillLayoutButtonEnum.SwipeLeft }}} />
+                <ul className={styles.SkillStackFrameContainerStyle}>
                     {children}
                 </ul>
-                <SkillStackButton {...{ props: { buttonType: SkillCollectionButtonEnum.SwipeRight }}} />
+                <SkillStackButton {...{ props: { buttonType: SkillLayoutButtonEnum.SwipeRight }}} />
             </div>
         </StackContext.Provider>
     );
@@ -53,18 +53,18 @@ const SkillStack = ({ children, props = {}}: Props<SkillStackProps>): React.Reac
 export default SkillStack;
 
 
-const SkillStackStyle = tw([
-    'SkillStackStyle',
-    'flex',
-    'justify-center',
-    'items-center',
-    'gap-10'
-]);
+const styles = tw({
+    SkillStackStyle: [
+        'flex',
+        'justify-center',
+        'items-center',
+        'gap-10'
+    ],
 
-const SkillStackFrameContainerStyle = tw([
-    'SkillStackFrameContainerStyle',
-    'flex',
-    'flex-wrap',
-    'justify-center',
-    'px-24'
-]);
+    SkillStackFrameContainerStyle: [
+        'flex',
+        'flex-wrap',
+        'justify-center',
+        'px-24'
+    ]
+});

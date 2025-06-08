@@ -33,10 +33,10 @@ const SkillStackFrame = ({ children, props = {}}: Props<SkillCardProps>): React.
     }, [stackContext, swipeRef, index]);
 
     return (
-        <li className={SkillStackFrameStyle({ cardIndex: index })} style={{ zIndex }}>
+        <li className={styles.SkillStackFrameStyle({ cardIndex: index })} style={{ zIndex }}>
             <div
                 ref={swipeComponent.componentRef as RefObject<HTMLDivElement>}
-                className={SkillStackFrameCardContainerStyle({ cardIndex: index, isSwipingCard: swipeComponent.isDraggingComponent })}
+                className={styles.SkillStackFrameCardContainerStyle({ cardIndex: index, isSwipingCard: swipeComponent.isDraggingComponent })}
             >
                 {children}
             </div>
@@ -47,25 +47,30 @@ const SkillStackFrame = ({ children, props = {}}: Props<SkillCardProps>): React.
 export default SkillStackFrame;
 
 
-const SkillStackFrameStyle = ({ cardIndex }: { cardIndex: number }) => tw([
-    'SkillStackFrameStyle',
-    'inline-flex',
-    'justify-center',
-    'w-0',
-    cardIndex <= 1 && 'transition-transform',
-    cardIndex == 1 && 'scale-95',
-    cardIndex > 1 && 'scale-50'
-]);
+const styles = tw({
+    SkillStackFrameStyle: ({ cardIndex }: {
+        cardIndex: number
+    }) => [
+        'inline-flex',
+        'justify-center',
+        'w-0',
+        cardIndex <= 1 && 'transition-transform',
+        cardIndex == 1 && 'scale-95',
+        cardIndex > 1 && 'scale-50'
+    ],
 
-const SkillStackFrameCardContainerStyle = ({ cardIndex, isSwipingCard }: { cardIndex: number, isSwipingCard: boolean }) => tw([
-    'SkillStackFrameCardContainerStyle',
-    'shrink-0',
-    'transform',
-    'select-none',
-    'w-48',
-    'h-48',
-    cardIndex <= 1 && 'shadow-lg',
-    cardIndex >= 1 && 'cursor-auto',
-    cardIndex < 1 && isSwipingCard && 'cursor-grabbing',
-    cardIndex < 1 && !isSwipingCard && 'cursor-grab'
-]);
+    SkillStackFrameCardContainerStyle: ({ cardIndex, isSwipingCard }: {
+        cardIndex: number,
+        isSwipingCard: boolean
+    }) => [
+        'shrink-0',
+        'transform',
+        'select-none',
+        'w-48',
+        'h-48',
+        cardIndex <= 1 && 'shadow-lg',
+        cardIndex >= 1 && 'cursor-auto',
+        cardIndex < 1 && isSwipingCard && 'cursor-grabbing',
+        cardIndex < 1 && !isSwipingCard && 'cursor-grab'
+    ]
+});

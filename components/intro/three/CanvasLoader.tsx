@@ -34,7 +34,7 @@ const CanvasLoader = ({ children, className = '', props = {}}: Props<SceneLoader
     };
 
     return (
-        <Canvas id="threejs" className={ThreeCanvasStyle({ className })}
+        <Canvas id="threejs" className={styles.ThreeCanvasStyle({ className })}
             gl={{ preserveDrawingBuffer: true }}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
@@ -50,9 +50,12 @@ const CanvasLoader = ({ children, className = '', props = {}}: Props<SceneLoader
 export default CanvasLoader;
 
 
-const ThreeCanvasStyle = ({ className }: { className?: string }) => tw([
-    'ThreeCanvasStyle',
-    className ?? '',
-    '!absolute',
-    'top-0'
-]);
+const styles = tw({
+    ThreeCanvasStyle: ({ className }: {
+        className?: string
+    }) => [
+        className ?? '',
+        '!absolute',
+        'top-0'
+    ]   
+});

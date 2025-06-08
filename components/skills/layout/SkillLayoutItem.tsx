@@ -4,21 +4,21 @@ import React from 'react';
 import { Props } from '@/utils/react/Props';
 import SkillGridCell from '@/components/skills/grid/SkillGridCell';
 import SkillStackFrame from '@/components/skills/stack/SkillStackFrame';
-import { CollectionContext } from '@/components/skills/collection/SkillCollection';
+import { LayoutContext } from '@/components/skills/layout/SkillLayout';
 import { SkillCardProps } from '@/components/skills/card/SkillCard';
 import { useCustomContext } from '@/hooks/UseCustomContext';
-import { SkillCollectionDisplayEnum } from '@/utils/enums/SkillCollectionDisplayEnum';
+import { SkillLayoutDisplayEnum } from '@/utils/enums/SkillLayoutDisplayEnum';
 
 
-const SkilCollectionItem = ({ children, props = {}}: Props<SkillCardProps>): React.ReactNode => {
-    const collectionContext = useCustomContext(CollectionContext);
+const SkilLayoutItem = ({ children, props = {}}: Props<SkillCardProps>): React.ReactNode => {
+    const layoutContext = useCustomContext(LayoutContext);
 
     return (
-        collectionContext.collectionDisplay === SkillCollectionDisplayEnum.Grid ?
+        layoutContext.layoutDisplay === SkillLayoutDisplayEnum.Grid ?
             <SkillGridCell>
                 {children}
             </SkillGridCell>
-        : collectionContext.collectionDisplay === SkillCollectionDisplayEnum.Stack ?
+        : layoutContext.layoutDisplay === SkillLayoutDisplayEnum.Stack ?
             <SkillStackFrame {...{ props }}>
                 {children}
             </SkillStackFrame>
@@ -26,4 +26,4 @@ const SkilCollectionItem = ({ children, props = {}}: Props<SkillCardProps>): Rea
     );
 };
 
-export default SkilCollectionItem;
+export default SkilLayoutItem;

@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const plugin = require('tailwindcss/plugin');
+const sass = require('sass');
 const fs = require('fs');
 
 module.exports = {
@@ -125,8 +126,13 @@ module.exports = {
     },
     plugins: [
         plugin(function({ addUtilities, postcss }) {
-            const css = fs.readFileSync('./styles/scss/globals.scss', 'utf-8');
-            addUtilities(postcss.parse(css).nodes);
+            try {
+                const result = sass.compile('./styles/scss/globals.scss');
+                addUtilities(postcss.parse(result.css).nodes);
+            }
+            catch (err) {
+                console.error('Error while compiling globals.scss:', err);
+            }
         })
     ]
 };

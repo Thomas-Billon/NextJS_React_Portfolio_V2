@@ -17,7 +17,7 @@ const ProjectCardClose = (): React.ReactNode => {
     };
 
     return (
-        <span className={ProjectCardCloseStyle} onClick={closeCard}>
+        <span className={styles.ProjectCardCloseStyle} onClick={closeCard}>
             <FontAwesomeIcon icon={fas.faClose} size="lg" fixedWidth />
         </span>
     );
@@ -26,14 +26,15 @@ const ProjectCardClose = (): React.ReactNode => {
 export default ProjectCardClose;
 
 
-const ProjectCardCloseStyle = tw([
-    'ProjectCardCloseStyle',
-    'absolute',
-    'top-0',
-    'right-0',
-    'cursor-pointer',
-    'text-gray-500',
-    'transition-colors',
-    'hover:text-orange-light-500',
-    'active:text-orange-light-500'
-]);
+const styles = tw({
+    ProjectCardCloseStyle: [
+        'absolute',
+        'top-0',
+        'right-0',
+        'cursor-pointer',
+        'text-gray-500',
+        'transition-colors',
+        'hover:text-orange-light-500',
+        'active:text-orange-light-500'
+    ]
+});

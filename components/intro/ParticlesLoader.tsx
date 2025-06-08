@@ -28,7 +28,7 @@ const ParticlesLoader = ({ className = '', props = {}}: Props<ParticlesLoaderPro
 
     return (
         init ?
-            <Particles className={ParticlesStyle({ className })} options={options} particlesLoaded={particlesLoaded} />
+            <Particles className={styles.ParticlesStyle({ className })} options={options} particlesLoaded={particlesLoaded} />
         :
             <></>
     );
@@ -37,9 +37,12 @@ const ParticlesLoader = ({ className = '', props = {}}: Props<ParticlesLoaderPro
 export default ParticlesLoader;
 
 
-const ParticlesStyle = ({ className }: { className?: string }) => tw([
-    'ParticlesStyle',
-    className ?? '',
-    'full',
-    'overlap'
-]);
+const styles = tw({
+    ParticlesStyle: ({ className }: {
+        className?: string
+    }) => [
+        className ?? '',
+        'full',
+        'overlap'
+    ]
+});

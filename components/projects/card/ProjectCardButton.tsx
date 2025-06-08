@@ -46,9 +46,9 @@ const ProjectCardButton = ({ props = {}, onClick = () => {}, isEnabled = true, o
     const isLinkDisplayed = (props.isMinigame && minigameContext?.isMinigameOver) || !props.isMinigame;
 
     return (
-        <span className={ProjectCardButtonContainerStyle} onClick={clickEmptyLink} {...(opacity != undefined ? { 'style': { opacity: opacity }} : {})}>
+        <span className={styles.ProjectCardButtonContainerStyle} onClick={clickEmptyLink} {...(opacity != undefined ? { 'style': { opacity: opacity }} : {})}>
             <Link 
-                className={ProjectCardButtonStyle({ isLinkImage, isLinkGithub, isEnabled })}
+                className={styles.ProjectCardButtonStyle({ isLinkImage, isLinkGithub, isEnabled })}
                 href={isLinkDisplayed ? props.href ?? '' : ''}
                 scroll={isLinkDisplayed}
                 passHref={isLinkExternalUrl}
@@ -59,7 +59,7 @@ const ProjectCardButton = ({ props = {}, onClick = () => {}, isEnabled = true, o
                 {...tooltipContext?.getReferenceProps()}
             > {
                 isLinkImage ?
-                    <Image className={ProjectCardButtonImageStyle} src={props.src ?? ''} alt={props.alt ?? ''} width={props.width ?? 120} height={props.height ?? 40} />
+                    <Image className={styles.ProjectCardButtonImageStyle} src={props.src ?? ''} alt={props.alt ?? ''} width={props.width ?? 120} height={props.height ?? 40} />
                 : isLinkGithub ?
                     <FontAwesomeIcon icon={fab.faGithub} size="lg" fixedWidth />
                 :
@@ -72,31 +72,34 @@ const ProjectCardButton = ({ props = {}, onClick = () => {}, isEnabled = true, o
 export default ProjectCardButton;
 
 
-const ProjectCardButtonContainerStyle = tw([
-    'ProjectCardButtonContainerStyle',
-    'transition-opacity'
-]);
+const styles = tw({
+    ProjectCardButtonContainerStyle: [
+        'transition-opacity'
+    ],
 
-const ProjectCardButtonStyle = ({ isLinkImage, isLinkGithub, isEnabled }: { isLinkImage: boolean, isLinkGithub: boolean, isEnabled: boolean }) => tw([
-    'ProjectCardButtonStyle',
-    'inline-block',
-    'select-none',
-    isLinkGithub && 'p-2',
-    !isLinkImage && 'text-sm',
-    !isLinkImage && 'text-white',
-    !isLinkImage && 'bg-orange-light-400',
-    !isLinkImage && 'rounded',
-    !isLinkImage && 'transition-colors',
-    !isLinkImage && 'hover:bg-orange-light-500',
-    !isLinkImage && 'active:bg-orange-light-500',
-    !isLinkImage && !isLinkGithub && 'px-4',
-    !isLinkImage && !isLinkGithub && 'py-2',
-    !isLinkImage && !isLinkGithub && 'font-medium',
-    !isEnabled && 'pointer-events-none'
-]);
+    ProjectCardButtonStyle: ({ isLinkImage, isLinkGithub, isEnabled }: {
+        isLinkImage: boolean,
+        isLinkGithub: boolean,
+        isEnabled: boolean
+    }) => [
+        'inline-block',
+        'select-none',
+        isLinkGithub && 'p-2',
+        !isLinkImage && 'text-sm',
+        !isLinkImage && 'text-white',
+        !isLinkImage && 'bg-orange-light-400',
+        !isLinkImage && 'rounded',
+        !isLinkImage && 'transition-colors',
+        !isLinkImage && 'hover:bg-orange-light-500',
+        !isLinkImage && 'active:bg-orange-light-500',
+        !isLinkImage && !isLinkGithub && 'px-4',
+        !isLinkImage && !isLinkGithub && 'py-2',
+        !isLinkImage && !isLinkGithub && 'font-medium',
+        !isEnabled && 'pointer-events-none'
+    ],
 
-const ProjectCardButtonImageStyle = tw([
-    'ProjectCardButtonImageStyle',
-    'w-auto',
-    'h-10'
-]);
+    ProjectCardButtonImageStyle: [
+        'w-auto',
+        'h-10'
+    ]
+});

@@ -54,10 +54,10 @@ const SkillCard = ({ props = {}}: Props<SkillCardProps>): React.ReactNode => {
 
     return (
         props.skill &&
-        <div className={SkillCardStyle}>
-            <div className={SkillCardDoubleWidthStyle} style={{ color: props.textColor, backgroundColor: props.backgroundColor }}>
+        <div className={styles.SkillCardStyle}>
+            <div className={styles.SkillCardDoubleWidthStyle} style={{ color: props.textColor, backgroundColor: props.backgroundColor }}>
                 <Image
-                    className={SkillCardImageStyle({ imageRatio: props.imageRatio })}
+                    className={styles.SkillCardImageStyle({ imageRatio: props.imageRatio })}
                     src={`/static/images/skills/${getImageNameFromSkill(props.skill)}.jpg`}
                     alt={props.skill}
                     width={
@@ -68,19 +68,19 @@ const SkillCard = ({ props = {}}: Props<SkillCardProps>): React.ReactNode => {
                     height="256"
                     draggable={false}
                 />
-                <div className={SkillCardTextStyle({ imageRatio: props.imageRatio })}>
-                    <h4 className={SkillCardTitleStyle} style={{ fontSize: getFontSizeFromSkill(props.skill) }}>
+                <div className={styles.SkillCardTextStyle({ imageRatio: props.imageRatio })}>
+                    <h4 className={styles.SkillCardTitleStyle} style={{ fontSize: getFontSizeFromSkill(props.skill) }}>
                         {props.skill}
                     </h4>
-                    <div className={SkillCardProficiencyStyle}>
-                        <div className={SkillCardProficiencyIconsStyle}> {
+                    <div className={styles.SkillCardProficiencyStyle}>
+                        <div className={styles.SkillCardProficiencyIconsStyle}> {
                             [...Array(5).keys()].map((proficiency, index) =>
                                 <span key={index}>
                                     <FontAwesomeIcon icon={proficiency + 1 <= (props.proficiency ?? ProficiencyLevelEnum.Novice) ? fas.faStar : far.faStar} size="lg" fixedWidth />
                                 </span>
                             )
                         } </div>
-                        <div className={SkillCardProficiencyTextStyle}>
+                        <div className={styles.SkillCardProficiencyTextStyle}>
                             {ProficiencyLevelEnum[props.proficiency ?? ProficiencyLevelEnum.Novice]}
                         </div>
                     </div>
@@ -93,77 +93,74 @@ const SkillCard = ({ props = {}}: Props<SkillCardProps>): React.ReactNode => {
 export default SkillCard;
 
 
-const SkillCardStyle = tw([
-    'SkillCardStyle',
-    'relative',
-    'w-full',
-    'h-full',
-    'text-white',
-    'overflow-hidden',
-    'rounded-lg',
-    'group/card',
-    'transition-transform',
-    'duration-300',
-    'hover:scale-110',
-    'active:scale-110'
-]);
+const styles = tw({
+    SkillCardStyle: [
+        'relative',
+        'w-full',
+        'h-full',
+        'text-white',
+        'overflow-hidden',
+        'rounded-lg',
+        'group/card',
+        'transition-transform',
+        'duration-300',
+        'hover:scale-110',
+        'active:scale-110'
+    ],
 
-const SkillCardDoubleWidthStyle = tw([
-    'SkillCardDoubleWidthStyle',
-    'absolute',
-    'z-3',
-    'flex',
-    'w-[200%]',
-    'h-full',
-    'transition-transform',
-    'duration-300',
-    'group-hover/card:-translate-x-1/2',
-    'group-active/card:-translate-x-1/2'
-]);
+    SkillCardDoubleWidthStyle: [
+        'absolute',
+        'flex',
+        'w-[200%]',
+        'h-full',
+        'transition-transform',
+        'duration-300',
+        'group-hover/card:-translate-x-1/2',
+        'group-active/card:-translate-x-1/2'
+    ],
 
-const SkillCardImageStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
-    'SkillCardImageStyle',
-    'transition-opacity',
-    'duration-300',
-    'group-hover/card:opacity-0',
-    'group-active/card:opacity-0',
-    imageRatio == 1 && 'w-1/2',
-    imageRatio == 2 && 'w-full'
-]);
+    SkillCardImageStyle: ({ imageRatio }: {
+        imageRatio?: number
+    }) => [
+        'transition-opacity',
+        'duration-300',
+        'group-hover/card:opacity-0',
+        'group-active/card:opacity-0',
+        imageRatio == 1 && 'w-1/2',
+        imageRatio == 2 && 'w-full'
+    ],
 
-const SkillCardTextStyle = ({ imageRatio }: { imageRatio?: number }) => tw([
-    'SkillCardTextStyle',
-    'w-1/2',
-    'p-2',
-    'pt-4',
-    'flex',
-    'flex-col',
-    'gap-2',
-    'items-center',
-    'justify-center',
-    'text-center',
-    'font-bold',
-    'select-none',
-    'group-[.SkillGridStyle]/skill-grid:scale-50',
-    imageRatio == 2 && 'absolute',
-    imageRatio == 2 && 'right-0',
-    imageRatio == 2 && 'h-full'
-]);
+    SkillCardTextStyle: ({ imageRatio }: {
+        imageRatio?: number
+    }) => [
+        'w-1/2',
+        'p-2',
+        'pt-4',
+        'flex',
+        'flex-col',
+        'gap-2',
+        'items-center',
+        'justify-center',
+        'text-center',
+        'font-bold',
+        'select-none',
+        'group-[.SkillGridStyle]/skill-grid:scale-50',
+        imageRatio == 2 && 'absolute',
+        imageRatio == 2 && 'right-0',
+        imageRatio == 2 && 'h-full'
+    ],
 
-const SkillCardTitleStyle = tw([
-    'SkillCardTitleStyle',
-    'leading-none'
-]);
+    SkillCardTitleStyle: [
+        'leading-none'
+    ],
 
-const SkillCardProficiencyStyle = tw([
-    'SkillCardProficiencyStyle'
-]);
+    SkillCardProficiencyStyle: [
+    ],
 
-const SkillCardProficiencyIconsStyle = tw([
-    'SkillCardProficiencyIconsStyle',
-    'flex'
-]);
+    SkillCardProficiencyIconsStyle: [
+        'flex'
+    ],
 
-const SkillCardProficiencyTextStyle = tw([
-    'SkillCardProficiencyTextStyle'
-]);
+    SkillCardProficiencyTextStyle: [
+    ]
+});

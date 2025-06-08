@@ -16,7 +16,7 @@ const ProjectGridCell = ({ children, index = 0 }: DefaultProps & IterableProps):
     };
 
     return (
-        <li className={ProjectGridCellStyle({ isActive: (gridContext.activeIndex == index) })} onClick={openCard}>
+        <li className={styles.ProjectGridCellStyle({ isActive: (gridContext.activeIndex == index) })} onClick={openCard}>
             {children}
         </li>
     );
@@ -25,13 +25,16 @@ const ProjectGridCell = ({ children, index = 0 }: DefaultProps & IterableProps):
 export default ProjectGridCell;
 
 
-const ProjectGridCellStyle = ({ isActive }: { isActive: boolean }) => tw([
-    'ProjectGridCellStyle',
-    'w-full',
-    'md:w-auto',
-    isActive && 'col-span-1',
-    isActive && 'md:col-span-2',
-    isActive && 'row-span-2',
-    !isActive && 'cursor-pointer',
-    !isActive && 'aspect-video'
-]);
+const styles = tw({
+    ProjectGridCellStyle: ({ isActive }: {
+        isActive: boolean
+    }) => [
+        'w-full',
+        'md:w-auto',
+        isActive && 'col-span-1',
+        isActive && 'md:col-span-2',
+        isActive && 'row-span-2',
+        !isActive && 'cursor-pointer',
+        !isActive && 'aspect-video'
+    ]
+});

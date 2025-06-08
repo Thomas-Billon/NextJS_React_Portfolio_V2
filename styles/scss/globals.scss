@@ -49,6 +49,7 @@
 }
 
 .card {
+    @apply relative;
     @apply rounded-lg;
     @apply shadow-lg;
     @apply overflow-hidden;

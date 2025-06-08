@@ -29,7 +29,7 @@ const ProjectGrid = ({ children }: DefaultProps): React.ReactNode => {
     
     return (
         <GridContext.Provider value={{ activeIndex, openCard, closeCard }}>
-            <ul id="project-grid" className={ProjectsGridStyle}>
+            <ul id="project-grid" className={styles.ProjectsGridStyle}>
                 {children}
             </ul>
         </GridContext.Provider>
@@ -39,13 +39,14 @@ const ProjectGrid = ({ children }: DefaultProps): React.ReactNode => {
 export default ProjectGrid;
 
 
-const ProjectsGridStyle = tw([
-    'ProjectsGridStyle',
-    'container-section',
-    'grid',
-    'grid-cols-1',
-    'md:grid-cols-2',
-    'xl:grid-cols-3',
-    'auto-rows-fr',
-    'gap-4'
-]);
+const styles = tw({
+    ProjectsGridStyle: [
+        'container-section',
+        'grid',
+        'grid-cols-1',
+        'md:grid-cols-2',
+        'xl:grid-cols-3',
+        'auto-rows-fr',
+        'gap-4'
+    ]
+});

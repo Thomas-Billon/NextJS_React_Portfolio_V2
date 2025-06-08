@@ -14,44 +14,43 @@ export const TimelineContext = createContext({
 const HistoryTimeline = ({ children }: Props<DefaultProps>): React.ReactNode => {
     const [currentProgressBarHeight, setCurrentProgressBarHeight] = useState<number>(0);
     
+    const historySectionRef = useRef<HTMLElement>(null);
     const progressBarRef = useRef<HTMLElement>(null);
 
     const windowSize = useWindowSize();
     const windowScroll = useWindowScroll();
 
-    const timelineProgressPercentageTarget = 50;
+    const timelineProgressPercentageTarget = 45;
     
     useEffect(() => {
         const currentHeight = windowSize.height ?? 0;
+        const currentScrollY = windowScroll.y ?? 0;
 
-        const progressBarRect = progressBarRef.current?.getBoundingClientRect();
-        const progressBarHeight = progressBarRect?.height ?? 0;
-        const progressBarOffsetY = progressBarRect?.top ?? 0;
+        const historySectionHeight = historySectionRef.current?.clientHeight ?? 0;
+        const historySectionOffsetY = historySectionRef.current?.offsetTop ?? 0;
+        const progressBarOffsetY = historySectionOffsetY - currentScrollY;
 
         let targetProgressBarHeight = (currentHeight * timelineProgressPercentageTarget / 100) - progressBarOffsetY;
 
-        if (targetProgressBarHeight < 0) {
-            targetProgressBarHeight = 0;
-        }
-
-        if (targetProgressBarHeight > progressBarHeight) {
-            targetProgressBarHeight = progressBarHeight;
-        }
+        targetProgressBarHeight = Math.max(targetProgressBarHeight, 0);
+        targetProgressBarHeight = Math.min(targetProgressBarHeight, historySectionHeight);
 
         setCurrentProgressBarHeight(targetProgressBarHeight);
+
+        if (progressBarRef.current) {
+            progressBarRef.current.style.height = targetProgressBarHeight + 'px';
+        }
     }, [windowSize, windowScroll]);
 
     return (
         <TimelineContext.Provider value={{ currentProgressBarHeight: currentProgressBarHeight }}>
-            <div id="history-timeline" className={HistoryTimelineStyle}>
-                <ul className={HistoryTimelineListStyle}>
+            <div ref={historySectionRef as RefObject<HTMLDivElement>} id="history-timeline" className={styles.HistoryTimelineStyle}>
+                <div className={styles.HistoryTimelineProgressBarContainerStyle}>
+                    <div ref={progressBarRef as RefObject<HTMLDivElement>} className={styles.HistoryTimelineProgressBarFillerStyle}></div>
+                </div>
+                <ul className={styles.HistoryTimelineListStyle}>
                     {children}
                 </ul>
-                <div className={HistoryTimelineProgressBarAreaStyle}>
-                    <div className={HistoryTimelineProgressBarContainerStyle}>
-                        <div ref={progressBarRef as RefObject<HTMLDivElement>} className={HistoryTimelineProgressBarStyle}></div>
-                    </div>
-                </div>
             </div>
         </TimelineContext.Provider>
     );
@@ -60,41 +59,26 @@ const HistoryTimeline = ({ children }: Props<DefaultProps>): React.ReactNode => 
 export default HistoryTimeline;
 
 
-const HistoryTimelineStyle = tw([
-    'HistoryTimelineStyle',
-    'container-section',
-    'relative'
-]);
+const styles = tw({
+    HistoryTimelineStyle: [
+        'container-section',
+        'relative'
+    ],
 
-const HistoryTimelineListStyle = tw([
-    'HistoryTimelineListStyle'
-]);
+    HistoryTimelineListStyle: [
+    ],
 
-const HistoryTimelineProgressBarAreaStyle = tw([
-    'absolute',
-    'top-0',
-    'bottom-0',
-    'container',
-    'pointer-events-none'
-]);
+    HistoryTimelineProgressBarContainerStyle: [
+        'center-h',
+        'top-0',
+        'bottom-0',
+        'w-1',
+        'bg-gray-200',
+        'pointer-events-none'
+    ],
 
-const HistoryTimelineProgressBarContainerStyle = tw([
-    'relative',
-    '-left-8',
-    'h-full'
-]);
-
-const HistoryTimelineProgressBarStyle = tw([
-    'HistoryTimelineProgressBarStyle',
-    'absolute',
-    'left-[calc(25%-0.125rem)]',
-    'top-0',
-    'bottom-0',
-    'w-1',
-    'bg-gray-200',
-    'bg-[url("/static/images/history/history_line.png")]',
-    'bg-fixed',
-    'bg-[length:100vw_50vh]',
-    'bg-top',
-    'bg-no-repeat'
-]);
+    HistoryTimelineProgressBarFillerStyle: [
+        'bg-orange-light-400',
+        'transition-[height]'
+    ]
+});

@@ -22,18 +22,18 @@ const TooltipBubble = ({ content }: { content: string }): React.ReactNode => {
             {
                 tooltipContext.isMounted &&
                 <div
-                    className={TooltipBubbleContainerStyle({ isSmDown })}
+                    className={styles.TooltipBubbleContainerStyle({ isSmDown })}
                     style={tooltipContext.data.floatingStyles}
                     ref={tooltipContext.data.refs.setFloating}
                     {...tooltipContext.getFloatingProps()}
                 >
                     <div
-                        className={TooltipBubbleStyle({ isClosed })}
+                        className={styles.TooltipBubbleStyle({ isClosed })}
                         style={{ backgroundColor: Variables.gray800 }}
                     >
                         <span dangerouslySetInnerHTML={{ __html: content }}></span>
                         <FloatingArrow
-                            className={TooltipBubbleArrowStyle}
+                            className={styles.TooltipBubbleArrowStyle}
                             ref={tooltipContext.data.arrowRef}
                             context={tooltipContext.data.context}
                             fill={Variables.gray800}
@@ -51,38 +51,41 @@ const TooltipBubble = ({ content }: { content: string }): React.ReactNode => {
 export default TooltipBubble;
 
 
-const TooltipBubbleContainerStyle = ({ isSmDown }: { isSmDown: boolean }) => tw([
-    'TooltipBubbleContainerStyle',
-    'z-100',
-    isSmDown && '!fixed',
-    isSmDown && '!top-4',
-    isSmDown && '!left-1/2',
-    isSmDown && '!-translate-x-1/2',
-    isSmDown && 'container'
-]);
+const styles = tw({
+    TooltipBubbleContainerStyle: ({ isSmDown }: {
+        isSmDown: boolean
+    }) => [
+        'z-100',
+        isSmDown && '!fixed',
+        isSmDown && '!top-4',
+        isSmDown && '!left-1/2',
+        isSmDown && '!-translate-x-1/2',
+        isSmDown && 'container'
+    ],
 
-const TooltipBubbleStyle = ({ isClosed }: { isClosed: boolean }) => tw([
-    'TooltipBubbleStyle',
-    'px-6',
-    'py-2',
-    'md:px-2',
-    'md:py-1',
-    'text-white',
-    'text-sm',
-    'rounded',
-    'drop-shadow-md',
-    'cursor-default',
-    'select-none',
-    'transition-all',
-    isClosed && 'opacity-0',
-    isClosed && 'scale-50',
-    isClosed && '-translate-y-1/2'
-]);
+    TooltipBubbleStyle: ({ isClosed }: {
+        isClosed: boolean
+    }) => [
+        'px-6',
+        'py-2',
+        'md:px-2',
+        'md:py-1',
+        'text-white',
+        'text-sm',
+        'rounded',
+        'drop-shadow-md',
+        'cursor-default',
+        'select-none',
+        'transition-all',
+        isClosed && 'opacity-0',
+        isClosed && 'scale-50',
+        isClosed && '-translate-y-1/2'
+    ],
 
-const TooltipBubbleArrowStyle = tw([
-    'TooltipBubbleArrowStyle',
-    '!translate-y-px', // 1px shift to fix gap between box & arrow
-    '!rotate-180',
-    'hidden',
-    'md:block'
-]);
+    TooltipBubbleArrowStyle: [
+        '!translate-y-px',
+        '!rotate-180',
+        'hidden',
+        'md:block'
+    ]
+});
