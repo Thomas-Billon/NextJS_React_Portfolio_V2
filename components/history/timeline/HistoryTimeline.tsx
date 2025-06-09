@@ -7,12 +7,23 @@ import { useWindowScroll } from '@/hooks/UseWindowScroll';
 import { useWindowSize } from '@/hooks/UseWindowSize';
 
 
-export const TimelineContext = createContext({
-    currentProgressBarHeight: 0
+type TimelineContextType = {
+    currentProgressBarHeight: number;
+    setCurrentProgressBarHeight: React.Dispatch<React.SetStateAction<number>>;
+    currentTimelineEntryBackgroundHeight: number;
+    setCurrentTimelineEntryBackgroundHeight: React.Dispatch<React.SetStateAction<number>>;
+};
+
+export const TimelineContext = createContext<TimelineContextType>({
+    currentProgressBarHeight: 0,
+    setCurrentProgressBarHeight: () => {},
+    currentTimelineEntryBackgroundHeight: 0,
+    setCurrentTimelineEntryBackgroundHeight: () => {}
 });
 
 const HistoryTimeline = ({ children }: Props<DefaultProps>): React.ReactNode => {
     const [currentProgressBarHeight, setCurrentProgressBarHeight] = useState<number>(0);
+    const [currentTimelineEntryBackgroundHeight, setCurrentTimelineEntryBackgroundHeight] = useState<number>(0);
     
     const historySectionRef = useRef<HTMLElement>(null);
     const progressBarRef = useRef<HTMLElement>(null);
@@ -38,12 +49,17 @@ const HistoryTimeline = ({ children }: Props<DefaultProps>): React.ReactNode => 
         setCurrentProgressBarHeight(targetProgressBarHeight);
 
         if (progressBarRef.current) {
-            progressBarRef.current.style.height = targetProgressBarHeight + 'px';
+            progressBarRef.current.style.height = `${targetProgressBarHeight}px`;
         }
     }, [windowSize, windowScroll]);
 
     return (
-        <TimelineContext.Provider value={{ currentProgressBarHeight: currentProgressBarHeight }}>
+        <TimelineContext.Provider value={{
+            currentProgressBarHeight: currentProgressBarHeight,
+            setCurrentProgressBarHeight: setCurrentProgressBarHeight,
+            currentTimelineEntryBackgroundHeight: currentTimelineEntryBackgroundHeight,
+            setCurrentTimelineEntryBackgroundHeight: setCurrentTimelineEntryBackgroundHeight
+            }}>
             <div ref={historySectionRef as RefObject<HTMLDivElement>} id="history-timeline" className={styles.HistoryTimelineStyle}>
                 <div className={styles.HistoryTimelineProgressBarContainerStyle}>
                     <div ref={progressBarRef as RefObject<HTMLDivElement>} className={styles.HistoryTimelineProgressBarFillerStyle}></div>

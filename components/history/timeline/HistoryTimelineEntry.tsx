@@ -20,11 +20,18 @@ const HistoryTimelineEntry = ({ children, index = 0 }: Props<DefaultProps & Iter
 
         if (entryOffsetY <= timelineContext.currentProgressBarHeight && timelineContext.currentProgressBarHeight <= (entryOffsetY + entryHeight)) {
             setIsHighlighted(true);
+
+            let targetTimelineEntryBackgroundHeight = timelineContext.currentProgressBarHeight - entryOffsetY;
+            
+            targetTimelineEntryBackgroundHeight = Math.max(targetTimelineEntryBackgroundHeight, 0);
+            targetTimelineEntryBackgroundHeight = Math.min(targetTimelineEntryBackgroundHeight, entryHeight);
+            
+            timelineContext.setCurrentTimelineEntryBackgroundHeight(targetTimelineEntryBackgroundHeight);
         }
         else {
             setIsHighlighted(false);
         }
-    }, [timelineContext.currentProgressBarHeight]);
+    }, [timelineContext, timelineContext.currentProgressBarHeight]);
 
     return (
         <li ref={entryRef as RefObject<HTMLLIElement>} className={styles.HistoryTimelineEntryStyle({ isHighlighted })}>

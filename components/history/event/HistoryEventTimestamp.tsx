@@ -3,14 +3,15 @@
 import React from 'react';
 import { Props } from '@/utils/react/Props';
 import { tw } from '@/utils/tailwind/TinyWind';
-import { HistoryEventBirthdayProps, HistoryEventSchoolProps, HistoryEventCompanyProps } from '@/components/history/event/HistoryEvent';
+import { HistoryEventBirthdayProps, HistoryEventSchoolProps, HistoryEventCompanyProps, HistoryEventPeriodProps, HistoryEventOrganizationProps } from '@/components/history/event/HistoryEvent';
 import { HistoryEventTypeEnum } from '@/utils/enums/HistoryEventTypeEnum';
 import { DateOnly } from '@/utils/global/DateOnly';
+import HistoryTimelineEntryBackground from '@/components/history/timeline/HistoryTimelineEntryBackground';
 
 
 const HistoryEventTimestamp = ({ props = {}}: Props<HistoryEventBirthdayProps | HistoryEventSchoolProps | HistoryEventCompanyProps>): React.ReactNode => {
 
-    const GetTimeSpan = (dateStart?: DateOnly, dateEnd?: DateOnly): string => {
+    const GetPeriodString = (dateStart?: DateOnly, dateEnd?: DateOnly): string => {
         const now = new Date();
         let yearSpan = (dateEnd?.getFullYear() ?? now.getFullYear()) - (dateStart?.getFullYear() ?? 0);
         let monthSpan = (dateEnd?.getMonth() ?? now.getMonth()) - (dateStart?.getMonth() ?? 0);
@@ -43,64 +44,62 @@ const HistoryEventTimestamp = ({ props = {}}: Props<HistoryEventBirthdayProps | 
         return timeSpanArray.join(' ');
     };
 
-    let timeSpan: string | undefined;
-    let title: string | undefined;
-    let organizationName: string | undefined;
-    let organizationInfo: string | undefined;
-
-    switch (props.type) {
-        case HistoryEventTypeEnum.Birthday:
-            const propsBirthday = props as HistoryEventBirthdayProps;
-            timeSpan = propsBirthday.date?.toLocaleDateString();
-            break;
-
-        case HistoryEventTypeEnum.School:
-            const propsSchool = props as HistoryEventSchoolProps;
-
-            const timeSpanSchool = GetTimeSpan(propsSchool.dateStart, propsSchool.dateEnd);
-
-            title = 'Student';
-            timeSpan = ` - ${timeSpanSchool}`;
-            organizationName = propsSchool.school?.name;
-            organizationInfo = `${propsSchool.school?.city}, ${propsSchool.school?.country}`;
-            break;
-
-        case HistoryEventTypeEnum.Company:
-            const propsCompany = props as HistoryEventCompanyProps;
-            
-            const timeSpanCompany = GetTimeSpan(propsCompany.dateStart, propsCompany.dateEnd);
-
-            title = propsCompany.job?.title;
-            timeSpan = ` - ${timeSpanCompany}`;
-            organizationName = propsCompany.company?.name;
-            organizationInfo = `${propsCompany.company?.city}, ${propsCompany.company?.country}`;
-            break;
-    }
-
     return (
         <div className={styles.HistoryEventTimestampStyle}>
-            <div className={styles.HistoryEventTimestampTitleDurationStyle}>
+            <HistoryTimelineEntryBackground />
+            <div className={styles.HistoryEventTimestampContainerStyle}>
+                <div className={styles.HistoryEventTimestampTitlePeriodStyle}>
+                    <h4 className={styles.HistoryEventTimestampTitleStyle}>
+                        {
+                            props.type === HistoryEventTypeEnum.Birthday ?
+                                'Hello world!'
+                            : props.type === HistoryEventTypeEnum.School ?
+                                'Student'
+                            : props.type === HistoryEventTypeEnum.Company ?
+                                (props as HistoryEventCompanyProps).job?.title
+                            : <></>
+                        }
+                    </h4>
+                    <span className={styles.HistoryEventTimestampPeriodStyle}>
+                        {
+                            ' - ' + (
+                                props.type === HistoryEventTypeEnum.Birthday ?
+                                    (props as HistoryEventBirthdayProps).date?.toLocaleDateString()
+                                : props.type === HistoryEventTypeEnum.School || props.type === HistoryEventTypeEnum.Company ?
+                                    GetPeriodString((props as HistoryEventPeriodProps).dateStart, (props as HistoryEventPeriodProps).dateEnd)
+                                : ''
+                            )
+                        }
+                    </span>
+                </div>
                 {
-                    title ?
-                        <h4 className={styles.HistoryEventTimestampTitleStyle}>{title}</h4>
-                    : <></>
-                }
-                {
-                    (timeSpan && timeSpan != '') ?
-                        <span className={styles.HistoryEventTimestampPeriodStyle}>{timeSpan}</span>
+                    props.type === HistoryEventTypeEnum.School || props.type === HistoryEventTypeEnum.Company ?
+                        (() => {
+                            let organization: HistoryEventOrganizationProps | undefined;
+                            
+                            if (props.type === HistoryEventTypeEnum.School) {
+                                organization = (props as HistoryEventSchoolProps).school;
+                            }
+                            else if (props.type === HistoryEventTypeEnum.Company) {
+                                organization = (props as HistoryEventCompanyProps).company;
+                            }
+
+                            return organization ?
+                                <>
+                                    <div className={styles.HistoryEventTimestampOrganizationNameStyle}>
+                                        <a className={styles.HistoryEventTimestampOrganizationLinkStyle} href={organization.website}>
+                                            {organization.name}
+                                        </a>
+                                    </div>
+                                    <div className={styles.HistoryEventTimestampOrganizationLocationStyle}>
+                                        {`${organization.city}, ${organization.country}`}
+                                    </div>
+                                </>
+                            : <></>;
+                        })()
                     : <></>
                 }
             </div>
-            {
-                (organizationName && organizationName != '') ?
-                    <div className={styles.HistoryEventTimestampOrganizationNameStyle}>{organizationName}</div>
-                : <></>
-            }
-            {
-                organizationInfo ?
-                    <div className={styles.HistoryEventTimestampOrganizationInfoStyle}>{organizationInfo}</div>
-                : <></>
-            }
         </div>
     );
 };
@@ -116,7 +115,13 @@ const styles = tw({
         'text-center'
     ],
 
-    HistoryEventTimestampTitleDurationStyle: [
+    HistoryEventTimestampContainerStyle: [
+        'relative',
+        'z-2',
+        'full'
+    ],
+
+    HistoryEventTimestampTitlePeriodStyle: [
         'mb-2'
     ],
 
@@ -135,7 +140,10 @@ const styles = tw({
         'text-base'
     ],
 
-    HistoryEventTimestampOrganizationInfoStyle: [
+    HistoryEventTimestampOrganizationLinkStyle: [
+    ],
+
+    HistoryEventTimestampOrganizationLocationStyle: [
         'text-sm'
     ]
 });
