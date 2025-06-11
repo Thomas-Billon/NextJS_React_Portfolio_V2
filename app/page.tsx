@@ -22,6 +22,26 @@ const Home = (): React.ReactNode => {
                 <li>Contact : Regular contact form with Name / Email / Message inputs</li>
                 <li>Socials : Font awesome style icons with svg animation on hover (on click on mobile & maybe delay it by 0.5s)</li>
                 <li>Loading : Maybe needs some client side animated loading component</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
+                <li>.</li>
             </ul>
         </main>
     );

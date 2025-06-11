@@ -1,4 +1,5 @@
 // use server
+// will be client if used inside HistoryEventTimestampOverlay
 
 import React from 'react';
 import { Props } from '@/utils/react/Props';
@@ -6,7 +7,6 @@ import { tw } from '@/utils/tailwind/TinyWind';
 import { HistoryEventBirthdayProps, HistoryEventSchoolProps, HistoryEventCompanyProps, HistoryEventPeriodProps, HistoryEventOrganizationProps } from '@/components/history/event/HistoryEvent';
 import { HistoryEventTypeEnum } from '@/utils/enums/HistoryEventTypeEnum';
 import { DateOnly } from '@/utils/global/DateOnly';
-import HistoryTimelineEntryBackground from '@/components/history/timeline/HistoryTimelineEntryBackground';
 
 
 const HistoryEventTimestamp = ({ props = {}}: Props<HistoryEventBirthdayProps | HistoryEventSchoolProps | HistoryEventCompanyProps>): React.ReactNode => {
@@ -46,60 +46,57 @@ const HistoryEventTimestamp = ({ props = {}}: Props<HistoryEventBirthdayProps | 
 
     return (
         <div className={styles.HistoryEventTimestampStyle}>
-            <HistoryTimelineEntryBackground />
-            <div className={styles.HistoryEventTimestampContainerStyle}>
-                <div className={styles.HistoryEventTimestampTitlePeriodStyle}>
-                    <h4 className={styles.HistoryEventTimestampTitleStyle}>
-                        {
+            <div className={styles.HistoryEventTimestampTitlePeriodStyle({ eventType: props.type })}>
+                <h4 className={styles.HistoryEventTimestampTitleStyle}>
+                    {
+                        props.type === HistoryEventTypeEnum.Birthday ?
+                            'Hello world!'
+                        : props.type === HistoryEventTypeEnum.School ?
+                            'Student'
+                        : props.type === HistoryEventTypeEnum.Company ?
+                            (props as HistoryEventCompanyProps).job?.title
+                        : <></>
+                    }
+                </h4>
+                <span className={styles.HistoryEventTimestampPeriodStyle}>
+                    {
+                        ' - ' + (
                             props.type === HistoryEventTypeEnum.Birthday ?
-                                'Hello world!'
-                            : props.type === HistoryEventTypeEnum.School ?
-                                'Student'
-                            : props.type === HistoryEventTypeEnum.Company ?
-                                (props as HistoryEventCompanyProps).job?.title
-                            : <></>
-                        }
-                    </h4>
-                    <span className={styles.HistoryEventTimestampPeriodStyle}>
-                        {
-                            ' - ' + (
-                                props.type === HistoryEventTypeEnum.Birthday ?
-                                    (props as HistoryEventBirthdayProps).date?.toLocaleDateString()
-                                : props.type === HistoryEventTypeEnum.School || props.type === HistoryEventTypeEnum.Company ?
-                                    GetPeriodString((props as HistoryEventPeriodProps).dateStart, (props as HistoryEventPeriodProps).dateEnd)
-                                : ''
-                            )
-                        }
-                    </span>
-                </div>
-                {
-                    props.type === HistoryEventTypeEnum.School || props.type === HistoryEventTypeEnum.Company ?
-                        (() => {
-                            let organization: HistoryEventOrganizationProps | undefined;
-                            
-                            if (props.type === HistoryEventTypeEnum.School) {
-                                organization = (props as HistoryEventSchoolProps).school;
-                            }
-                            else if (props.type === HistoryEventTypeEnum.Company) {
-                                organization = (props as HistoryEventCompanyProps).company;
-                            }
-
-                            return organization ?
-                                <>
-                                    <div className={styles.HistoryEventTimestampOrganizationNameStyle}>
-                                        <a className={styles.HistoryEventTimestampOrganizationLinkStyle} href={organization.website}>
-                                            {organization.name}
-                                        </a>
-                                    </div>
-                                    <div className={styles.HistoryEventTimestampOrganizationLocationStyle}>
-                                        {`${organization.city}, ${organization.country}`}
-                                    </div>
-                                </>
-                            : <></>;
-                        })()
-                    : <></>
-                }
+                                (props as HistoryEventBirthdayProps).date?.toLocaleDateString()
+                            : props.type === HistoryEventTypeEnum.School || props.type === HistoryEventTypeEnum.Company ?
+                                GetPeriodString((props as HistoryEventPeriodProps).dateStart, (props as HistoryEventPeriodProps).dateEnd)
+                            : ''
+                        )
+                    }
+                </span>
             </div>
+            {
+                props.type === HistoryEventTypeEnum.School || props.type === HistoryEventTypeEnum.Company ?
+                    (() => {
+                        let organization: HistoryEventOrganizationProps | undefined;
+                        
+                        if (props.type === HistoryEventTypeEnum.School) {
+                            organization = (props as HistoryEventSchoolProps).school;
+                        }
+                        else if (props.type === HistoryEventTypeEnum.Company) {
+                            organization = (props as HistoryEventCompanyProps).company;
+                        }
+
+                        return organization ?
+                            <>
+                                <div className={styles.HistoryEventTimestampOrganizationNameStyle}>
+                                    <a className={styles.HistoryEventTimestampOrganizationLinkStyle} href={organization.website}>
+                                        {organization.name}
+                                    </a>
+                                </div>
+                                <div className={styles.HistoryEventTimestampOrganizationLocationStyle}>
+                                    {`${organization.city}, ${organization.country}`}
+                                </div>
+                            </>
+                        : <></>;
+                    })()
+                : <></>
+            }
         </div>
     );
 };
@@ -111,18 +108,18 @@ const styles = tw({
     HistoryEventTimestampStyle: [
         'card',
         'p-4',
+        'my-2',
         'bg-white',
-        'text-center'
+        'text-center',
+        'group-[.HistoryEventTimestampOverlayStyle]/is-overlay:bg-orange-light-400',
+        'group-[.HistoryEventTimestampOverlayStyle]/is-overlay:text-white',
+        'group-[.HistoryEventTimestampOverlayStyle]/is-overlay:shadow-none'
     ],
 
-    HistoryEventTimestampContainerStyle: [
-        'relative',
-        'z-2',
-        'full'
-    ],
-
-    HistoryEventTimestampTitlePeriodStyle: [
-        'mb-2'
+    HistoryEventTimestampTitlePeriodStyle: ({ eventType }: {
+        eventType: HistoryEventTypeEnum
+    }) => [
+        eventType !== HistoryEventTypeEnum.Birthday && 'mb-2'
     ],
 
     HistoryEventTimestampTitleStyle: [
@@ -133,7 +130,8 @@ const styles = tw({
 
     HistoryEventTimestampPeriodStyle: [
         'text-base',
-        'text-gray-400'
+        'text-gray-400',
+        'group-[.HistoryEventTimestampOverlayStyle]/is-overlay:text-gray-200'
     ],
 
     HistoryEventTimestampOrganizationNameStyle: [

@@ -9,22 +9,15 @@ import { useWindowSize } from '@/hooks/UseWindowSize';
 
 type TimelineContextType = {
     currentProgressBarHeight: number;
-    setCurrentProgressBarHeight: React.Dispatch<React.SetStateAction<number>>;
-    currentTimelineEntryBackgroundHeight: number;
-    setCurrentTimelineEntryBackgroundHeight: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const TimelineContext = createContext<TimelineContextType>({
-    currentProgressBarHeight: 0,
-    setCurrentProgressBarHeight: () => {},
-    currentTimelineEntryBackgroundHeight: 0,
-    setCurrentTimelineEntryBackgroundHeight: () => {}
+    currentProgressBarHeight: 0
 });
 
 const HistoryTimeline = ({ children }: Props<DefaultProps>): React.ReactNode => {
     const [currentProgressBarHeight, setCurrentProgressBarHeight] = useState<number>(0);
-    const [currentTimelineEntryBackgroundHeight, setCurrentTimelineEntryBackgroundHeight] = useState<number>(0);
-    
+
     const historySectionRef = useRef<HTMLElement>(null);
     const progressBarRef = useRef<HTMLElement>(null);
 
@@ -37,14 +30,14 @@ const HistoryTimeline = ({ children }: Props<DefaultProps>): React.ReactNode => 
         const currentHeight = windowSize.height ?? 0;
         const currentScrollY = windowScroll.y ?? 0;
 
-        const historySectionHeight = historySectionRef.current?.clientHeight ?? 0;
+        const progressBarContainerHeight = progressBarRef.current?.parentElement?.clientHeight ?? 0;
         const historySectionOffsetY = historySectionRef.current?.offsetTop ?? 0;
         const progressBarOffsetY = historySectionOffsetY - currentScrollY;
 
         let targetProgressBarHeight = (currentHeight * timelineProgressPercentageTarget / 100) - progressBarOffsetY;
 
         targetProgressBarHeight = Math.max(targetProgressBarHeight, 0);
-        targetProgressBarHeight = Math.min(targetProgressBarHeight, historySectionHeight);
+        targetProgressBarHeight = Math.min(targetProgressBarHeight, progressBarContainerHeight);
 
         setCurrentProgressBarHeight(targetProgressBarHeight);
 
@@ -54,12 +47,7 @@ const HistoryTimeline = ({ children }: Props<DefaultProps>): React.ReactNode => 
     }, [windowSize, windowScroll]);
 
     return (
-        <TimelineContext.Provider value={{
-            currentProgressBarHeight: currentProgressBarHeight,
-            setCurrentProgressBarHeight: setCurrentProgressBarHeight,
-            currentTimelineEntryBackgroundHeight: currentTimelineEntryBackgroundHeight,
-            setCurrentTimelineEntryBackgroundHeight: setCurrentTimelineEntryBackgroundHeight
-            }}>
+        <TimelineContext.Provider value={{ currentProgressBarHeight: currentProgressBarHeight }}>
             <div ref={historySectionRef as RefObject<HTMLDivElement>} id="history-timeline" className={styles.HistoryTimelineStyle}>
                 <div className={styles.HistoryTimelineProgressBarContainerStyle}>
                     <div ref={progressBarRef as RefObject<HTMLDivElement>} className={styles.HistoryTimelineProgressBarFillerStyle}></div>
@@ -82,6 +70,7 @@ const styles = tw({
     ],
 
     HistoryTimelineListStyle: [
+        '-my-2'
     ],
 
     HistoryTimelineProgressBarContainerStyle: [
@@ -94,7 +83,6 @@ const styles = tw({
     ],
 
     HistoryTimelineProgressBarFillerStyle: [
-        'bg-orange-light-400',
-        'transition-[height]'
+        'bg-orange-light-400'
     ]
 });

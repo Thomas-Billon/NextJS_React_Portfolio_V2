@@ -3,6 +3,7 @@
 import React from 'react';
 import { Props } from '@/utils/react/Props';
 import { tw } from '@/utils/tailwind/TinyWind';
+import HistoryEventTimestampOverlay from '@/components/history/event/HistoryEventTimestampOverlay';
 import HistoryEventTimestamp from '@/components/history/event/HistoryEventTimestamp';
 import HistoryExperience from '@/components/history/event/HistoryEventExperience';
 import { DateOnly } from '@/utils/global/DateOnly';
@@ -58,6 +59,7 @@ const HistoryEvent = ({ props = {}}: Props<HistoryEventBirthdayProps | HistoryEv
         <div className={styles.HistoryEventStyle}>
             <div className={styles.HistoryEventTimestampContainerStyle}>
                 <HistoryEventTimestamp props={props} />
+                <HistoryEventTimestampOverlay props={props} />
             </div>
             <div className={styles.HistoryEventExperienceContainerStyle}>
                 <HistoryExperience props={props} />
@@ -77,6 +79,7 @@ const styles = tw({
     ],
 
     HistoryEventTimestampContainerStyle: [
+        'relative',
         'basis-1/2',
         'pointer-events-none',
         'select-none',
