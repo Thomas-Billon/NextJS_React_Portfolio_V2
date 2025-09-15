@@ -3,7 +3,7 @@
 ![Project: Website](https://img.shields.io/badge/project-website-blue.svg)
 [![License: Proprietary](https://img.shields.io/badge/license-proprietary-red.svg)](EULA.md)
  
-New portfolio made using Next.js.
+New portfolio made in Next.js.
 
 ## Requirements
 
